@@ -2,11 +2,14 @@ package view;
 
 import controller.VoterSearch;
 import model.DatabaseManager;
+import model.VoterTableModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Dimension2D;
+import java.sql.ResultSet;
 
 /**
  * Created by bsdarby on 8/27/14.
@@ -15,9 +18,10 @@ public class VoterDataFrame extends JFrame{
 	public static final Dimension2D screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static final Double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final Double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	// private VotersTableModel tblModel;
-	private final JScrollPane	voterPane;
-	private final JScrollPane	historyPane;
+	private VoterTableModel	voterTblModel;
+	private JTable					voterTable;
+	private JScrollPane			voterPane;
+	private JScrollPane			historyPane;
 	private final DatabaseManager voterDB;
 	private String query = "";
 
@@ -43,8 +47,6 @@ public class VoterDataFrame extends JFrame{
 		GridBagConstraints	gbc	= new GridBagConstraints();
 
 			/* Panels */
-		voterPane		= new JScrollPane();
-		historyPane	=	new JScrollPane();
 		JPanel 	northPanel	= new JPanel();
 		JPanel	southPanel	= new JPanel();
 		JPanel	eastPanel		=	new JPanel();
@@ -82,8 +84,8 @@ public class VoterDataFrame extends JFrame{
 		southPanel.add(printBtn);
 		southPanel.add(exitBtn);
 
-		contentPane.add( voterPane,		BorderLayout.CENTER);
-		contentPane.add( historyPane,	BorderLayout.CENTER);
+//		contentPane.add( voterPane,		BorderLayout.CENTER);
+//		contentPane.add( historyPane,	BorderLayout.CENTER);
 		contentPane.add( southPanel,	BorderLayout.PAGE_END);
 //		voterPane.add(voterTable);
 //		historyPane.add(historyTable);
@@ -120,8 +122,29 @@ public class VoterDataFrame extends JFrame{
 
 	}
 
-	public void doQuery(String query) {
-		this.query = query;
+	public void doQuery(String whereClause) {
+		query = "SELECT " +
+						"lVoterUniqueID, " +
+						"szNameLast, " +
+						"szNameFirst, " +
+						"szPhone, " +
+						"sHouseNum, " +
+						"szStreetName, " +
+						"sUnitNum, " +
+						"sPrecinctID, " +
+						"szPartyName " +
+						"FROM voters"
+						+ whereClause;
+		System.out.println("query: "+ query);
+		voterDB.doVoterQuery(query);
+		ResultSet resultSet = voterDB.getResultSet();
+		voterTblModel	=	new VoterTableModel(resultSet);
+		voterTable		= new	JTable(voterTblModel);
+		voterTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		voterPane 		= new JScrollPane(voterTable);
+		getContentPane().add(voterPane, BorderLayout.CENTER);
+		pack();
+		doLayout();
 	}
 
 }
