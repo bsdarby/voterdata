@@ -3,5 +3,6 @@ from Santa Clara County Registrar of Voters
 
 1. Some fields appear to have commas, must use tabs or something else as separator.
 2. I saved as CSV, with $ as separator
-3. Need to add double-quotes around number/data fields
-4. 
+3. Need to add double-quotes around number/data fields?
+4. Changed number/date fields in database structure.
+
