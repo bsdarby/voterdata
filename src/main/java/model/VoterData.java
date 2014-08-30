@@ -13,11 +13,13 @@ public class VoterData extends JFrame{
 
 
 	public static void main (String [] args) {
-
-		VoterDataFrame vdFrame = new VoterDataFrame();
-		vdFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		vdFrame.setVisible(true);
-
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				VoterDataFrame vdFrame = new VoterDataFrame();
+				vdFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				vdFrame.setVisible(true);
+			}
+		});
 	}
-
 }

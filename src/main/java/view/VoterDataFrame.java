@@ -5,6 +5,7 @@ import model.DatabaseManager;
 import model.VoterTableModel;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +25,7 @@ public class VoterDataFrame extends JFrame{
 	private JScrollPane			historyPane;
 	private final DatabaseManager voterDB;
 	private String query = "";
+	private boolean searched = false;
 
 	/**
 	 * VoterDataFrame Constructor
@@ -122,29 +124,44 @@ public class VoterDataFrame extends JFrame{
 
 	}
 
-	public void doQuery(String whereClause) {
-		query = "SELECT " +
+	public void doQuery(String whereClause, String orderBy) {
+		if(searched)  getContentPane().remove(voterPane);
+		String select = "SELECT " +
 						"lVoterUniqueID, " +
 						"szNameLast, " +
 						"szNameFirst, " +
+						"sGender, " +
 						"szPhone, " +
-						"sHouseNum, " +
-						"szStreetName, " +
-						"sUnitNum, " +
+						"szSitusAddress, " +
+						"szSitusCity, " +
+						"sSitusZip, " +
 						"sPrecinctID, " +
 						"szPartyName " +
-						"FROM voters"
-						+ whereClause;
-		System.out.println("query: "+ query);
+						"FROM voters ";
+
+		System.out.println("select: "			+ select);
+		System.out.println("whereClause:"	+ whereClause);
+		System.out.println("orderBy:"			+ orderBy);
+
+		query = select + whereClause + orderBy;
+
 		voterDB.doVoterQuery(query);
 		ResultSet resultSet = voterDB.getResultSet();
 		voterTblModel	=	new VoterTableModel(resultSet);
 		voterTable		= new	JTable(voterTblModel);
+		voterTable.setRowSorter(new TableRowSorter(voterTblModel));
 		voterTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		voterPane 		= new JScrollPane(voterTable);
+		voterTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		voterPane 		= new JScrollPane();
+		voterPane.setViewportView(voterTable);
 		getContentPane().add(voterPane, BorderLayout.CENTER);
-		pack();
-		doLayout();
+		searched			=	true;
+		validate();
 	}
 
 }
+	/*
+JScrollPane pane = new JScrollPane();
+pane.setViewportView(table);
+				jp.add(pane);
+*/

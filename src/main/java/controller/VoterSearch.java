@@ -1,10 +1,9 @@
 package controller;
 
 import view.VoterDataFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -130,52 +129,52 @@ public class VoterSearch extends JFrame {
 			last						=	last.replaceAll("\'", "\'\'");
 			last						=	last.replaceAll("[*]+", "%");
 			last						=	last.replaceAll("[?]", "_");
-			tfLastName.setText(last);
+//			tfLastName.setText(last);
 			String first		=	SafeChar.text1(tfFirstName.getText());
 			first						=	first.replaceAll("\'", "\'\'");
 			first						=	first.replaceAll("[*]+", "%");
 			first						=	first.replaceAll("[?]", "_");
-			tfFirstName.setText(first);
+//			tfFirstName.setText(first);
 			String party		=	SafeChar.text1(tfParty.getText());
 			party						=	party.replace("\'", "\'\'");
 			party						=	party.replaceAll("[*]+", "%");
 			party						=	party.replaceAll("[?]", "_");
-			tfParty.setText(party);
+//			tfParty.setText(party);
 			String city			=	SafeChar.text1(tfCity.getText());
 			city						=	city.replace("\'", "\'\'");
 			city						=	city.replaceAll("[*]+", "%");
 			city						=	city.replaceAll("[?]", "_");
-			tfCity.setText(city);
+//			tfCity.setText(city);
 			String precinct	=	SafeChar.text1(tfPrecinct.getText());
 			precinct				=	precinct.replace("\'", "\'\'");
 			precinct				=	precinct.replaceAll("[*]+", "%");
 			precinct				=	precinct.replaceAll("[?]", "_");
-			tfPrecinct.setText(precinct);
+//			tfPrecinct.setText(precinct);
 			String zip			= SafeChar.text1(tfZip.getText());
 			zip							=	zip.replace("\'", "\'\'");
 			zip							=	zip.replaceAll("[*]+", "%");
 			zip							=	zip.replaceAll("[?]", "_");
-			tfZip.setText(zip);
+//			tfZip.setText(zip);
 			String streetno = SafeChar.text1(tfStreetNo.getText());
 			streetno				=	streetno.replace("\'", "\'\'");
 			streetno				=	streetno.replaceAll("[*]+", "%");
 			streetno				=	streetno.replaceAll("[?]", "_");
-			tfStreetNo.setText(streetno);
+//			tfStreetNo.setText(streetno);
 			String street		= SafeChar.text1(tfStreet.getText());
 			street					=	street.replace("\'", "\'\'");
 			street					=	street.replaceAll("[*]+", "%");
 			street					=	street.replaceAll("[?]", "_");
-			tfStreetNo.setText(street);
+//			tfStreetNo.setText(street);
 /*		String latitude		= SafeChar.text1(tfLat.getText());
 			latitude					=	latitude.replace("\'", "\'\'");
 			latitude					=	latitude.replaceAll("[*]+", "%");
 			latitude					=	latitude.replaceAll("[?]", "_");
-			tfLat.setText(latitude);
+//			tfLat.setText(latitude);
 			String longitude	= SafeChar.text1(tfLong.getText());
 			longitude					=	longitude.replace("\'", "\'\'");
 			longitude					=	longitude.replaceAll("[*]+", "%");
 			longitude					=	longitude.replaceAll("[?]", "_");
-			tfLong.setText(longitude);	*/
+//			tfLong.setText(longitude);	*/
 
 			if 	(		last.length()			> 0	||
 							first.length()		> 0	||
@@ -210,11 +209,17 @@ public class VoterSearch extends JFrame {
 					}
 					whereClause += (" szSitusCity LIKE '" + city + "'");
 				}
+				if (precinct.length() > 0) {
+					if(whereClause.length() > 6) {
+						whereClause += " AND";
+					}
+					whereClause += (" sPrecinctID LIKE '" + precinct + "'");
+				}
 				if (zip.length() > 0) {
 					if(whereClause.length() > 6) {
 						whereClause += " AND";
 					}
-					whereClause += (" szMailZip LIKE '" + zip + "'");
+					whereClause += (" sSitusZip LIKE '" + zip + "'");
 				}
 				if (streetno.length() > 0) {
 					if(whereClause.length() > 6) {
@@ -228,8 +233,10 @@ public class VoterSearch extends JFrame {
 					}
 					whereClause += (" szStreetName LIKE '" + street + "'");
 				}
-				System.out.println("whereClause: "+ whereClause);
-				vdf.doQuery(whereClause);
+
+				String orderBy = " ORDER BY szSitusCity, sPrecinctID, szStreetName, sStreetSuffix, sHouseNum, sUnitNum, szNameLast, szNameFirst";
+
+				vdf.doQuery(whereClause, orderBy);
 			}
 		}
 	}

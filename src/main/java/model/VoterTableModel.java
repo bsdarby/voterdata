@@ -60,11 +60,11 @@ public class VoterTableModel extends AbstractTableModel {
 	 * 			Street Number, Street, Unit Number, Precinct, and Party.
 	 */
 	public int getColumnCount() {
-		return 7;
+		return 9;
 	}
 
 	/* getColumnName */
-	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sUnitNum, sPrecinctID, szPartyName */
+	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sStreetSuffix, sUnitNum, sPrecinctID, szPartyName */
 	/**
 	 * Returns the name of the column specified by the index.
 	 * <pre>
@@ -86,12 +86,22 @@ public class VoterTableModel extends AbstractTableModel {
 				return "First Name";
 			} else if (colName.equals("szPhone")){
 				return "Phone Number";
+			} else if (colName.equals("sGender")){
+				return "M/F";
+			} else if (colName.equals("szSitusAddress")){
+				return "Street Address";
 			} else if (colName.equals("sHouseNum")){
 				return "StNo";
 			} else if (colName.equals("szStreetName")){
 				return "Street";
+			} else if (colName.equals("sStreetSuffix")){
+				return "Sfx";
 			} else if (colName.equals("sUnitNum")){
-				return "Unit";
+				return "#";
+			} else if (colName.equals("sSitusZip")){
+				return "Zip";
+			} else if (colName.equals("szSitusCity")){
+				return "City";
 			} else if (colName.equals("sPrecinctID")){
 				return "Precinct";
 			} else if (colName.equals("szPartyName")){
