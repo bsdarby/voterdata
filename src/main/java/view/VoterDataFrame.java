@@ -1,5 +1,6 @@
 package view;
 
+import controller.HistorySearch;
 import controller.VoterSearch;
 import model.DatabaseManager;
 import model.VoterTableModel;
@@ -24,8 +25,11 @@ public class VoterDataFrame extends JFrame{
 	private JScrollPane			voterPane;
 	private JScrollPane			historyPane;
 	private final DatabaseManager voterDB;
-	private String query = "";
+	private String voterID, query = "";
 	private boolean searched = false;
+	VoterSearch voterSearch;
+	HistorySearch historySearch;
+
 
 	/**
 	 * VoterDataFrame Constructor
@@ -35,6 +39,7 @@ public class VoterDataFrame extends JFrame{
 		String [] userLogin = PasswordDialog.login();
 	/* Connect to database*/
 		voterDB = new DatabaseManager(userLogin[0], userLogin[1]);
+
 
 	/* Create GUI */
 		Container contentPane = getContentPane();
@@ -62,15 +67,17 @@ public class VoterDataFrame extends JFrame{
 		menuBar.add (mFind	= new JMenu("Search"));
 		menuBar.add (mHelp	=	new	JMenu("Help"));
 
-		JMenuItem miOpen, miPrint, miFind, miExit, miTopics;
+		JMenuItem miOpen, miPrint, miFind, miHistory, miExit, miTopics;
 		mFile.add (miOpen		= new JMenuItem("Open"));
 		mFile.add (miPrint	=	new JMenuItem("Print"));
 		mFile.add (miExit		=	new	JMenuItem("Exit"));
-		mFind.add	(miFind		=	new JMenuItem("Find"));
+		mFind.add	(miFind		=	new JMenuItem("Search Voters"));
+		mFind.add	(miHistory=	new JMenuItem("Search History"));
 		mHelp.add (miTopics	=	new JMenuItem("Topics"));
 
 			/* Buttons */
-		JButton findBtn			= new JButton("Find");	/* Get search results */
+		JButton findBtn			= new JButton("Voters");		/* Search Voters */
+		JButton historyBtn	=	new JButton("History");	/* Search History */
 		JButton exitBtn 		= new JButton("Exit");		/* Exit */
 		JButton printBtn		= new JButton("Print");		/* Print */
 		getRootPane().setDefaultButton(findBtn);  /* When <Enter> pressed, the [Find] button is pressed*/
@@ -83,6 +90,7 @@ public class VoterDataFrame extends JFrame{
 
 		southPanel.setLayout(fl);
 		southPanel.add(findBtn);
+		southPanel.add(historyBtn);
 		southPanel.add(printBtn);
 		southPanel.add(exitBtn);
 
@@ -101,10 +109,21 @@ public class VoterDataFrame extends JFrame{
 
 		miFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				VoterSearch vSearch = new VoterSearch(VoterDataFrame.this);
-				vSearch.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-				vSearch.setVisible(true);
+				voterSearch = VoterSearch.getInstance();
+				voterSearch.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				voterSearch.setVisible(true);
 			}});
+
+		miHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (historyPane != null) {
+					getContentPane().remove(historyPane);
+				}
+				historySearch = new HistorySearch(VoterDataFrame.this, voterID);
+				historySearch.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				historySearch.setVisible(true);
+			}
+		});
 
 			/*ActionListeners for Buttons */
 		exitBtn.addActionListener(new ActionListener() {
@@ -115,12 +134,22 @@ public class VoterDataFrame extends JFrame{
 
 		findBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if ( voterPane != null ) {	getContentPane().remove(voterPane); }
-				VoterSearch voterSearch = new VoterSearch(VoterDataFrame.this);
+				VoterSearch voterSearch = VoterSearch.getInstance();
 				voterSearch.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 				voterSearch.setVisible(true);
+				voterSearch.requestFocus();
 			}});
 
+		historyBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if ( historyPane != null ) {	getContentPane().remove(historyPane); }
+				HistorySearch HistorySearch = new HistorySearch(VoterDataFrame.this, voterID);
+				HistorySearch.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				HistorySearch.setVisible(true);
+			}});
+
+		/* Initial Action */
+//		findBtn.doClick();
 
 	}
 

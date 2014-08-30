@@ -4,7 +4,10 @@
     <disable_hints />
   </component>
   <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+    <entry_points version="2.0">
+      <entry_point TYPE="method" FQNAME="controller.VoterSearch controller.VoterSearch getInstance()" />
+      <entry_point TYPE="field" FQNAME="controller.VoterSearch serialVersionID" />
+    </entry_points>
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

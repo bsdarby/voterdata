@@ -7,32 +7,40 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 /**
+ * Class in ${PROJECT_NAME}/${PACKAGE_NAME}.
  * Created by bsdarby on 8/27/14.
+ * Uses Singleton Pattern to create one and only one instance.
  */
-public class VoterSearch extends JFrame {
-	JTextField	tfFirstName, tfLastName, tfPrecinct, tfZip, tfLat,
-							tfLong, tfStreet, tfStreetNo, tfCity, tfParty;
-	String query = "";
-	VoterDataFrame vdf;
+public class VoterSearch extends JFrame{
+	JTextField tfFirstName;
+	JTextField tfLastName;
+ 	JTextField tfPrecinct;
+	JTextField tfZip;
+	JTextField tfLat;
+	JTextField tfLong;
+	JTextField tfStreet;
+	JTextField tfStreetNo;
+	JTextField tfCity;
+	JTextField tfParty;
+	static VoterDataFrame vdf;
 
-	public VoterSearch (VoterDataFrame vdFrame) {
-		vdf = vdFrame;
+	/* Create Singleton pattern */
+	private static volatile VoterSearch instance = new VoterSearch(vdf);
+
+	private VoterSearch (VoterDataFrame vdf) {
 		Container vsPane = getContentPane();
-		Double width = VoterDataFrame.screenSize.getWidth();
-		Double height = VoterDataFrame.screenSize.getHeight();
 		setTitle("Find Voters");
 		getContentPane().setLayout(new BorderLayout());
 		setSize(new Dimension(250, 300));
-//		setLocation(50, 50);
 		setLocationRelativeTo(null);
 
 
+		//noinspection UnusedAssignment
 		JPanel panCenter, panNorth, panEast, panSouth, panWest;
 		JButton btnSearch, btnCancel;
 		JLabel lblLast, lblFirst, lblPrecinct, lblZip, lblLat, lblLong, lblStreet, lblStreetNo,
-						lblCity, lblParty, lblNorth, lblSouth, lblEast, lblWest;
+						lblCity, lblParty;
 
 			/* Labels */
 		lblLast 		= new JLabel("Last Name:");
@@ -121,7 +129,6 @@ public class VoterSearch extends JFrame {
 
 	}
 
-
 	class SearchListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent evt)	{
@@ -142,7 +149,7 @@ public class VoterSearch extends JFrame {
 //			tfParty.setText(party);
 			String city			=	SafeChar.text1(tfCity.getText());
 			city						=	city.replace("\'", "\'\'");
-			city						=	city.replaceAll("[*]+", "%");
+			city						= city.replaceAll("[*]+", "%");
 			city						=	city.replaceAll("[?]", "_");
 //			tfCity.setText(city);
 			String precinct	=	SafeChar.text1(tfPrecinct.getText());
@@ -237,8 +244,14 @@ public class VoterSearch extends JFrame {
 				String orderBy = " ORDER BY szSitusCity, sPrecinctID, szStreetName, sStreetSuffix, sHouseNum, sUnitNum, szNameLast, szNameFirst";
 
 				vdf.doQuery(whereClause, orderBy);
+				tfLastName.requestFocus();
 			}
 		}
+	}
+
+
+	public static VoterSearch getInstance() {
+		return instance;
 	}
 
 }
