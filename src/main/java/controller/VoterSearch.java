@@ -1,7 +1,5 @@
 package controller;
 
-import view.VoterDataFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,12 +21,12 @@ public class VoterSearch extends JFrame{
 	JTextField tfStreetNo;
 	JTextField tfCity;
 	JTextField tfParty;
-	static VoterDataFrame vdf;
 
 	/* Create Singleton pattern */
-	private static volatile VoterSearch instance = new VoterSearch(vdf);
+	private static volatile VoterSearch instance = new VoterSearch();
 
-	private VoterSearch (VoterDataFrame vdf) {
+
+	private VoterSearch () {
 		Container vsPane = getContentPane();
 		setTitle("Find Voters");
 		getContentPane().setLayout(new BorderLayout());
@@ -242,9 +240,20 @@ public class VoterSearch extends JFrame{
 				}
 
 				String orderBy = " ORDER BY szSitusCity, sPrecinctID, szStreetName, sStreetSuffix, sHouseNum, sUnitNum, szNameLast, szNameFirst";
-
-				vdf.doQuery(whereClause, orderBy);
-				tfLastName.requestFocus();
+/*
+				try {
+					doQuery(whereClause, orderBy);
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+					System.out.println("A NullPointerException occurred at vdf.doQuery.");
+				}
+				try {
+					tfLastName.requestFocus();
+				} catch (NullPointerException e) {
+					e.printStackTrace();
+					System.out.println("A NullPointerException occurred at tfLastName.requestFocus.");
+				}
+*/
 			}
 		}
 	}
