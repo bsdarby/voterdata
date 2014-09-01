@@ -94,7 +94,6 @@ public class VoterDataFrame extends JFrame{
 		JButton historyBtn	=	new JButton("History");	/* Search History */
 		JButton exitBtn 		= new JButton("Exit");		/* Exit */
 		JButton printBtn		= new JButton("Print");		/* Print */
-		JButton vSearchBtn	= new JButton("Search");
 		getRootPane().setDefaultButton(votersBtn);  /* When <Enter> pressed, the [Find] button is pressed*/
 
 			/* Labels */
@@ -114,6 +113,7 @@ public class VoterDataFrame extends JFrame{
 		contentPane.add( southPanel,	BorderLayout.PAGE_END);
 //		voterPane.add(voterTable);
 //		historyPane.add(historyTable);
+
 
 			/* ActionListeners for Menu Items */
 		miExit.addActionListener(new ActionListener() {
@@ -160,19 +160,18 @@ public class VoterDataFrame extends JFrame{
 				HistorySearch.setVisible(true);
 			}});
 
-		vSearchBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				ResultSet resultSet = doQuery(voterDB);
-				voterTblModel	=	new VoterTableModel(resultSet);
-				voterTable		= new	JTable(voterTblModel);
-				voterTable.setRowSorter(new TableRowSorter(voterTblModel));
-				voterTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				voterTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-				voterPane 		= new JScrollPane();
-				voterPane.setViewportView(voterTable);
-				getContentPane().add(voterPane, BorderLayout.CENTER);
-				validate();
-		}});
+	}
+
+	private void doSearch(ResultSet resultSet) {
+		voterTblModel = new VoterTableModel(resultSet);
+		voterTable = new JTable(voterTblModel);
+		voterTable.setRowSorter(new TableRowSorter(voterTblModel));
+		voterTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		voterTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		voterPane = new JScrollPane();
+		voterPane.setViewportView(voterTable);
+		getContentPane().add(voterPane, BorderLayout.CENTER);
+		validate();
 	}
 
 
@@ -239,6 +238,7 @@ public class VoterDataFrame extends JFrame{
 					/* Buttons */
 				btnSearchV = new JButton("Search");
 				btnCancelV = new JButton("Cancel");
+				VoterDataFrame.vSearchBtn = new JButton("SearchMe");
 
 					/* Build Search Panel */
 				panCenter = new JPanel(new GridLayout(0, 2, 3, 3));
@@ -266,7 +266,7 @@ public class VoterDataFrame extends JFrame{
 				panSouth = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				panSouth.add(btnSearchV);
 				panSouth.add(btnCancelV);
-				panSouth.add(vSearchBtn);
+				panSouth.add(VoterDataFrame.vSearchBtn);
 
 				vsFrame.add(panCenter, BorderLayout.CENTER);
 				vsFrame.add(panSouth, BorderLayout.SOUTH);
@@ -282,6 +282,14 @@ public class VoterDataFrame extends JFrame{
 					public void actionPerformed(ActionEvent evt) {
 						vsFrame.dispose();
 				}});
+
+				vSearchBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ResultSet resultSet = doQuery(voterDB);
+						vdf.doSearch(resultSet);
+					}
+				});
+
 			}});
 	}
 
