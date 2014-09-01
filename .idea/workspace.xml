@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Almost, but not there yet.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/view/VoterDataFrame.java" afterPath="$PROJECT_DIR$/src/main/java/view/VoterDataFrame.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/VoterSearch.java" afterPath="$PROJECT_DIR$/src/main/java/controller/VoterSearch.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoterData.iws" />
@@ -34,18 +34,18 @@
       <file leaf-file-name="VoterData.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="558">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
               <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VoterDataFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VoterDataFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/VoterDataFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4457478" vertical-offset="4898" max-vertical-offset="7974">
-              <caret line="289" column="0" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="524" max-vertical-offset="7992">
+              <caret line="45" column="18" selection-start-line="36" selection-start-column="10" selection-end-line="45" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3648#3767#0" expanded="true" />
@@ -60,22 +60,22 @@
                 <element signature="e#4745#4746#0" expanded="true" />
                 <element signature="e#4782#5130#0" expanded="true" />
                 <element signature="e#5128#5129#0" expanded="true" />
-                <element signature="e#5711#9423#0" expanded="true" />
-                <element signature="e#9115#9221#0" expanded="true" />
-                <element signature="e#9219#9220#0" expanded="true" />
-                <element signature="e#9258#9414#0" expanded="true" />
-                <element signature="e#9412#9413#0" expanded="true" />
-                <element signature="e#9421#9422#0" expanded="true" />
+                <element signature="e#5707#9425#0" expanded="true" />
+                <element signature="e#9111#9217#0" expanded="true" />
+                <element signature="e#9215#9216#0" expanded="true" />
+                <element signature="e#9254#9416#0" expanded="true" />
+                <element signature="e#9409#9410#0" expanded="true" />
+                <element signature="e#9423#9424#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VoterSearch.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="VoterSearch.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4122" max-vertical-offset="6426">
-              <caret line="256" column="7" selection-start-line="256" selection-start-column="7" selection-end-line="256" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.2111437" vertical-offset="0" max-vertical-offset="6210">
+              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -137,8 +137,8 @@
         <option value="$PROJECT_DIR$/src/main/java/model/VoterData.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/VoterTableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/HistorySearch.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/VoterSearch.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/VoterDataFrame.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/VoterSearch.java" />
       </list>
     </option>
   </component>
@@ -725,7 +725,11 @@
       <created>1409527021631</created>
       <updated>1409527021631</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Almost, but not there yet.">
+      <created>1409532136730</created>
+      <updated>1409532136730</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -783,6 +787,7 @@
     <MESSAGE value="Almost, but not there yet." />
     <option name="LAST_COMMIT_MESSAGE" value="Almost, but not there yet." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -855,12 +860,12 @@
             <element signature="e#4745#4746#0" expanded="true" />
             <element signature="e#4782#5130#0" expanded="true" />
             <element signature="e#5128#5129#0" expanded="true" />
-            <element signature="e#5711#9423#0" expanded="true" />
-            <element signature="e#9115#9221#0" expanded="true" />
-            <element signature="e#9219#9220#0" expanded="true" />
-            <element signature="e#9258#9414#0" expanded="true" />
-            <element signature="e#9412#9413#0" expanded="true" />
-            <element signature="e#9421#9422#0" expanded="true" />
+            <element signature="e#5707#9425#0" expanded="true" />
+            <element signature="e#9111#9217#0" expanded="true" />
+            <element signature="e#9215#9216#0" expanded="true" />
+            <element signature="e#9254#9416#0" expanded="true" />
+            <element signature="e#9409#9410#0" expanded="true" />
+            <element signature="e#9423#9424#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -929,12 +934,12 @@
             <element signature="e#4745#4746#0" expanded="true" />
             <element signature="e#4782#5130#0" expanded="true" />
             <element signature="e#5128#5129#0" expanded="true" />
-            <element signature="e#5711#9423#0" expanded="true" />
-            <element signature="e#9115#9221#0" expanded="true" />
-            <element signature="e#9219#9220#0" expanded="true" />
-            <element signature="e#9258#9414#0" expanded="true" />
-            <element signature="e#9412#9413#0" expanded="true" />
-            <element signature="e#9421#9422#0" expanded="true" />
+            <element signature="e#5707#9425#0" expanded="true" />
+            <element signature="e#9111#9217#0" expanded="true" />
+            <element signature="e#9215#9216#0" expanded="true" />
+            <element signature="e#9254#9416#0" expanded="true" />
+            <element signature="e#9409#9410#0" expanded="true" />
+            <element signature="e#9423#9424#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -996,12 +1001,12 @@
             <element signature="e#4745#4746#0" expanded="true" />
             <element signature="e#4782#5130#0" expanded="true" />
             <element signature="e#5128#5129#0" expanded="true" />
-            <element signature="e#5711#9423#0" expanded="true" />
-            <element signature="e#9115#9221#0" expanded="true" />
-            <element signature="e#9219#9220#0" expanded="true" />
-            <element signature="e#9258#9414#0" expanded="true" />
-            <element signature="e#9412#9413#0" expanded="true" />
-            <element signature="e#9421#9422#0" expanded="true" />
+            <element signature="e#5707#9425#0" expanded="true" />
+            <element signature="e#9111#9217#0" expanded="true" />
+            <element signature="e#9215#9216#0" expanded="true" />
+            <element signature="e#9254#9416#0" expanded="true" />
+            <element signature="e#9409#9410#0" expanded="true" />
+            <element signature="e#9423#9424#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1198,22 +1203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4122" max-vertical-offset="6426">
-          <caret line="256" column="7" selection-start-line="256" selection-start-column="7" selection-end-line="256" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/DatabaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2952" max-vertical-offset="3546">
@@ -1230,10 +1219,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="522">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/VoterDataFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4457478" vertical-offset="4898" max-vertical-offset="7974">
-          <caret line="289" column="0" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="524" max-vertical-offset="7992">
+          <caret line="45" column="18" selection-start-line="36" selection-start-column="10" selection-end-line="45" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3648#3767#0" expanded="true" />
@@ -1248,13 +1245,21 @@
             <element signature="e#4745#4746#0" expanded="true" />
             <element signature="e#4782#5130#0" expanded="true" />
             <element signature="e#5128#5129#0" expanded="true" />
-            <element signature="e#5711#9423#0" expanded="true" />
-            <element signature="e#9115#9221#0" expanded="true" />
-            <element signature="e#9219#9220#0" expanded="true" />
-            <element signature="e#9258#9414#0" expanded="true" />
-            <element signature="e#9412#9413#0" expanded="true" />
-            <element signature="e#9421#9422#0" expanded="true" />
+            <element signature="e#5707#9425#0" expanded="true" />
+            <element signature="e#9111#9217#0" expanded="true" />
+            <element signature="e#9215#9216#0" expanded="true" />
+            <element signature="e#9254#9416#0" expanded="true" />
+            <element signature="e#9409#9410#0" expanded="true" />
+            <element signature="e#9423#9424#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2111437" vertical-offset="0" max-vertical-offset="6210">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
