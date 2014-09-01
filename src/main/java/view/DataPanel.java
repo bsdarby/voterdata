@@ -15,25 +15,10 @@ import java.sql.ResultSet;
 /**
  * Created by bsdarby on 8/27/14.
  *
- * Uses the Singleton Design Pattern – double-checked locking technique
- *
  */
-public class VoterDataFrame extends JFrame{
-	private volatile static VoterDataFrame vdfInstance;
-
-	public static VoterDataFrame getInstance() {
-		if (null == vdfInstance) {
-			synchronized (VoterDataFrame.class) {
-				if (null == vdfInstance) {
-					vdfInstance = new VoterDataFrame();
-				}
-			}
-		}
-		return vdfInstance;
-	}
+public class DataPanel extends JFrame {
 
 	public static final Dimension2D screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final Double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	public static final Double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	private VoterTableModel voterTblModel;
@@ -47,14 +32,13 @@ public class VoterDataFrame extends JFrame{
 	/**
 	 * VoterDataFrame Constructor
 	 */
-	public VoterDataFrame() {
+	public DataPanel() {
 
 	/* Create GUI */
 		Container contentPane = getContentPane();
 		setTitle("Voter Data");
 		setLayout(new BorderLayout());
-		setSize(new Dimension(width.intValue() - 100, height.intValue() - 100));
-		setLocation(50,50);
+		setSize(new Dimension(400, height.intValue() - 100));
 
 			/* Layouts */
 		FlowLayout 					fl	=	new FlowLayout(FlowLayout.RIGHT);
@@ -121,13 +105,13 @@ public class VoterDataFrame extends JFrame{
 	public void displayVoters(ResultSet resultSet, VoterDataUI vdUI) {
 
 		if (null != voterPane) {
-			vdfInstance.getContentPane().remove(voterPane);
-			vdfInstance.voterPane.setViewportView(null);
-			vdfInstance.voterPane = null;
-			vdfInstance.voterTable = null;
-			vdfInstance.voterTblModel = null;
-			vdfInstance.voterTblModel = null;
-			vdfInstance.validate();
+			getContentPane().remove(voterPane);
+			voterPane.setViewportView(null);
+			voterPane = null;
+			voterTable = null;
+			voterTblModel = null;
+			voterTblModel = null;
+			validate();
 		}
 		voterTblModel = new VoterTableModel(resultSet);
 		voterTable = new JTable(voterTblModel);
@@ -136,10 +120,9 @@ public class VoterDataFrame extends JFrame{
 		voterTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		voterPane = new JScrollPane();
 		voterPane.setViewportView(voterTable);
-		vdfInstance.getContentPane().add(voterPane, BorderLayout.CENTER);
-		vdfInstance.validate();
-		vdfInstance.setVisible(true);
-		vdUI.toFront();
+		getContentPane().add(voterPane, BorderLayout.CENTER);
+		validate();
+		setVisible(true);
 
 	}
 

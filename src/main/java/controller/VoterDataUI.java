@@ -1,9 +1,10 @@
 package controller;
 
 import model.DatabaseManager;
-import view.VoterDataFrame;
+import model.VoterTableModel;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,37 +14,91 @@ import java.sql.ResultSet;
  * Class in VoterData/controller.
  * Created by bsdarby on 8/27/14.
  */
-@SuppressWarnings("EmptyMethod")
 public class VoterDataUI extends JFrame {
-	VoterDataFrame vdFrame = VoterDataFrame.getInstance();
+	private static final Double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	public static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	int width = WIDTH.intValue() - 5;
+	int height = HEIGHT.intValue() - 5;
+	int cpWidth = 175;
+	int cpHeight = height;
+	int vpHeight = height * 4 / 5;
+	int hpHeight = height - vpHeight;
 
-	JTextField tfFirstName;
-	JTextField tfLastName;
-	JTextField tfPrecinct;
-	JTextField tfZip;
-	JTextField tfLat;
-	JTextField tfLong;
-	JTextField tfStreet;
-	JTextField tfStreetNo;
-	JTextField tfCity;
-	JTextField tfParty;
+	Container vdPane;
+	JPanel dataPanel;
+	JPanel dataPanelVoters;
+	JPanel dataPanelHistory;
 
+	/* Tables */
+	private VoterTableModel vTblModel;
+	private JTable vTbl;
+	private JScrollPane voterPane;
+
+	/* Search Fields / Labels / Buttons */
+	JTextField tfFirstName,
+					tfLastName,
+					tfPrecinct,
+					tfZip,
+					tfLat,
+					tfLong,
+					tfStreet,
+					tfStreetNo,
+					tfCity,
+					tfParty;
+	JButton btnVoters,
+					btnHistory,
+					btnPrint,
+					btnHelp,
+					btnExit;
+	JLabel lblSpacer,
+					lblLast,
+					lblFirst,
+					lblPrecinct,
+					lblZip,
+					lblLat,
+					lblLong,
+					lblStreet,
+					lblStreetNo,
+					lblCity,
+					lblParty,
+					lblVoterPanel,
+					lblHistoryPanel;
 
 	public VoterDataUI(final DatabaseManager voterDB) {
-		Container vsPane = getContentPane();
-		setTitle("Voter Data Control Panel");
-		getContentPane().setLayout(new BorderLayout());
-		setSize(new Dimension(250, 300));
+		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
+		setTitle("Voter Data");
+		vdPane = getContentPane();
+		vdPane.setLayout(new BorderLayout());
+
+		/* Panels */
+		JPanel northPanel;
+		JPanel ctlPanel;
+		JPanel ctlPanelCenter;
+		JPanel ctlPanelSouth;
+
+		northPanel = new JPanel();
+		JMenuBar menuBar = new JMenuBar();
+		northPanel.add(menuBar);
+
+		ctlPanel = new JPanel(new BorderLayout(5, 5));
+		ctlPanel.setSize(cpWidth, cpHeight);
+		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 3));
+		ctlPanelCenter.setSize(cpWidth, cpHeight - 200);
+		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 25, 25));
+
+		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
+		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
+
+		dataPanel = new JPanel(new GridLayout(0, 1, 5, 5));
+		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
+		dataPanelVoters = new JPanel();
+		dataPanelHistory = new JPanel();
 
 
 		//noinspection UnusedAssignment
-		JPanel panCenter, panNorth, panEast, panSouth, panWest;
-		JButton btnVoters, btnHistory, btnPrint, btnHelp, btnExit;
-		JLabel lblLast, lblFirst, lblPrecinct, lblZip, lblLat, lblLong, lblStreet, lblStreetNo,
-						lblCity, lblParty;
-
 			/* Labels */
+		lblSpacer = new JLabel("       ");
 		lblLast = new JLabel("Last Name:");
 		lblFirst = new JLabel("First Name:");
 		lblParty = new JLabel("Party;");
@@ -54,6 +109,8 @@ public class VoterDataUI extends JFrame {
 		lblStreet = new JLabel("Street:");
 		lblLat = new JLabel("Latitude:");
 		lblLong = new JLabel("Longitude:");
+		lblVoterPanel = new JLabel("Voters");
+		lblHistoryPanel = new JLabel("History");
 			/* Label Alignment */
 		lblLast.setHorizontalAlignment(JLabel.RIGHT);
 		lblFirst.setHorizontalAlignment(JLabel.RIGHT);
@@ -65,6 +122,8 @@ public class VoterDataUI extends JFrame {
 		lblStreet.setHorizontalAlignment(JLabel.RIGHT);
 		lblLat.setHorizontalAlignment(JLabel.RIGHT);
 		lblLong.setHorizontalAlignment(JLabel.RIGHT);
+		lblVoterPanel.setHorizontalAlignment(JLabel.CENTER);
+		lblHistoryPanel.setHorizontalAlignment(JLabel.CENTER);
 
 			/* Text Fields */
 		tfLastName = new JTextField(15);
@@ -91,47 +150,50 @@ public class VoterDataUI extends JFrame {
 		btnExit = new JButton("Exit");
 
 			/* Build Search Panel */
-		panCenter = new JPanel(new GridLayout(0, 2, 3, 3));
-		panCenter.add(lblLast);
-		panCenter.add(tfLastName);
-		panCenter.add(lblFirst);
-		panCenter.add(tfFirstName);
-		panCenter.add(lblParty);
-		panCenter.add(tfParty);
-		panCenter.add(lblCity);
-		panCenter.add(tfCity);
-		panCenter.add(lblPrecinct);
-		panCenter.add(tfPrecinct);
-		panCenter.add(lblZip);
-		panCenter.add(tfZip);
-		panCenter.add(lblStreetNo);
-		panCenter.add(tfStreetNo);
-		panCenter.add(lblStreet);
-		panCenter.add(tfStreet);
-		panCenter.add(lblLat);
-		panCenter.add(tfLat);
-		panCenter.add(lblLong);
-		panCenter.add(tfLong);
+		ctlPanelCenter.add(lblLast);
+		ctlPanelCenter.add(tfLastName);
+		ctlPanelCenter.add(lblFirst);
+		ctlPanelCenter.add(tfFirstName);
+		ctlPanelCenter.add(lblParty);
+		ctlPanelCenter.add(tfParty);
+		ctlPanelCenter.add(lblCity);
+		ctlPanelCenter.add(tfCity);
+		ctlPanelCenter.add(lblPrecinct);
+		ctlPanelCenter.add(tfPrecinct);
+		ctlPanelCenter.add(lblZip);
+		ctlPanelCenter.add(tfZip);
+		ctlPanelCenter.add(lblStreetNo);
+		ctlPanelCenter.add(tfStreetNo);
+		ctlPanelCenter.add(lblStreet);
+		ctlPanelCenter.add(tfStreet);
+		ctlPanelCenter.add(lblLat);
+		ctlPanelCenter.add(tfLat);
+		ctlPanelCenter.add(lblLong);
+		ctlPanelCenter.add(tfLong);
 
-		panSouth = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panSouth.add(btnVoters);
-		panSouth.add(btnHistory);
-		panSouth.add(btnPrint);
-		panSouth.add(btnExit);
+		ctlPanelSouth.add(btnVoters);
+		ctlPanelSouth.add(btnHistory);
+		ctlPanelSouth.add(btnPrint);
+		ctlPanelSouth.add(btnExit);
 
-		vsPane.add(panCenter, BorderLayout.CENTER);
-		vsPane.add(panSouth, BorderLayout.SOUTH);
-		pack();
+		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
+		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
+
+		dataPanelVoters.add(lblVoterPanel);
+		dataPanelHistory.add(lblHistoryPanel);
+		dataPanel.add(dataPanelVoters);
+		dataPanel.add(dataPanelHistory);
+
+		vdPane = getContentPane();
+		vdPane.add(ctlPanel, BorderLayout.WEST);
+		vdPane.add(dataPanel, BorderLayout.CENTER);
+		vdPane.add(northPanel, BorderLayout.NORTH);
+		vdPane.validate();
+		vdPane.setVisible(true);
 
 		tfLastName.requestFocus();
 
 			/*ActionListeners for Buttons */
-		btnVoters.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				voterSearch(voterDB);
-			}
-		});
-
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				historySearch(voterDB);
@@ -157,12 +219,40 @@ public class VoterDataUI extends JFrame {
 			}
 		});
 
+		btnVoters.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				ResultSet resultSet = voterSearch(voterDB);
+
+				if (null != voterPane) {
+					dataPanelVoters.remove(voterPane);
+//					dataPanel.remove(dataPanelHistory);
+					dataPanel.remove(dataPanelVoters);
+					validate();
+				}
+				vTblModel = new VoterTableModel(resultSet);
+				vTbl = new JTable(vTblModel);
+				vTbl.setRowSorter(new TableRowSorter(vTblModel));
+				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+				voterPane = new JScrollPane();
+				voterPane.setViewportView(vTbl);
+
+				dataPanelVoters.add(voterPane);
+				dataPanelVoters.remove(lblVoterPanel);
+				dataPanel.add(dataPanelVoters);
+				dataPanel.add(dataPanelHistory);
+				vdPane.add(dataPanel, BorderLayout.CENTER);
+				validate();
+				setVisible(true);
+			}
+		});
+
 	}
 
-	private void voterSearch(DatabaseManager voterDB) {
-		VoterDataFrame vdf = new VoterDataFrame();
+	private ResultSet voterSearch(DatabaseManager voterDB) {
 
 		boolean showTransform = false;
+		ResultSet resultSet = null;
 		String whereClause;
 		String select;
 		String orderBy;
@@ -218,6 +308,7 @@ public class VoterDataUI extends JFrame {
 		longitude					=	longitude.replaceAll("[*]+", "%");
 		longitude					=	longitude.replaceAll("[?]", "_");
 */
+		//noinspection ConstantConditions
 		if (showTransform) {
 			tfLastName.setText(last);
 			tfFirstName.setText(first);
@@ -313,11 +404,9 @@ public class VoterDataUI extends JFrame {
 			System.out.println("orderBy:" + orderBy);
 
 			query = select + whereClause + orderBy;
-			ResultSet resultSet = doQuery(query, voterDB);
-			vdf.displayVoters(resultSet, this);
-			tfLastName.requestFocus();
-
+			resultSet = doQuery(query, voterDB);
 		}
+		return resultSet;
 	}
 
 	public void historySearch(DatabaseManager voterDB) {
