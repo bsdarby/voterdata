@@ -1,5 +1,6 @@
 package view;
 
+import controller.VoterDataUI;
 import model.DatabaseManager;
 import model.VoterTableModel;
 
@@ -57,8 +58,6 @@ public class VoterDataFrame extends JFrame{
 
 			/* Layouts */
 		FlowLayout 					fl	=	new FlowLayout(FlowLayout.RIGHT);
-		GridBagLayout 			gbl = new GridBagLayout();
-		GridBagConstraints	gbc	= new GridBagConstraints();
 
 			/* Panels */
 		JPanel 	northPanel	= new JPanel();
@@ -74,54 +73,73 @@ public class VoterDataFrame extends JFrame{
 		menuBar.add (mFind	= new JMenu("Search"));
 		menuBar.add (mHelp	=	new	JMenu("Help"));
 
-		JMenuItem miOpen, miPrint, miVoters, miHistory, miExit, miTopics;
-		mFile.add (miOpen		= new JMenuItem("Open"));
+		JMenuItem miOpen, miPrint, miHistory, miClose, miTopics;
 		mFile.add (miPrint	=	new JMenuItem("Print"));
-		mFile.add (miExit		=	new	JMenuItem("Exit"));
-		mFind.add(miVoters = new JMenuItem("Search Voters"));
+		mFile.add(miClose = new JMenuItem("Close"));
 		mFind.add	(miHistory=	new JMenuItem("Search History"));
 		mHelp.add (miTopics	=	new JMenuItem("Topics"));
 
 			/* Buttons */
-		JButton votersBtn		= new JButton("Voters");		/* Search Voters */
 		JButton historyBtn	=	new JButton("History");	/* Search History */
-		JButton exitBtn 		= new JButton("Exit");		/* Exit */
 		JButton printBtn		= new JButton("Print");		/* Print */
-		getRootPane().setDefaultButton(votersBtn);  /* When <Enter> pressed, the [Find] button is pressed*/
+		JButton helpBtn = new JButton("Help");		/* Help */
+		JButton closeBtn = new JButton("Close");		/* Exit */
+		getRootPane().setDefaultButton(historyBtn);  /* When <Enter> pressed, the [Find] button is pressed*/
 
 			/* Labels */
-		JLabel	space			=	new	JLabel(" ");
+
 
 			/* Add Panels */
 		setJMenuBar(menuBar);
 
 		southPanel.setLayout(fl);
-		southPanel.add(votersBtn);
 		southPanel.add(historyBtn);
 		southPanel.add(printBtn);
-		southPanel.add(exitBtn);
+		southPanel.add(helpBtn);
+		southPanel.add(closeBtn);
 
-//		contentPane.add( voterPane,		BorderLayout.CENTER);
-//		contentPane.add( historyPane,	BorderLayout.CENTER);
 		contentPane.add( southPanel,	BorderLayout.PAGE_END);
-//		voterPane.add(voterTable);
-//		historyPane.add(historyTable);
 
 
 			/* ActionListeners for Menu Items */
-		miExit.addActionListener(new ActionListener() {
+		miClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				voterDB.close();
-				System.exit(0);
-			}});
+				dispose();
+			}
+		});
 
 			/*ActionListeners for Buttons */
-		exitBtn.addActionListener(new ActionListener() {
+		closeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				voterDB.close();
-				System.exit(0);
-			}});
+				dispose();
+			}
+		});
 
+	}
+
+
+	public void displayVoters(ResultSet resultSet, VoterDataUI vdUI) {
+
+		if (null != voterPane) {
+			vdfInstance.getContentPane().remove(voterPane);
+			vdfInstance.voterPane.setViewportView(null);
+			vdfInstance.voterPane = null;
+			vdfInstance.voterTable = null;
+			vdfInstance.voterTblModel = null;
+			vdfInstance.voterTblModel = null;
+			vdfInstance.validate();
+		}
+		voterTblModel = new VoterTableModel(resultSet);
+		voterTable = new JTable(voterTblModel);
+		voterTable.setRowSorter(new TableRowSorter(voterTblModel));
+		voterTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		voterTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		voterPane = new JScrollPane();
+		voterPane.setViewportView(voterTable);
+		vdfInstance.getContentPane().add(voterPane, BorderLayout.CENTER);
+		vdfInstance.validate();
+		vdfInstance.setVisible(true);
+		vdUI.toFront();
 
 	}
 

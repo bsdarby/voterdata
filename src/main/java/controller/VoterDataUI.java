@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
 /**
- * Class in ${PROJECT_NAME}/${PACKAGE_NAME}.
+ * Class in VoterData/controller.
  * Created by bsdarby on 8/27/14.
  */
 @SuppressWarnings("EmptyMethod")
@@ -162,6 +162,7 @@ public class VoterDataUI extends JFrame {
 	private void voterSearch(DatabaseManager voterDB) {
 		VoterDataFrame vdf = new VoterDataFrame();
 
+		boolean showTransform = false;
 		String whereClause;
 		String select;
 		String orderBy;
@@ -171,53 +172,66 @@ public class VoterDataUI extends JFrame {
 		last = last.replaceAll("\'", "\'\'");
 		last = last.replaceAll("[*]+", "%");
 		last = last.replaceAll("[?]", "_");
-//			tfLastName.setText(last);
+
 		String first = SafeChar.text1(tfFirstName.getText());
 		first = first.replaceAll("\'", "\'\'");
 		first = first.replaceAll("[*]+", "%");
 		first = first.replaceAll("[?]", "_");
-//			tfFirstName.setText(first);
+
 		String party = SafeChar.text1(tfParty.getText());
 		party = party.replace("\'", "\'\'");
 		party = party.replaceAll("[*]+", "%");
 		party = party.replaceAll("[?]", "_");
-//			tfParty.setText(party);
+
 		String city = SafeChar.text1(tfCity.getText());
 		city = city.replace("\'", "\'\'");
 		city = city.replaceAll("[*]+", "%");
 		city = city.replaceAll("[?]", "_");
-//			tfCity.setText(city);
+
 		String precinct = SafeChar.text1(tfPrecinct.getText());
 		precinct = precinct.replace("\'", "\'\'");
 		precinct = precinct.replaceAll("[*]+", "%");
 		precinct = precinct.replaceAll("[?]", "_");
-//			tfPrecinct.setText(precinct);
+
 		String zip = SafeChar.text1(tfZip.getText());
 		zip = zip.replace("\'", "\'\'");
 		zip = zip.replaceAll("[*]+", "%");
 		zip = zip.replaceAll("[?]", "_");
-//			tfZip.setText(zip);
+
 		String streetno = SafeChar.text1(tfStreetNo.getText());
 		streetno = streetno.replace("\'", "\'\'");
 		streetno = streetno.replaceAll("[*]+", "%");
 		streetno = streetno.replaceAll("[?]", "_");
-//			tfStreetNo.setText(streetno);
+
 		String street = SafeChar.text1(tfStreet.getText());
 		street = street.replace("\'", "\'\'");
 		street = street.replaceAll("[*]+", "%");
 		street = street.replaceAll("[?]", "_");
-//			tfStreetNo.setText(street);
+
 /*		String latitude		= SafeChar.text1(tfLat.getText());
 		latitude					=	latitude.replace("\'", "\'\'");
 		latitude					=	latitude.replaceAll("[*]+", "%");
 		latitude					=	latitude.replaceAll("[?]", "_");
-//			tfLat.setText(latitude);
+
 		String longitude	= SafeChar.text1(tfLong.getText());
 		longitude					=	longitude.replace("\'", "\'\'");
 		longitude					=	longitude.replaceAll("[*]+", "%");
 		longitude					=	longitude.replaceAll("[?]", "_");
-//			tfLong.setText(longitude);	*/
+*/
+		if (showTransform) {
+			tfLastName.setText(last);
+			tfFirstName.setText(first);
+			tfParty.setText(party);
+			tfCity.setText(city);
+			tfPrecinct.setText(precinct);
+			tfZip.setText(zip);
+			tfStreetNo.setText(streetno);
+			tfStreetNo.setText(street);
+//			tfLat.setText(latitude);
+//			tfLong.setText(longitude);
+		}
 
+			/* Build the Where clause */
 		if (last.length() > 0 ||
 						first.length() > 0 ||
 						party.length() > 0 ||
@@ -228,10 +242,9 @@ public class VoterDataUI extends JFrame {
 						street.length() > 0) {
 
 			whereClause = " WHERE";
-			//...Build the where clause
+
 			if (last.length() > 0) {
 				whereClause += (" szNameLast LIKE '" + last + "'");
-
 			}
 			if (first.length() > 0) {
 				if (whereClause.length() > 6) {
@@ -276,7 +289,12 @@ public class VoterDataUI extends JFrame {
 				whereClause += (" szStreetName LIKE '" + street + "'");
 			}
 
-			orderBy = " ORDER BY szSitusCity, sPrecinctID, szStreetName, sStreetSuffix, sHouseNum, sUnitNum, szNameLast, szNameFirst";
+			orderBy = " ORDER BY szSitusCity, " +
+							"sPrecinctID, szStreetName, " +
+							"sStreetSuffix, sHouseNum, " +
+							"sUnitNum, szNameLast, " +
+							"szNameFirst";
+
 			select = "SELECT " +
 							"lVoterUniqueID, " +
 							"szNameLast, " +
@@ -295,8 +313,9 @@ public class VoterDataUI extends JFrame {
 			System.out.println("orderBy:" + orderBy);
 
 			query = select + whereClause + orderBy;
-			doQuery(query, voterDB);
-
+			ResultSet resultSet = doQuery(query, voterDB);
+			vdf.displayVoters(resultSet, this);
+			tfLastName.requestFocus();
 
 		}
 	}
