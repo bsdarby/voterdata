@@ -1,9 +1,12 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 @SuppressWarnings("serial")
+
 
 /* class PasswordDialog */
 /**
@@ -21,7 +24,7 @@ import javax.swing.*;
  * TODO ... add facility for encrypting/hashing the password.
  */
 
-class PasswordDialog extends JDialog implements ActionListener {
+public class PasswordDialog extends JDialog implements ActionListener {
 	private final JTextField user;
 	private final JPasswordField password;
 	private static String [] info;
