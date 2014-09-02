@@ -233,7 +233,7 @@ public class VoterDataUI extends JFrame {
 
 				if (null != historyPane) {
 					dataPanelVoters.remove(voterPane);
-					dataPanel.remove(dataPanelHistory);
+//					dataPanel.remove(dataPanelHistory);
 					dataPanel.remove(dataPanelVoters);
 					validate();
 				}
@@ -248,10 +248,14 @@ public class VoterDataUI extends JFrame {
 
 				dataPanelVoters.remove(lblVoterPanel);
 				dataPanelVoters.add(voterPane);
+				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
 
 				Integer voterID = (int) vTbl.getValueAt(0, 0);
 				System.out.println("voterID = " + voterID);
-				ResultSet resultSetH = historySearch(voterID, voterDB);
+
+
+				historySearch(voterID, voterDB);
+/*				ResultSet resultSetH = historySearch(voterID, voterDB);
 				HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
 				hTbl = new JTable(hTblModel);
 				hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
@@ -264,12 +268,11 @@ public class VoterDataUI extends JFrame {
 				dataPanelHistory.remove(lblHistoryPanel);
 				dataPanelHistory.add(historyPane);
 
-				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
 				dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
 				vdPane.add(dataPanel, BorderLayout.CENTER);
 				validate();
 				setVisible(true);
-
+*/
 				vTbl.requestFocus();
 				vTbl.setRowSelectionInterval(0, 0);
 
@@ -279,8 +282,27 @@ public class VoterDataUI extends JFrame {
 						int row = target.getSelectedRow();
 						Integer voterID = (Integer) vTbl.getValueAt(row, 0);
 						System.out.println("voterID selected = " + voterID.toString());
-						ResultSet resultSetH = historySearch(voterID, voterDB);
+						historySearch(voterID, voterDB);
+/*						ResultSet resultSetH = historySearch(voterID, voterDB);
 
+						dataPanelHistory.remove(historyPane);
+
+						HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
+						hTbl = new JTable(hTblModel);
+						hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
+						hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+						hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+						historyPane = new JScrollPane();
+						hTbl.setFillsViewportHeight(true);
+						historyPane.setViewportView(hTbl);
+
+						dataPanelHistory.add(historyPane);
+
+						dataPanelHistory.validate();
+						dataPanel.validate();
+						vdPane.validate();
+						setVisible(true);
+*/
 					}
 				});
 			}
@@ -288,7 +310,7 @@ public class VoterDataUI extends JFrame {
 
 	}
 
-	private ResultSet historySearch(Integer voterID, DatabaseManager voterDB) {
+	private void historySearch(Integer voterID, DatabaseManager voterDB) {
 		ResultSet resultSetH;
 		String whereClauseH = " WHERE " +
 						"lVoterUniqueId " +
@@ -309,8 +331,30 @@ public class VoterDataUI extends JFrame {
 		String queryH = selectH + whereClauseH + orderByH;
 		System.out.println("queryH = " + queryH);
 		resultSetH = doQueryH(queryH, voterDB);
-		return resultSetH;
+//		return resultSetH;
+
+		if (null != historyPane) {
+			dataPanel.remove(lblHistoryPanel);
+			dataPanelHistory.remove(historyPane);
+		}
+
+		HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
+		hTbl = new JTable(hTblModel);
+		hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
+		hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		historyPane = new JScrollPane();
+		hTbl.setFillsViewportHeight(true);
+		historyPane.setViewportView(hTbl);
+
+		dataPanelHistory.add(historyPane);
+
+		dataPanelHistory.validate();
+		dataPanel.validate();
+		vdPane.validate();
+		setVisible(true);
 	}
+
 
 	private ResultSet voterSearch(DatabaseManager voterDB) {
 
