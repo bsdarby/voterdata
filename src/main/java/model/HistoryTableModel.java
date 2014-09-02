@@ -60,12 +60,12 @@ public class HistoryTableModel extends AbstractTableModel {
 	 * POST:	The number 8 is returned.
 	 * </pre>
 	 *
-	 * @return 8 ...the number 8 is returned, for the eight output columns
+	 * @return 7 ...the number 7 is returned, for the seven output columns
 	 * VoterID, Last Name, First Name, Gender, Phone Number,
 	 * Full Address, City, Precinct, and Party.
 	 */
 	public int getColumnCount() {
-		return 8;
+		return 7;
 	}
 
 	/* getColumnName */
@@ -112,7 +112,7 @@ public class HistoryTableModel extends AbstractTableModel {
 			} else if (colName.equals("sPartyAbbr")) {
 				return "Party";
 			} else if (colName.equals("szPartyName")) {
-				return "Party Name";
+				return "Party";
 			} else if (colName.equals("szCountedFlag")) {
 				return "Voted";
 			} else {  //...Should never get here

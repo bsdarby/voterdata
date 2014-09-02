@@ -23,7 +23,7 @@ public class VoterDataUI extends JFrame {
 	public static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	int width = WIDTH.intValue() - 5;
 	int height = HEIGHT.intValue() - 5;
-	int cpWidth = 175;
+	int cpWidth = 200;
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
 	int hpHeight = height - vpHeight;
@@ -88,20 +88,24 @@ public class VoterDataUI extends JFrame {
 		northPanel = new JPanel();
 		JMenuBar menuBar = new JMenuBar();
 		northPanel.add(menuBar);
+		northPanel.validate();
 
 		ctlPanel = new JPanel(new BorderLayout());
-		ctlPanel.setSize(cpWidth, cpHeight);
+		ctlPanel.setPreferredSize(new Dimension(cpWidth, cpHeight));
 		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 10));
-		ctlPanelCenter.setSize(cpWidth, cpHeight - 200);
+		ctlPanelCenter.setPreferredSize(new Dimension(cpWidth, cpHeight - 300));
 		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 10, 10));
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
+		ctlPanel.validate();
 
 		dataPanel = new JPanel(new BorderLayout());
 		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
 		dataPanelVoters = new JPanel();
+		dataPanelVoters.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
 		dataPanelHistory = new JPanel();
+		dataPanelHistory.setPreferredSize(new Dimension(width - cpWidth, height / 5));
 
 
 		//noinspection UnusedAssignment
@@ -178,19 +182,21 @@ public class VoterDataUI extends JFrame {
 		ctlPanelCenter.add(tfLat);
 		ctlPanelCenter.add(lblLong);
 		ctlPanelCenter.add(tfLong);
+		ctlPanelCenter.validate();
 
 		ctlPanelSouth.add(btnVoters);
 		ctlPanelSouth.add(btnHistory);
 		ctlPanelSouth.add(btnPrint);
 		ctlPanelSouth.add(btnExit);
+		ctlPanelSouth.validate();
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
+		ctlPanel.validate();
 
-		dataPanelVoters.add(lblVoterPanel);
-		dataPanelHistory.add(lblHistoryPanel);
 		dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
 		dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
+		dataPanel.validate();
 
 		vdPane = getContentPane();
 		vdPane.add(ctlPanel, BorderLayout.WEST);
@@ -233,46 +239,31 @@ public class VoterDataUI extends JFrame {
 
 				if (null != historyPane) {
 					dataPanelVoters.remove(voterPane);
-//					dataPanel.remove(dataPanelHistory);
 					dataPanel.remove(dataPanelVoters);
 					validate();
 				}
 				vTblModel = new VoterTableModel(resultSet);
 				vTbl = new JTable(vTblModel);
+				vTbl.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
+				//noinspection unchecked
 				vTbl.setRowSorter(new TableRowSorter(vTblModel));
 				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 				voterPane = new JScrollPane();
+				voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
 				vTbl.setFillsViewportHeight(true);
 				voterPane.setViewportView(vTbl);
 
-				dataPanelVoters.remove(lblVoterPanel);
 				dataPanelVoters.add(voterPane);
+				dataPanelVoters.validate();
 				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
+				dataPanel.validate();
 
 				Integer voterID = (int) vTbl.getValueAt(0, 0);
 				System.out.println("voterID = " + voterID);
 
 
 				historySearch(voterID, voterDB);
-/*				ResultSet resultSetH = historySearch(voterID, voterDB);
-				HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
-				hTbl = new JTable(hTblModel);
-				hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
-				hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-				historyPane = new JScrollPane();
-				hTbl.setFillsViewportHeight(true);
-				historyPane.setViewportView(hTbl);
-
-				dataPanelHistory.remove(lblHistoryPanel);
-				dataPanelHistory.add(historyPane);
-
-				dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
-				vdPane.add(dataPanel, BorderLayout.CENTER);
-				validate();
-				setVisible(true);
-*/
 				vTbl.requestFocus();
 				vTbl.setRowSelectionInterval(0, 0);
 
@@ -283,26 +274,6 @@ public class VoterDataUI extends JFrame {
 						Integer voterID = (Integer) vTbl.getValueAt(row, 0);
 						System.out.println("voterID selected = " + voterID.toString());
 						historySearch(voterID, voterDB);
-/*						ResultSet resultSetH = historySearch(voterID, voterDB);
-
-						dataPanelHistory.remove(historyPane);
-
-						HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
-						hTbl = new JTable(hTblModel);
-						hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
-						hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-						hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
-						historyPane = new JScrollPane();
-						hTbl.setFillsViewportHeight(true);
-						historyPane.setViewportView(hTbl);
-
-						dataPanelHistory.add(historyPane);
-
-						dataPanelHistory.validate();
-						dataPanel.validate();
-						vdPane.validate();
-						setVisible(true);
-*/
 					}
 				});
 			}
@@ -316,14 +287,13 @@ public class VoterDataUI extends JFrame {
 						"lVoterUniqueId " +
 						"LIKE '" + voterID + "' ";
 		String selectH = " SELECT " +
-						"sElectionAbbr, " +
-						"szElectionDesc, " +
+						"szCountedFlag, " +
 						"dtElectionDate, " +
+						"szElectionDesc, " +
 						"sElecTypeDesc, " +
 						"sVotingPrecinct, " +
 						"szVotingMethod, " +
-						"sPartyAbbr, " +
-						"szCountedFlag " +
+						"szPartyName " +
 						"FROM history ";
 		String orderByH = " ORDER BY " +
 						"szCountedFlag DESC, " +
@@ -344,11 +314,12 @@ public class VoterDataUI extends JFrame {
 		hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		historyPane = new JScrollPane();
+		historyPane.setPreferredSize(new Dimension(width - cpWidth, height / 5));
 		hTbl.setFillsViewportHeight(true);
+		hTbl.setPreferredSize(new Dimension(width - cpWidth, height / 5));
 		historyPane.setViewportView(hTbl);
 
 		dataPanelHistory.add(historyPane);
-
 		dataPanelHistory.validate();
 		dataPanel.validate();
 		vdPane.validate();
