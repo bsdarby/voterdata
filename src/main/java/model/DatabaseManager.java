@@ -20,7 +20,9 @@ public class DatabaseManager {
 	 * The result of an executed SQL statement
 	 */
 	private ResultSet rset;
+	private ResultSet rsetH;
 	private PreparedStatement preps = null;
+	private PreparedStatement prepsH = null;
 
 	/* DatabaseManager Constructor */
 
@@ -113,8 +115,8 @@ public class DatabaseManager {
 	 * POST:	Table has not been changed, but its presence is verified (or not).
 	 * </pre>
 	 *
-	 * @param  rs - ResultSet from DatabaseMetaData query about existing tables
-	 * @param  tableName - String identifying the table in question
+	 * @param rs        - ResultSet from DatabaseMetaData query about existing tables
+	 * @param tableName - String identifying the table in question
 	 * @return boolean
 	 * @throws SQLException
 	 */
@@ -145,11 +147,11 @@ public class DatabaseManager {
 	 * Executes the select query specified.
 	 * <pre>
 	 * PRE:		Connection to the database has been established. Query is assigned and is a simple
-	 * 				prepared statement against the Listings table.
+	 * 				prepared statement against the Voters table.
 	 * POST:	The query is executed.
 	 * </pre>
 	 *
-	 * @param query - a simple select query against the Listings table
+	 * @param query - a simple select query against a table
 	 */
 	public void dbQuery(String query) {
 		try {
@@ -160,6 +162,29 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 	}
+
+	/* Do History Query */
+
+	/**
+	 * Executes the select query specified.
+	 * <pre>
+	 * PRE:		Connection to the database has been established. Query is assigned and is a simple
+	 * 				prepared statement against the History table.
+	 * POST:	The query is executed.
+	 * </pre>
+	 *
+	 * @param query - a simple select query against a table
+	 */
+	public void dbQueryH(String query) {
+		try {
+			conn.setAutoCommit(true);
+			prepsH = conn.prepareStatement(query);
+			rsetH = prepsH.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 
 	/* getResultSet */
@@ -175,6 +200,21 @@ public class DatabaseManager {
 	 */
 	public ResultSet getResultSet() {
 		return rset;
+	}
+
+	/* close */
+
+	/**
+	 * Returns the value of the ResultSet instance
+	 * <pre>
+	 * PRE:		True
+	 * POST:	ResultSet instance value is returned, its value remains the same as upon entry.
+	 * </pre>
+	 *
+	 * @return rset - an existing ResultSet
+	 */
+	public ResultSet getResultSetH() {
+		return rsetH;
 	}
 
 	/* close */

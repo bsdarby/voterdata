@@ -1,13 +1,17 @@
 package controller;
 
 import model.DatabaseManager;
+import model.HistoryTableModel;
 import model.VoterTableModel;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 
 /**
@@ -23,6 +27,7 @@ public class VoterDataUI extends JFrame {
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
 	int hpHeight = height - vpHeight;
+	Integer voterID;
 
 	Container vdPane;
 	JPanel dataPanel;
@@ -33,6 +38,9 @@ public class VoterDataUI extends JFrame {
 	private VoterTableModel vTblModel;
 	private JTable vTbl;
 	private JScrollPane voterPane;
+	private HistoryTableModel hTblModel;
+	private JTable hTbl;
+	private JScrollPane historyPane;
 
 	/* Search Fields / Labels / Buttons */
 	JTextField tfFirstName,
@@ -81,16 +89,16 @@ public class VoterDataUI extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		northPanel.add(menuBar);
 
-		ctlPanel = new JPanel(new BorderLayout(5, 5));
+		ctlPanel = new JPanel(new BorderLayout());
 		ctlPanel.setSize(cpWidth, cpHeight);
-		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 3));
+		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 10));
 		ctlPanelCenter.setSize(cpWidth, cpHeight - 200);
-		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 25, 25));
+		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 10, 10));
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
 
-		dataPanel = new JPanel(new GridLayout(0, 1, 5, 5));
+		dataPanel = new JPanel(new BorderLayout());
 		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
 		dataPanelVoters = new JPanel();
 		dataPanelHistory = new JPanel();
@@ -181,8 +189,8 @@ public class VoterDataUI extends JFrame {
 
 		dataPanelVoters.add(lblVoterPanel);
 		dataPanelHistory.add(lblHistoryPanel);
-		dataPanel.add(dataPanelVoters);
-		dataPanel.add(dataPanelHistory);
+		dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
+		dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
 
 		vdPane = getContentPane();
 		vdPane.add(ctlPanel, BorderLayout.WEST);
@@ -196,7 +204,7 @@ public class VoterDataUI extends JFrame {
 			/*ActionListeners for Buttons */
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				historySearch(voterDB);
+//				historySearch(voterDB);
 			}
 		});
 
@@ -223,9 +231,9 @@ public class VoterDataUI extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				ResultSet resultSet = voterSearch(voterDB);
 
-				if (null != voterPane) {
+				if (null != historyPane) {
 					dataPanelVoters.remove(voterPane);
-//					dataPanel.remove(dataPanelHistory);
+					dataPanel.remove(dataPanelHistory);
 					dataPanel.remove(dataPanelVoters);
 					validate();
 				}
@@ -235,18 +243,73 @@ public class VoterDataUI extends JFrame {
 				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 				voterPane = new JScrollPane();
+				vTbl.setFillsViewportHeight(true);
 				voterPane.setViewportView(vTbl);
 
-				dataPanelVoters.add(voterPane);
 				dataPanelVoters.remove(lblVoterPanel);
-				dataPanel.add(dataPanelVoters);
-				dataPanel.add(dataPanelHistory);
+				dataPanelVoters.add(voterPane);
+
+				Integer voterID = (int) vTbl.getValueAt(0, 0);
+				System.out.println("voterID = " + voterID);
+				ResultSet resultSetH = historySearch(voterID, voterDB);
+				HistoryTableModel hTblModel = new HistoryTableModel(resultSetH);
+				hTbl = new JTable(hTblModel);
+				hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
+				hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+				historyPane = new JScrollPane();
+				hTbl.setFillsViewportHeight(true);
+				historyPane.setViewportView(hTbl);
+
+				dataPanelHistory.remove(lblHistoryPanel);
+				dataPanelHistory.add(historyPane);
+
+				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
+				dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
 				vdPane.add(dataPanel, BorderLayout.CENTER);
 				validate();
 				setVisible(true);
+
+				vTbl.requestFocus();
+				vTbl.setRowSelectionInterval(0, 0);
+
+				vTbl.addMouseListener(new MouseAdapter() {
+					public void mousePressed(MouseEvent e) {
+						JTable target = (JTable) e.getSource();
+						int row = target.getSelectedRow();
+						Integer voterID = (Integer) vTbl.getValueAt(row, 0);
+						System.out.println("voterID selected = " + voterID.toString());
+						ResultSet resultSetH = historySearch(voterID, voterDB);
+
+					}
+				});
 			}
 		});
 
+	}
+
+	private ResultSet historySearch(Integer voterID, DatabaseManager voterDB) {
+		ResultSet resultSetH;
+		String whereClauseH = " WHERE " +
+						"lVoterUniqueId " +
+						"LIKE '" + voterID + "' ";
+		String selectH = " SELECT " +
+						"sElectionAbbr, " +
+						"szElectionDesc, " +
+						"dtElectionDate, " +
+						"sElecTypeDesc, " +
+						"sVotingPrecinct, " +
+						"szVotingMethod, " +
+						"sPartyAbbr, " +
+						"szCountedFlag " +
+						"FROM history ";
+		String orderByH = " ORDER BY " +
+						"szCountedFlag DESC, " +
+						"dtElectionDate DESC ";
+		String queryH = selectH + whereClauseH + orderByH;
+		System.out.println("queryH = " + queryH);
+		resultSetH = doQueryH(queryH, voterDB);
+		return resultSetH;
 	}
 
 	private ResultSet voterSearch(DatabaseManager voterDB) {
@@ -409,9 +472,6 @@ public class VoterDataUI extends JFrame {
 		return resultSet;
 	}
 
-	public void historySearch(DatabaseManager voterDB) {
-
-	}
 
 	public void print() {
 
@@ -425,6 +485,11 @@ public class VoterDataUI extends JFrame {
 	private ResultSet doQuery(String query, DatabaseManager voterDB) {
 		voterDB.dbQuery(query);
 		return voterDB.getResultSet();
+	}
+
+	private ResultSet doQueryH(String queryH, DatabaseManager voterDB) {
+		voterDB.dbQueryH(queryH);
+		return voterDB.getResultSetH();
 	}
 
 }

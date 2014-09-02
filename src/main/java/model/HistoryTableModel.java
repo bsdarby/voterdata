@@ -7,25 +7,25 @@ import java.sql.SQLException;
 @SuppressWarnings("serial")
 /* class VoterTableModel */
 /**
- * This class provides methods for displaying the results returned from the Voters table.
+ * This class provides methods for displaying the results returned from the History table.
  * The methods are used by a JTable object so the results display in a cell format.
  *
  * @author Brian Darby
  * @version 1.1
  */
-public class VoterTableModel extends AbstractTableModel {
+public class HistoryTableModel extends AbstractTableModel {
 	//...The result set from the Voters Table to be displayed
-	public final ResultSet resultSet;
+	public final ResultSet resultSetH;
 
 	/* ListingsTableModel */
 
 	/**
 	 * The VoterTableModel constructor
 	 *
-	 * @param resultSet ...the ResultSet from the Listings table to be displayed
+	 * @param resultSetH ...the ResultSet from the Listings table to be displayed
 	 */
-	public VoterTableModel(ResultSet resultSet) {
-		this.resultSet = resultSet;
+	public HistoryTableModel(ResultSet resultSetH) {
+		this.resultSetH = resultSetH;
 	}
 
 	/* getRowCount */
@@ -41,8 +41,8 @@ public class VoterTableModel extends AbstractTableModel {
 	 */
 	public int getRowCount() {
 		try {
-			resultSet.last();
-			return resultSet.getRow();
+			resultSetH.last();
+			return resultSetH.getRow();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return 0;
@@ -54,28 +54,37 @@ public class VoterTableModel extends AbstractTableModel {
 	/**
 	 * Returns the number of columns to be displayed for the ResultSet.  Note that
 	 * this does not return the number of columns IN the ResultSet.
-	 * This method always returns 8 for Last Name, First Name, Phone,
-	 * Street Numer, Street, Unit Number, Precinct, and Party.
+	 * This method always returns 8 for .
 	 * <pre>
 	 * PRE:		true
-	 * POST:	The number 10 is returned.
+	 * POST:	The number 8 is returned.
 	 * </pre>
 	 *
-	 * @return 10 ...the number 10 is returned, for the ten output columns
+	 * @return 8 ...the number 8 is returned, for the eight output columns
 	 * VoterID, Last Name, First Name, Gender, Phone Number,
 	 * Full Address, City, Precinct, and Party.
 	 */
 	public int getColumnCount() {
-		return 10;
+		return 8;
 	}
 
 	/* getColumnName */
-	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sStreetSuffix, sUnitNum, sPrecinctID, szPartyName */
+	/*
+	lVoterUniqueID,
+	sElectionAbbr,
+	szElectionDesc
+	dtElectionDate
+	sElecTypeDesc
+	sVotingPrecinct
+	szVotingMethod
+	sPartyAbbr
+	szPartyName
+	szCountedFlag */
 
 	/**
 	 * Returns the name of the column specified by the index.
 	 * <pre>
-	 * PRE:		Column is assigned and 0 >= column <= 6.
+	 * PRE:		Column is assigned and 0 >= column <= 8.
 	 * POST:	A column name is returned,
 	 * </pre>
 	 *
@@ -85,35 +94,27 @@ public class VoterTableModel extends AbstractTableModel {
 	public String getColumnName(int column) {  /*...Returns column names that look better
 																									than the database names */
 		try {
-			String colName = resultSet.getMetaData().getColumnName(column + 1);
+			String colName = resultSetH.getMetaData().getColumnName(column + 1);
 			if (colName.equals("lVoterUniqueID")) {
 				return "VoterID";
-			} else if (colName.equals("szNameLast")) {
-				return "Last Name";
-			} else if (colName.equals("szNameFirst")) {
-				return "First Name";
-			} else if (colName.equals("szPhone")) {
-				return "Phone Number";
-			} else if (colName.equals("sGender")) {
-				return "M/F";
-			} else if (colName.equals("szSitusAddress")) {
-				return "Street Address";
-			} else if (colName.equals("sHouseNum")) {
-				return "StNo";
-			} else if (colName.equals("szStreetName")) {
-				return "Street";
-			} else if (colName.equals("sStreetSuffix")) {
-				return "Sfx";
-			} else if (colName.equals("sUnitNum")) {
-				return "#";
-			} else if (colName.equals("sSitusZip")) {
-				return "Zip";
-			} else if (colName.equals("szSitusCity")) {
-				return "City";
-			} else if (colName.equals("sPrecinctID")) {
-				return "Precinct";
-			} else if (colName.equals("szPartyName")) {
+			} else if (colName.equals("sElectionAbbr")) {
+				return "Election";
+			} else if (colName.equals("szElectionDesc")) {
+				return "Description";
+			} else if (colName.equals("dtElectionDate")) {
+				return "Date";
+			} else if (colName.equals("sElecTypeDesc")) {
+				return "Type";
+			} else if (colName.equals("sVotingPrecinct")) {
+				return "VPrecinct";
+			} else if (colName.equals("szVotingMethod")) {
+				return "Vote Method";
+			} else if (colName.equals("sPartyAbbr")) {
 				return "Party";
+			} else if (colName.equals("szPartyName")) {
+				return "Party Name";
+			} else if (colName.equals("szCountedFlag")) {
+				return "Voted";
 			} else {  //...Should never get here
 				return colName;
 			}
@@ -139,8 +140,8 @@ public class VoterTableModel extends AbstractTableModel {
 	 */
 	public Object getValueAt(int row, int column) {
 		try {
-			resultSet.absolute(row + 1);
-			return resultSet.getObject(column + 1);
+			resultSetH.absolute(row + 1);
+			return resultSetH.getObject(column + 1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
