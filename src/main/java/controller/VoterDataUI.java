@@ -5,13 +5,13 @@ import model.HistoryTableModel;
 import model.VoterTableModel;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 
 /**
@@ -42,6 +42,10 @@ public class VoterDataUI extends JFrame {
 	private JTable hTbl;
 	private JScrollPane historyPane;
 
+	public final static Font sansHeading = new Font("SansSerif", Font.BOLD, 14);
+	public final static Font sansLabel = new Font("SansSerif", Font.PLAIN, 14);
+	public final static Font sansTable = new Font("SansSerif", Font.PLAIN, 13);
+
 	/* Search Fields / Labels / Buttons */
 	JTextField tfFirstName,
 					tfLastName,
@@ -69,6 +73,7 @@ public class VoterDataUI extends JFrame {
 					lblStreetNo,
 					lblCity,
 					lblParty,
+					lblCtlPanel,
 					lblVoterPanel,
 					lblHistoryPanel;
 
@@ -102,10 +107,13 @@ public class VoterDataUI extends JFrame {
 
 		dataPanel = new JPanel(new BorderLayout());
 		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
+		dataPanel.setMinimumSize(new Dimension(300, 150));
 		dataPanelVoters = new JPanel();
 		dataPanelVoters.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
+		dataPanelVoters.setMinimumSize(new Dimension(300, 100));
 		dataPanelHistory = new JPanel();
 		dataPanelHistory.setPreferredSize(new Dimension(width - cpWidth, height / 5));
+		dataPanelHistory.setMinimumSize(new Dimension(300, 50));
 
 
 		//noinspection UnusedAssignment
@@ -121,8 +129,12 @@ public class VoterDataUI extends JFrame {
 		lblStreet = new JLabel("Street:");
 		lblLat = new JLabel("Latitude:");
 		lblLong = new JLabel("Longitude:");
+		lblCtlPanel = new JLabel("Control Panel");
+		lblCtlPanel.setFont(sansHeading);
 		lblVoterPanel = new JLabel("Voters");
+		lblVoterPanel.setFont(sansHeading);
 		lblHistoryPanel = new JLabel("History");
+		lblHistoryPanel.setFont(sansHeading);
 			/* Label Alignment */
 		lblLast.setHorizontalAlignment(JLabel.RIGHT);
 		lblFirst.setHorizontalAlignment(JLabel.RIGHT);
@@ -134,6 +146,7 @@ public class VoterDataUI extends JFrame {
 		lblStreet.setHorizontalAlignment(JLabel.RIGHT);
 		lblLat.setHorizontalAlignment(JLabel.RIGHT);
 		lblLong.setHorizontalAlignment(JLabel.RIGHT);
+		lblCtlPanel.setHorizontalAlignment(JLabel.CENTER);
 		lblVoterPanel.setHorizontalAlignment(JLabel.CENTER);
 		lblHistoryPanel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -190,9 +203,13 @@ public class VoterDataUI extends JFrame {
 		ctlPanelSouth.add(btnExit);
 		ctlPanelSouth.validate();
 
+		ctlPanel.add(lblCtlPanel, BorderLayout.NORTH);
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
 		ctlPanel.validate();
+
+		dataPanelVoters.add(lblVoterPanel, BorderLayout.NORTH);
+		dataPanelHistory.add(lblHistoryPanel, BorderLayout.NORTH);
 
 		dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
 		dataPanel.add(dataPanelHistory, BorderLayout.SOUTH);
@@ -244,14 +261,16 @@ public class VoterDataUI extends JFrame {
 				}
 				vTblModel = new VoterTableModel(resultSet);
 				vTbl = new JTable(vTblModel);
-				vTbl.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
+				vTbl.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
+				vTbl.setFont(sansTable);
 				//noinspection unchecked
 				vTbl.setRowSorter(new TableRowSorter(vTblModel));
 				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 				voterPane = new JScrollPane();
-				voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
+				voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
 				vTbl.setFillsViewportHeight(true);
+
 				voterPane.setViewportView(vTbl);
 
 				dataPanelVoters.add(voterPane);
@@ -267,10 +286,11 @@ public class VoterDataUI extends JFrame {
 				vTbl.requestFocus();
 				vTbl.setRowSelectionInterval(0, 0);
 
-				vTbl.addMouseListener(new MouseAdapter() {
-					public void mousePressed(MouseEvent e) {
-						JTable target = (JTable) e.getSource();
-						int row = target.getSelectedRow();
+				vTbl.setCellSelectionEnabled(false);
+
+				vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+					public void valueChanged( ListSelectionEvent evt ) {
+						int row = vTbl.getSelectedRow();
 						Integer voterID = (Integer) vTbl.getValueAt(row, 0);
 						System.out.println("voterID selected = " + voterID.toString());
 						historySearch(voterID, voterDB);
@@ -278,7 +298,6 @@ public class VoterDataUI extends JFrame {
 				});
 			}
 		});
-
 	}
 
 	private void historySearch(Integer voterID, DatabaseManager voterDB) {
@@ -314,9 +333,10 @@ public class VoterDataUI extends JFrame {
 		hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		historyPane = new JScrollPane();
-		historyPane.setPreferredSize(new Dimension(width - cpWidth, height / 5));
+		historyPane.setPreferredSize(new Dimension(width - cpWidth, 150));
 		hTbl.setFillsViewportHeight(true);
-		hTbl.setPreferredSize(new Dimension(width - cpWidth, height / 5));
+		hTbl.setPreferredSize(new Dimension(width - cpWidth, 100));
+		hTbl.setFont(sansTable);
 		historyPane.setViewportView(hTbl);
 
 		dataPanelHistory.add(historyPane);
