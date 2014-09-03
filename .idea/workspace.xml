@@ -6,8 +6,7 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Change selection working">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" afterPath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" />
+    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Change selection working v2">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoterData.iws" />
@@ -44,22 +43,22 @@
       <file leaf-file-name="VoterDataUI.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5852535" vertical-offset="6099" max-vertical-offset="12474">
-              <caret line="360" column="21" selection-start-line="360" selection-start-column="21" selection-end-line="360" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.5852535" vertical-offset="6153" max-vertical-offset="12528">
+              <caret line="363" column="21" selection-start-line="363" selection-start-column="21" selection-end-line="363" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8729#8840#0" expanded="true" />
-                <element signature="e#8835#8836#0" expanded="true" />
-                <element signature="e#8873#8967#0" expanded="true" />
-                <element signature="e#8962#8963#0" expanded="true" />
-                <element signature="e#8999#9092#0" expanded="true" />
-                <element signature="e#9087#9088#0" expanded="true" />
-                <element signature="e#9124#9246#0" expanded="true" />
-                <element signature="e#9241#9242#0" expanded="true" />
-                <element signature="e#9280#12037#0" expanded="true" />
-                <element signature="e#11395#12026#0" expanded="true" />
-                <element signature="e#12019#12020#0" expanded="true" />
-                <element signature="e#12032#12033#0" expanded="true" />
+                <element signature="e#8726#8837#0" expanded="true" />
+                <element signature="e#8832#8833#0" expanded="true" />
+                <element signature="e#8870#8964#0" expanded="true" />
+                <element signature="e#8959#8960#0" expanded="true" />
+                <element signature="e#8996#9089#0" expanded="true" />
+                <element signature="e#9084#9085#0" expanded="true" />
+                <element signature="e#9121#9243#0" expanded="true" />
+                <element signature="e#9238#9239#0" expanded="true" />
+                <element signature="e#9277#12045#0" expanded="true" />
+                <element signature="e#11405#12034#0" expanded="true" />
+                <element signature="e#12027#12028#0" expanded="true" />
+                <element signature="e#12040#12041#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -801,7 +800,11 @@
       <created>1409704729954</created>
       <updated>1409704729954</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Change selection working v2">
+      <created>1409770570079</created>
+      <updated>1409770570079</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -865,7 +868,8 @@
     <MESSAGE value="Both tables working with mousehandler" />
     <MESSAGE value="Large tables working" />
     <MESSAGE value="Change selection working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change selection working" />
+    <MESSAGE value="Change selection working v2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change selection working v2" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1292,22 +1296,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5852535" vertical-offset="6099" max-vertical-offset="12474">
-          <caret line="360" column="21" selection-start-line="360" selection-start-column="21" selection-end-line="360" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.5852535" vertical-offset="6153" max-vertical-offset="12528">
+          <caret line="363" column="21" selection-start-line="363" selection-start-column="21" selection-end-line="363" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8729#8840#0" expanded="true" />
-            <element signature="e#8835#8836#0" expanded="true" />
-            <element signature="e#8873#8967#0" expanded="true" />
-            <element signature="e#8962#8963#0" expanded="true" />
-            <element signature="e#8999#9092#0" expanded="true" />
-            <element signature="e#9087#9088#0" expanded="true" />
-            <element signature="e#9124#9246#0" expanded="true" />
-            <element signature="e#9241#9242#0" expanded="true" />
-            <element signature="e#9280#12037#0" expanded="true" />
-            <element signature="e#11395#12026#0" expanded="true" />
-            <element signature="e#12019#12020#0" expanded="true" />
-            <element signature="e#12032#12033#0" expanded="true" />
+            <element signature="e#8726#8837#0" expanded="true" />
+            <element signature="e#8832#8833#0" expanded="true" />
+            <element signature="e#8870#8964#0" expanded="true" />
+            <element signature="e#8959#8960#0" expanded="true" />
+            <element signature="e#8996#9089#0" expanded="true" />
+            <element signature="e#9084#9085#0" expanded="true" />
+            <element signature="e#9121#9243#0" expanded="true" />
+            <element signature="e#9238#9239#0" expanded="true" />
+            <element signature="e#9277#12045#0" expanded="true" />
+            <element signature="e#11405#12034#0" expanded="true" />
+            <element signature="e#12027#12028#0" expanded="true" />
+            <element signature="e#12040#12041#0" expanded="true" />
           </folding>
         </state>
       </provider>
