@@ -27,7 +27,10 @@ public class VoterDataUI extends JFrame {
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
 	int hpHeight = height - vpHeight;
-	Integer voterID;
+	Integer voterID = 0;
+	int voterIDTrigger = 0;
+	private int row = 0; /* this put here to prevent double
+	processing of history search upon clicking in a voter history row */
 
 	Container vdPane;
 	JPanel dataPanel;
@@ -42,9 +45,10 @@ public class VoterDataUI extends JFrame {
 	private JTable hTbl;
 	private JScrollPane historyPane;
 
-	public final static Font sansHeading = new Font("SansSerif", Font.BOLD, 14);
+	public final static Font sansHeading = new Font("SansSerif", Font.BOLD, 15);
 	public final static Font sansLabel = new Font("SansSerif", Font.PLAIN, 14);
 	public final static Font sansTable = new Font("SansSerif", Font.PLAIN, 13);
+	public final static Font sansField = new Font("SansSerif", Font.BOLD, 14);
 
 	/* Search Fields / Labels / Buttons */
 	JTextField tfFirstName,
@@ -130,25 +134,38 @@ public class VoterDataUI extends JFrame {
 		lblLat = new JLabel("Latitude:");
 		lblLong = new JLabel("Longitude:");
 		lblCtlPanel = new JLabel("Control Panel");
-		lblCtlPanel.setFont(sansHeading);
 		lblVoterPanel = new JLabel("Voters");
-		lblVoterPanel.setFont(sansHeading);
 		lblHistoryPanel = new JLabel("History");
-		lblHistoryPanel.setFont(sansHeading);
-			/* Label Alignment */
+			/* Set Label Attributes */
 		lblLast.setHorizontalAlignment(JLabel.RIGHT);
+		lblLast.setForeground(Color.green.darker().darker());
 		lblFirst.setHorizontalAlignment(JLabel.RIGHT);
+		lblFirst.setForeground(Color.green.darker().darker());
 		lblParty.setHorizontalAlignment(JLabel.RIGHT);
+		lblParty.setForeground(Color.green.darker().darker());
 		lblCity.setHorizontalAlignment(JLabel.RIGHT);
+		lblCity.setForeground(Color.green.darker().darker());
 		lblPrecinct.setHorizontalAlignment(JLabel.RIGHT);
+		lblPrecinct.setForeground(Color.green.darker().darker());
 		lblZip.setHorizontalAlignment(JLabel.RIGHT);
+		lblZip.setForeground(Color.green.darker().darker());
 		lblStreetNo.setHorizontalAlignment(JLabel.RIGHT);
+		lblStreetNo.setForeground(Color.green.darker().darker());
 		lblStreet.setHorizontalAlignment(JLabel.RIGHT);
+		lblStreet.setForeground(Color.green.darker().darker());
 		lblLat.setHorizontalAlignment(JLabel.RIGHT);
+		lblLat.setForeground(Color.gray);
 		lblLong.setHorizontalAlignment(JLabel.RIGHT);
+		lblLong.setForeground(Color.gray);
 		lblCtlPanel.setHorizontalAlignment(JLabel.CENTER);
+		lblCtlPanel.setFont(sansHeading);
+		lblCtlPanel.setForeground(Color.green.darker().darker());
 		lblVoterPanel.setHorizontalAlignment(JLabel.CENTER);
+		lblVoterPanel.setFont(sansHeading);
+		lblVoterPanel.setForeground(Color.green.darker().darker());
 		lblHistoryPanel.setHorizontalAlignment(JLabel.CENTER);
+		lblHistoryPanel.setFont(sansHeading);
+		lblHistoryPanel.setForeground(Color.green.darker().darker());
 
 			/* Text Fields */
 		tfLastName = new JTextField(15);
@@ -166,6 +183,28 @@ public class VoterDataUI extends JFrame {
 		tfLat.setEnabled(false);
 		tfLong.setText("Coming Soon");
 		tfLong.setEnabled(false);
+
+			/* Set Field Attributes*/
+		tfLastName.setFont(sansField);
+		tfLastName.setForeground(Color.magenta);
+		tfFirstName.setFont(sansField);
+		tfFirstName.setForeground(Color.magenta);
+		tfParty.setFont(sansField);
+		tfParty.setForeground(Color.magenta);
+		tfCity.setFont(sansField);
+		tfCity.setForeground(Color.magenta);
+		tfPrecinct.setFont(sansField);
+		tfPrecinct.setForeground(Color.magenta);
+		tfZip.setFont(sansField);
+		tfZip.setForeground(Color.magenta);
+		tfStreetNo.setFont(sansField);
+		tfStreetNo.setForeground(Color.magenta);
+		tfStreet.setFont(sansField);
+		tfStreet.setForeground(Color.magenta);
+//		tfLat.setFont(sansField);
+//		tfLat.setForeground(Color.magenta);
+//		tfLong.setFont(sansField);
+//		tfLong.setForeground(Color.magenta);
 
 			/* Buttons */
 		btnVoters = new JButton("Voters");
@@ -224,6 +263,7 @@ public class VoterDataUI extends JFrame {
 
 		tfLastName.requestFocus();
 
+
 			/*ActionListeners for Buttons */
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -251,26 +291,24 @@ public class VoterDataUI extends JFrame {
 		});
 
 		btnVoters.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 				ResultSet resultSet = voterSearch(voterDB);
-
-				if (null != historyPane) {
+				if (null != historyPane)
+				{
 					dataPanelVoters.remove(voterPane);
 					dataPanel.remove(dataPanelVoters);
 					validate();
 				}
 				vTblModel = new VoterTableModel(resultSet);
 				vTbl = new JTable(vTblModel);
-				vTbl.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
 				vTbl.setFont(sansTable);
 				//noinspection unchecked
 				vTbl.setRowSorter(new TableRowSorter(vTblModel));
 				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+				vTbl.setFillsViewportHeight(true);
 				voterPane = new JScrollPane();
 				voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
-				vTbl.setFillsViewportHeight(true);
-
 				voterPane.setViewportView(vTbl);
 
 				dataPanelVoters.add(voterPane);
@@ -278,22 +316,60 @@ public class VoterDataUI extends JFrame {
 				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
 				dataPanel.validate();
 
-				Integer voterID = (int) vTbl.getValueAt(0, 0);
+				try
+				{
+					voterID = (int) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
+				} catch (IndexOutOfBoundsException exc)
+				{
+					JOptionPane.showMessageDialog(vdPane,
+									"Your search terms resulted in no records found.",
+									"Warning", JOptionPane.WARNING_MESSAGE);
+					dataPanelVoters.remove(voterPane);
+					dataPanel.remove(dataPanelVoters);
+					validate();
+					tfLastName.requestFocus();
+					System.out.println("IndexOutOfBoundsException caught at voterID = getValueAt (0,0)");
+					exc.printStackTrace();
+				}
 				System.out.println("voterID = " + voterID);
 
-
-				historySearch(voterID, voterDB);
+				if (voterIDTrigger != voterID)
+				{
+					voterIDTrigger = voterID;
+					historySearch(voterID, voterDB);
+				}
 				vTbl.requestFocus();
-				vTbl.setRowSelectionInterval(0, 0);
+				try
+				{
+					vTbl.setRowSelectionInterval(0, 0);  /* Select first row */
+				} catch (IndexOutOfBoundsException exc)
+				{
+					System.out.println("IndexOutOfBoundsException at vTbl.setRowSelectionInterval");
+					exc.printStackTrace();
+					tfLastName.requestFocus();
+				}
 
 				vTbl.setCellSelectionEnabled(false);
+				vTbl.setRowSelectionAllowed(true);
+				vTbl.setColumnSelectionAllowed(false);
 
 				vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged( ListSelectionEvent evt ) {
-						int row = vTbl.getSelectedRow();
-						Integer voterID = (Integer) vTbl.getValueAt(row, 0);
-						System.out.println("voterID selected = " + voterID.toString());
-						historySearch(voterID, voterDB);
+						row = vTbl.getSelectedRow();
+						if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
+						{
+							try
+							{
+								voterID = (Integer) vTbl.getValueAt(row, 0);
+								System.out.println("voterID selected = " + voterID.toString());
+							} catch (ArrayIndexOutOfBoundsException exc)
+							{
+								System.out.println("ArrayIndexOutOfBounds Exception caught at listSelection Listener");
+								exc.printStackTrace();
+							}
+							voterIDTrigger = voterID;
+							historySearch(voterID, voterDB);
+						}
 					}
 				});
 			}
@@ -332,11 +408,10 @@ public class VoterDataUI extends JFrame {
 		hTbl.setRowSorter(new TableRowSorter<TableModel>(hTblModel));
 		hTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hTbl.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		hTbl.setFillsViewportHeight(true);
+		hTbl.setFont(sansTable);
 		historyPane = new JScrollPane();
 		historyPane.setPreferredSize(new Dimension(width - cpWidth, 150));
-		hTbl.setFillsViewportHeight(true);
-		hTbl.setPreferredSize(new Dimension(width - cpWidth, 100));
-		hTbl.setFont(sansTable);
 		historyPane.setViewportView(hTbl);
 
 		dataPanelHistory.add(historyPane);
