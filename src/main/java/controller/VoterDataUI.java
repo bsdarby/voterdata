@@ -19,6 +19,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Class in VoterData/controller.
@@ -26,6 +28,8 @@ import java.sql.ResultSet;
  */
 public class VoterDataUI extends JFrame implements KeyListener, RowSorterListener {
 	private DatabaseManager voterDB;
+	private NumberFormat df1 = new DecimalFormat("#,###0");
+
 	private static final Double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	int width = WIDTH.intValue() - 5;
@@ -40,7 +44,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	private Graphics graphics;
 	private int pages;
 
-	private int row = 0; /* this put here to prevent double
+	protected int row = 0; /* this put here to prevent double
 	processing of history search upon clicking in a voter history row */
 
 	Container vdPane;
@@ -586,7 +590,11 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				lblVoterPanel.setText("1 Voter");
 			} else
 			{
-				lblVoterPanel.setText(rowCount + " Voters");
+				StringBuilder lblVoterString = new StringBuilder();
+				lblVoterString.append("<html><p>");
+				lblVoterString.append(String.format("%,d Voters", rowCount));
+				lblVoterString.append("</p></html>");
+				lblVoterPanel.setText(lblVoterString.toString());
 			}
 
 			dataPanelVoters.add(voterPane);
@@ -633,6 +641,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 			vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged( ListSelectionEvent evt ) {
+					System.out.println("Current row selected = " + vTbl.getSelectedRow() + ". ");
+
 					if (vTbl.getSelectedRow() < 0) {vTbl.setRowSelectionInterval(0, 0);}
 					row = vTbl.getSelectedRow();
 					if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
@@ -697,9 +707,13 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	@Override
 	public void sorterChanged( RowSorterEvent e ) {
 		vTbl.requestFocus();
-		vTbl.setRowSelectionInterval(0, 0);
-		historySearch((int) vTbl.getValueAt(0, 0), voterDB);
+		System.out.println("Sorter changed, current row selected = " + vTbl.getSelectedRow());
+		if (vTbl.getSelectedRow() < 0) {
+			vTbl.setRowSelectionInterval(0, 0);
+			historySearch((int) vTbl.getValueAt(0, 0), voterDB);
+		}
 	}
+
 }
 /*
 Wildcards:
