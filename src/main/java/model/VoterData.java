@@ -1,17 +1,17 @@
 package model;
 
-
 import controller.VoterDataUI;
 import view.PasswordDialog;
 
 import javax.swing.*;
 
 /**
+ * Created in voterdata/model
  * Created by bsdarby on 8/26/14.
  */
-@SuppressWarnings("ALL")
-public class VoterData extends JFrame {
+public class VoterData {
 
+	static DatabaseManager voterDB;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -20,7 +20,6 @@ public class VoterData extends JFrame {
 					/* LOGIN */
 				String[] userLogin = PasswordDialog.login();
 					/* CONNECT to DataBase */
-				DatabaseManager voterDB;
 				voterDB = new DatabaseManager(userLogin[0], userLogin[1]);
 
 				VoterDataUI controlPanel = new VoterDataUI(voterDB);
@@ -29,4 +28,9 @@ public class VoterData extends JFrame {
 			}
 		});
 	}
+
+	public DatabaseManager getDB() {
+		return voterDB;
+	}
+
 }

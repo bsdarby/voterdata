@@ -24,7 +24,7 @@ public class HistoryTableModel extends AbstractTableModel {
 	 *
 	 * @param resultSetH ...the ResultSet from the Listings table to be displayed
 	 */
-	public HistoryTableModel(ResultSet resultSetH) {
+	public HistoryTableModel( ResultSet resultSetH ) {
 		this.resultSetH = resultSetH;
 	}
 
@@ -40,10 +40,12 @@ public class HistoryTableModel extends AbstractTableModel {
 	 * @return ...the number of rows in the ResultSet.
 	 */
 	public int getRowCount() {
-		try {
+		try
+		{
 			resultSetH.last();
 			return resultSetH.getRow();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return 0;
 		}
@@ -91,34 +93,48 @@ public class HistoryTableModel extends AbstractTableModel {
 	 * @param column ...the index of the column name to be returned.
 	 * @return column name ...the name of the column is returned.
 	 */
-	public String getColumnName(int column) {  /*...Returns column names that look better
-																									than the database names */
-		try {
+	public String getColumnName( int column ) {  /*...Returns column names that look better
+																									than the database
+																									names */
+		try
+		{
 			String colName = resultSetH.getMetaData().getColumnName(column + 1);
-			if (colName.equals("lVoterUniqueID")) {
+			if (colName.equals("lVoterUniqueID"))
+			{
 				return "VoterID";
-			} else if (colName.equals("sElectionAbbr")) {
+			} else if (colName.equals("sElectionAbbr"))
+			{
 				return "Election";
-			} else if (colName.equals("szElectionDesc")) {
+			} else if (colName.equals("szElectionDesc"))
+			{
 				return "Description";
-			} else if (colName.equals("dtElectionDate")) {
-				return "Date";
-			} else if (colName.equals("sElecTypeDesc")) {
+			} else if (colName.equals("dtElectionDate"))
+			{
+				return "Electn Date";
+			} else if (colName.equals("sElecTypeDesc"))
+			{
 				return "Type";
-			} else if (colName.equals("sVotingPrecinct")) {
+			} else if (colName.equals("sVotingPrecinct"))
+			{
 				return "VPrecinct";
-			} else if (colName.equals("szVotingMethod")) {
+			} else if (colName.equals("szVotingMethod"))
+			{
 				return "Vote Method";
-			} else if (colName.equals("sPartyAbbr")) {
+			} else if (colName.equals("sPartyAbbr"))
+			{
 				return "Party";
-			} else if (colName.equals("szPartyName")) {
+			} else if (colName.equals("szPartyName"))
+			{
 				return "Party";
-			} else if (colName.equals("szCountedFlag")) {
+			} else if (colName.equals("szCountedFlag"))
+			{
 				return "Voted";
-			} else {  //...Should never get here
+			} else
+			{  //...Should never get here
 				return colName;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return "";
 		}
@@ -138,11 +154,13 @@ public class HistoryTableModel extends AbstractTableModel {
 	 * @param column ...the column of the ResultSet whose value is to be returned.
 	 * @return ...the value in the ResultSet at row and column is returned.
 	 */
-	public Object getValueAt(int row, int column) {
-		try {
+	public Object getValueAt( int row, int column ) {
+		try
+		{
 			resultSetH.absolute(row + 1);
 			return resultSetH.getObject(column + 1);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return null;
 		}

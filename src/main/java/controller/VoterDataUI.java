@@ -12,15 +12,20 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.print.PageFormat;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Class in VoterData/controller.
  * Created by bsdarby on 8/27/14.
  */
-public class VoterDataUI extends JFrame {
+public class VoterDataUI extends JFrame implements KeyListener {
+	private DatabaseManager voterDB;
 	private static final Double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	public static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	int width = WIDTH.intValue() - 5;
 	int height = HEIGHT.intValue() - 5;
 	int cpWidth = 200;
@@ -29,6 +34,10 @@ public class VoterDataUI extends JFrame {
 	int hpHeight = height - vpHeight;
 	Integer voterID = 0;
 	int voterIDTrigger = 0;
+	private PageFormat pageFormat;
+	private Graphics graphics;
+	private int pages;
+
 	private int row = 0; /* this put here to prevent double
 	processing of history search upon clicking in a voter history row */
 
@@ -81,7 +90,8 @@ public class VoterDataUI extends JFrame {
 					lblVoterPanel,
 					lblHistoryPanel;
 
-	public VoterDataUI(final DatabaseManager voterDB) {
+	public VoterDataUI( final DatabaseManager voterDB ) {
+		this.voterDB = voterDB;
 		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
 		setTitle("Voter Data");
@@ -103,6 +113,8 @@ public class VoterDataUI extends JFrame {
 		ctlPanel.setPreferredSize(new Dimension(cpWidth, cpHeight));
 		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 10));
 		ctlPanelCenter.setPreferredSize(new Dimension(cpWidth, cpHeight - 300));
+		ctlPanelCenter.addKeyListener(this);
+		ctlPanelCenter.setFocusTraversalKeysEnabled(true);
 		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 10, 10));
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
@@ -113,10 +125,10 @@ public class VoterDataUI extends JFrame {
 		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
 		dataPanel.setMinimumSize(new Dimension(300, 150));
 		dataPanelVoters = new JPanel();
-		dataPanelVoters.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 5));
+		dataPanelVoters.setPreferredSize(new Dimension(width - cpWidth, vpHeight));
 		dataPanelVoters.setMinimumSize(new Dimension(300, 100));
 		dataPanelHistory = new JPanel();
-		dataPanelHistory.setPreferredSize(new Dimension(width - cpWidth, height / 5));
+		dataPanelHistory.setPreferredSize(new Dimension(width - cpWidth, hpHeight));
 		dataPanelHistory.setMinimumSize(new Dimension(300, 50));
 
 
@@ -187,24 +199,34 @@ public class VoterDataUI extends JFrame {
 			/* Set Field Attributes*/
 		tfLastName.setFont(sansField);
 		tfLastName.setForeground(Color.magenta);
+		tfLastName.addKeyListener(this);
 		tfFirstName.setFont(sansField);
 		tfFirstName.setForeground(Color.magenta);
+		tfFirstName.addKeyListener(this);
 		tfParty.setFont(sansField);
 		tfParty.setForeground(Color.magenta);
+		tfParty.addKeyListener(this);
 		tfCity.setFont(sansField);
 		tfCity.setForeground(Color.magenta);
+		tfCity.addKeyListener(this);
 		tfPrecinct.setFont(sansField);
 		tfPrecinct.setForeground(Color.magenta);
+		tfPrecinct.addKeyListener(this);
 		tfZip.setFont(sansField);
 		tfZip.setForeground(Color.magenta);
+		tfZip.addKeyListener(this);
 		tfStreetNo.setFont(sansField);
 		tfStreetNo.setForeground(Color.magenta);
+		tfStreetNo.addKeyListener(this);
 		tfStreet.setFont(sansField);
 		tfStreet.setForeground(Color.magenta);
+		tfStreet.addKeyListener(this);
 //		tfLat.setFont(sansField);
 //		tfLat.setForeground(Color.magenta);
+//		tfLastName.addKeyListener(this);
 //		tfLong.setFont(sansField);
 //		tfLong.setForeground(Color.magenta);
+//		tfLastName.addKeyListener(this);
 
 			/* Buttons */
 		btnVoters = new JButton("Voters");
@@ -263,115 +285,43 @@ public class VoterDataUI extends JFrame {
 
 		tfLastName.requestFocus();
 
+			/* ActionListeners for Fields */
+		class FieldListener implements ActionListener {
+			public void actionPerformed( ActionEvent evt ) {
+
+			}
+		}
 
 			/*ActionListeners for Buttons */
 		btnHistory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 //				historySearch(voterDB);
 			}
 		});
 
 		btnPrint.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				print();
+			public void actionPerformed( ActionEvent evt ) {
+				PrintControl printControl = new PrintControl(graphics, pageFormat, pages);
 			}
 		});
 
 		btnHelp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 				help();
 			}
 		});
 
 		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 				voterDB.close();
 				System.exit(0);
 			}
 		});
 
+
 		btnVoters.addActionListener(new ActionListener() {
-			public void actionPerformed( ActionEvent evt ) {
-				ResultSet resultSet = voterSearch(voterDB);
-				if (null != historyPane)
-				{
-					dataPanelVoters.remove(voterPane);
-					dataPanel.remove(dataPanelVoters);
-					validate();
-				}
-				vTblModel = new VoterTableModel(resultSet);
-				vTbl = new JTable(vTblModel);
-				vTbl.setFont(sansTable);
-				//noinspection unchecked
-				vTbl.setRowSorter(new TableRowSorter(vTblModel));
-				vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-				vTbl.setFillsViewportHeight(true);
-				voterPane = new JScrollPane();
-				voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
-				voterPane.setViewportView(vTbl);
-
-				dataPanelVoters.add(voterPane);
-				dataPanelVoters.validate();
-				dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
-				dataPanel.validate();
-
-				try
-				{
-					voterID = (int) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
-				} catch (IndexOutOfBoundsException exc)
-				{
-					JOptionPane.showMessageDialog(vdPane,
-									"Your search terms resulted in no records found.",
-									"Warning", JOptionPane.WARNING_MESSAGE);
-					dataPanelVoters.remove(voterPane);
-					dataPanel.remove(dataPanelVoters);
-					validate();
-					tfLastName.requestFocus();
-					System.out.println("IndexOutOfBoundsException caught at voterID = getValueAt (0,0)");
-					exc.printStackTrace();
-				}
-				System.out.println("voterID = " + voterID);
-
-				if (voterIDTrigger != voterID)
-				{
-					voterIDTrigger = voterID;
-					historySearch(voterID, voterDB);
-				}
-				vTbl.requestFocus();
-				try
-				{
-					vTbl.setRowSelectionInterval(0, 0);  /* Select first row */
-				} catch (IndexOutOfBoundsException exc)
-				{
-					System.out.println("IndexOutOfBoundsException at vTbl.setRowSelectionInterval");
-					exc.printStackTrace();
-					tfLastName.requestFocus();
-				}
-
-				vTbl.setCellSelectionEnabled(false);
-				vTbl.setRowSelectionAllowed(true);
-				vTbl.setColumnSelectionAllowed(false);
-
-				vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-					public void valueChanged( ListSelectionEvent evt ) {
-						row = vTbl.getSelectedRow();
-						if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
-						{
-							try
-							{
-								voterID = (Integer) vTbl.getValueAt(row, 0);
-								System.out.println("voterID selected = " + voterID.toString());
-							} catch (ArrayIndexOutOfBoundsException exc)
-							{
-								System.out.println("ArrayIndexOutOfBounds Exception caught at listSelection Listener");
-								exc.printStackTrace();
-							}
-							voterIDTrigger = voterID;
-							historySearch(voterID, voterDB);
-						}
-					}
-				});
+			public void actionPerformed( ActionEvent e ) {
+				getVoters();
 			}
 		});
 	}
@@ -578,10 +528,116 @@ public class VoterDataUI extends JFrame {
 
 			query = select + whereClause + orderBy;
 			resultSet = doQuery(query, voterDB);
+		} else
+		{
+			return null;
 		}
 		return resultSet;
 	}
 
+	public void getVoters() {
+		ResultSet resultSet = voterSearch(voterDB);
+		if (resultSet != null)
+		{
+			int counter = 0;
+			try
+			{
+				resultSet.beforeFirst();
+				do
+				{
+					resultSet.next();
+					counter++;
+				} while (!resultSet.last() && counter < 1000000);
+			} catch (SQLException exc)
+			{
+				counter = 0;
+				System.out.println("SQL Exception caught while counting number of records");
+				exc.printStackTrace();
+			}
+			if (counter > 1)
+				lblVoterPanel.setText(counter + " Voters");
+
+			if (null != historyPane)
+			{
+				dataPanelVoters.remove(voterPane);
+				dataPanel.remove(dataPanelVoters);
+				validate();
+			}
+			vTblModel = new VoterTableModel(resultSet);
+			vTbl = new JTable(vTblModel);
+			vTbl.setFont(sansTable);
+			//noinspection unchecked
+			vTbl.setRowSorter(new TableRowSorter(vTblModel));
+			vTbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			vTbl.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+			vTbl.setFillsViewportHeight(true);
+			voterPane = new JScrollPane();
+			voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
+			voterPane.setViewportView(vTbl);
+
+			dataPanelVoters.add(voterPane);
+			dataPanelVoters.validate();
+			dataPanel.add(dataPanelVoters, BorderLayout.CENTER);
+			dataPanel.validate();
+
+			try
+			{
+				voterID = (int) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
+			} catch (IndexOutOfBoundsException exc)
+			{
+				JOptionPane.showMessageDialog(vdPane,
+								"Your search terms resulted in no records found.",
+								"Warning", JOptionPane.WARNING_MESSAGE);
+				dataPanelVoters.remove(voterPane);
+				dataPanel.remove(dataPanelVoters);
+				validate();
+				tfLastName.requestFocus();
+				System.out.println("IndexOutOfBoundsException caught at voterID = getValueAt (0,0)");
+				exc.printStackTrace();
+			}
+			System.out.println("voterID = " + voterID);
+
+			if (voterIDTrigger != voterID)
+			{
+				voterIDTrigger = voterID;
+				historySearch(voterID, voterDB);
+			}
+			vTbl.requestFocus();
+			try
+			{
+				vTbl.setRowSelectionInterval(0, 0);  /* Select first row */
+			} catch (IndexOutOfBoundsException exc)
+			{
+				System.out.println("IndexOutOfBoundsException at vTbl.setRowSelectionInterval");
+				exc.printStackTrace();
+				tfLastName.requestFocus();
+			}
+
+			vTbl.setCellSelectionEnabled(false);
+			vTbl.setRowSelectionAllowed(true);
+			vTbl.setColumnSelectionAllowed(false);
+
+			vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged( ListSelectionEvent evt ) {
+					row = vTbl.getSelectedRow();
+					if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
+					{
+						try
+						{
+							voterID = (Integer) vTbl.getValueAt(row, 0);
+							System.out.println("voterID selected = " + voterID.toString());
+						} catch (ArrayIndexOutOfBoundsException exc)
+						{
+							System.out.println("ArrayIndexOutOfBounds Exception caught at listSelection Listener");
+							exc.printStackTrace();
+						}
+						voterIDTrigger = voterID;
+						historySearch(voterID, voterDB);
+					}
+				}
+			});
+		}
+	}
 
 	public void print() {
 
@@ -590,7 +646,6 @@ public class VoterDataUI extends JFrame {
 	public void help() {
 
 	}
-
 
 	private ResultSet doQuery(String query, DatabaseManager voterDB) {
 		voterDB.dbQuery(query);
@@ -602,6 +657,26 @@ public class VoterDataUI extends JFrame {
 		return voterDB.getResultSetH();
 	}
 
+	@Override
+	public void keyTyped( KeyEvent e ) {
+		if (e.getSource().toString().contains("javax.swing.JTextField"))
+		{
+			if (e.getKeyChar() == KeyEvent.VK_ENTER)
+			{
+				this.getVoters();
+			}
+		}
+	}
+
+	@Override
+	public void keyPressed( KeyEvent e ) {
+
+	}
+
+	@Override
+	public void keyReleased( KeyEvent e ) {
+
+	}
 }
 /*
 Wildcards:

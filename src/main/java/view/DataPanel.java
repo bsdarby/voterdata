@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 public class DataPanel extends JFrame {
 
 	public static final Dimension2D screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public static final Double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	private static final Double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	private VoterTableModel voterTblModel;
 	private JTable voterTable;
@@ -36,18 +36,13 @@ public class DataPanel extends JFrame {
 
 	/* Create GUI */
 		Container contentPane = getContentPane();
-		setTitle("Voter Data");
 		setLayout(new BorderLayout());
-		setSize(new Dimension(400, height.intValue() - 100));
 
 			/* Layouts */
 		FlowLayout 					fl	=	new FlowLayout(FlowLayout.RIGHT);
 
 			/* Panels */
-		JPanel 	northPanel	= new JPanel();
 		JPanel	southPanel	= new JPanel();
-		JPanel	eastPanel		=	new JPanel();
-		JPanel	westPanel		=	new JPanel();
 
 			/* Menus */
 		JMenuBar menuBar = new JMenuBar();
@@ -57,7 +52,7 @@ public class DataPanel extends JFrame {
 		menuBar.add (mFind	= new JMenu("Search"));
 		menuBar.add (mHelp	=	new	JMenu("Help"));
 
-		JMenuItem miOpen, miPrint, miHistory, miClose, miTopics;
+		JMenuItem miPrint, miHistory, miClose, miTopics;
 		mFile.add (miPrint	=	new JMenuItem("Print"));
 		mFile.add(miClose = new JMenuItem("Close"));
 		mFind.add	(miHistory=	new JMenuItem("Search History"));
