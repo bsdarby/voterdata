@@ -11,7 +11,6 @@
         <codeStyleSettings language="JAVA">
           <option name="KEEP_CONTROL_STATEMENT_IN_ONE_LINE" value="false" />
           <option name="KEEP_BLANK_LINES_BEFORE_RBRACE" value="1" />
-          <option name="BRACE_STYLE" value="2" />
           <option name="SPACE_WITHIN_METHOD_PARENTHESES" value="true" />
           <option name="SPACE_WITHIN_ARRAY_INITIALIZER_BRACES" value="true" />
           <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
@@ -28,7 +27,6 @@
       </value>
     </option>
     <option name="USE_PER_PROJECT_SETTINGS" value="true" />
-    <option name="PREFERRED_PROJECT_CODE_STYLE" value="bsDefault" />
   </component>
 </project>
 

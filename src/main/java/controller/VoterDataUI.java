@@ -73,6 +73,7 @@ public class VoterDataUI extends JFrame implements KeyListener {
 	JButton btnVoters,
 					btnHistory,
 					btnPrint,
+					btnClear,
 					btnHelp,
 					btnExit;
 	JLabel lblSpacer,
@@ -231,6 +232,7 @@ public class VoterDataUI extends JFrame implements KeyListener {
 			/* Buttons */
 		btnVoters = new JButton("Voters");
 		btnHistory = new JButton("History");
+		btnClear = new JButton("Clear");
 		btnPrint = new JButton("Print");
 		btnHelp = new JButton("Help");
 		btnExit = new JButton("Exit");
@@ -260,6 +262,7 @@ public class VoterDataUI extends JFrame implements KeyListener {
 
 		ctlPanelSouth.add(btnVoters);
 		ctlPanelSouth.add(btnHistory);
+		ctlPanelSouth.add(btnClear);
 		ctlPanelSouth.add(btnPrint);
 		ctlPanelSouth.add(btnExit);
 		ctlPanelSouth.validate();
@@ -322,6 +325,23 @@ public class VoterDataUI extends JFrame implements KeyListener {
 		btnVoters.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				getVoters();
+			}
+		});
+
+		btnClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed( ActionEvent e ) {
+				tfFirstName.setText("");
+				tfLastName.setText("");
+				tfPrecinct.setText("");
+				tfZip.setText("");
+				tfLat.setText("");
+				tfLong.setText("");
+				tfStreet.setText("");
+				tfStreetNo.setText("");
+				tfCity.setText("");
+				tfParty.setText("");
+				tfLastName.requestFocus();
 			}
 		});
 	}
