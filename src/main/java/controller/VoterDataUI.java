@@ -8,6 +8,8 @@ import model.VoterTableModel;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.RowSorterEvent;
+import javax.swing.event.RowSorterListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
@@ -22,7 +24,7 @@ import java.sql.ResultSet;
  * Class in VoterData/controller.
  * Created by bsdarby on 8/27/14.
  */
-public class VoterDataUI extends JFrame implements KeyListener {
+public class VoterDataUI extends JFrame implements KeyListener, RowSorterListener {
 	private DatabaseManager voterDB;
 	private static final Double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -335,8 +337,8 @@ public class VoterDataUI extends JFrame implements KeyListener {
 				tfLastName.setText("");
 				tfPrecinct.setText("");
 				tfZip.setText("");
-				tfLat.setText("");
-				tfLong.setText("");
+//				tfLat.setText("");
+//				tfLong.setText("");
 				tfStreet.setText("");
 				tfStreetNo.setText("");
 				tfCity.setText("");
@@ -631,6 +633,7 @@ public class VoterDataUI extends JFrame implements KeyListener {
 
 			vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged( ListSelectionEvent evt ) {
+					if (vTbl.getSelectedRow() < 0) {vTbl.setRowSelectionInterval(0, 0);}
 					row = vTbl.getSelectedRow();
 					if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
 					{
@@ -689,6 +692,13 @@ public class VoterDataUI extends JFrame implements KeyListener {
 	@Override
 	public void keyReleased( KeyEvent e ) {
 
+	}
+
+	@Override
+	public void sorterChanged( RowSorterEvent e ) {
+		vTbl.requestFocus();
+		vTbl.setRowSelectionInterval(0, 0);
+		historySearch((int) vTbl.getValueAt(0, 0), voterDB);
 	}
 }
 /*

@@ -5,9 +5,8 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Voter count working">
+    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Clear button added">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" afterPath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoterData.iws" />
@@ -34,24 +33,11 @@
       <file leaf-file-name="VoterDataUI.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32595575" vertical-offset="4716" max-vertical-offset="14076">
-              <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.41412213" vertical-offset="10942" max-vertical-offset="13950">
+              <caret line="651" column="9" selection-start-line="651" selection-start-column="9" selection-end-line="651" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9699#9808#0" expanded="true" />
-                <element signature="e#9806#9807#0" expanded="true" />
-                <element signature="e#9841#10003#0" expanded="true" />
-                <element signature="e#9998#9999#0" expanded="true" />
-                <element signature="e#10035#10130#0" expanded="true" />
-                <element signature="e#10125#10126#0" expanded="true" />
-                <element signature="e#10162#10286#0" expanded="true" />
-                <element signature="e#10281#10282#0" expanded="true" />
-                <element signature="e#10321#10419#0" expanded="true" />
-                <element signature="e#10414#10415#0" expanded="true" />
-                <element signature="e#10452#10831#0" expanded="true" />
-                <element signature="e#10829#10830#0" expanded="true" />
-                <element signature="e#19171#19782#0" expanded="true" />
-                <element signature="e#19776#19777#0" expanded="true" />
+                <element signature="e#19296#19981#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,7 +46,7 @@
       <file leaf-file-name="DatabaseManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/DatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2484" max-vertical-offset="4482">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3312" max-vertical-offset="4572">
               <caret line="184" column="5" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
               <folding />
             </state>
@@ -72,12 +58,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1890">
               <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
-              <folding>
-                <element signature="e#1439#1546#0" expanded="true" />
-                <element signature="e#1541#1542#0" expanded="true" />
-                <element signature="e#1579#1869#0" expanded="true" />
-                <element signature="e#1864#1865#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -85,7 +66,7 @@
       <file leaf-file-name="DataPanel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/DataPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2250">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2574">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -95,12 +76,9 @@
       <file leaf-file-name="VoterData.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
+            <state vertical-scroll-proportion="0.0" vertical-offset="522" max-vertical-offset="756">
               <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
-              <folding>
-                <element signature="e#729#730#0" expanded="true" />
-                <element signature="e#750#751#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -158,8 +136,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1306" />
-    <option name="y" value="-670" />
+    <option name="x" value="1307" />
+    <option name="y" value="-671" />
     <option name="width" value="1444" />
     <option name="height" value="1159" />
   </component>
@@ -295,6 +273,20 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="voterdata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VoterData" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Problems">
           <PATH>
@@ -312,8 +304,8 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-        <subPane subId="Tests" />
         <subPane subId="Production" />
+        <subPane subId="Tests" />
         <subPane subId="Project Files" />
       </pane>
       <pane id="ProjectPane">
@@ -446,20 +438,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="controller" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="voterdata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VoterData" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -602,6 +580,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -627,19 +618,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -829,11 +807,15 @@
       <created>1409803256605</created>
       <updated>1409803256605</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Clear button added">
+      <created>1409804491316</created>
+      <updated>1409804491316</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1306" y="-670" width="1444" height="1159" extended-state="0" />
+    <frame x="1307" y="-671" width="1444" height="1159" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -841,7 +823,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32929105" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49768305" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39800543" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39891207" sideWeight="0.50033003" order="8" side_tool="true" content_ui="tabs" />
@@ -854,12 +835,13 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22091413" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3074842" sideWeight="0.49966997" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5100917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49768305" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32959852" sideWeight="0.49966997" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3074842" sideWeight="0.49966997" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -896,7 +878,8 @@
     <MESSAGE value="Change selection working v2" />
     <MESSAGE value="KeyListener working" />
     <MESSAGE value="Voter count working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Voter count working" />
+    <MESSAGE value="Clear button added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clear button added" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -912,10 +895,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="468">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="e#729#730#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -980,10 +960,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="e#729#730#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1041,10 +1018,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="468">
           <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding>
-            <element signature="e#729#730#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1231,7 +1205,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1294964" vertical-offset="0" max-vertical-offset="695">
           <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1275,10 +1248,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
           <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
-          <folding>
-            <element signature="e#729#730#0" expanded="true" />
-            <element signature="e#750#751#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1294,12 +1264,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1890">
           <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
-          <folding>
-            <element signature="e#1439#1546#0" expanded="true" />
-            <element signature="e#1541#1542#0" expanded="true" />
-            <element signature="e#1579#1869#0" expanded="true" />
-            <element signature="e#1864#1865#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1321,24 +1286,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32595575" vertical-offset="4716" max-vertical-offset="14076">
-          <caret line="280" column="0" selection-start-line="280" selection-start-column="0" selection-end-line="280" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.41412213" vertical-offset="10942" max-vertical-offset="13950">
+          <caret line="651" column="9" selection-start-line="651" selection-start-column="9" selection-end-line="651" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9699#9808#0" expanded="true" />
-            <element signature="e#9806#9807#0" expanded="true" />
-            <element signature="e#9841#10003#0" expanded="true" />
-            <element signature="e#9998#9999#0" expanded="true" />
-            <element signature="e#10035#10130#0" expanded="true" />
-            <element signature="e#10125#10126#0" expanded="true" />
-            <element signature="e#10162#10286#0" expanded="true" />
-            <element signature="e#10281#10282#0" expanded="true" />
-            <element signature="e#10321#10419#0" expanded="true" />
-            <element signature="e#10414#10415#0" expanded="true" />
-            <element signature="e#10452#10831#0" expanded="true" />
-            <element signature="e#10829#10830#0" expanded="true" />
-            <element signature="e#19171#19782#0" expanded="true" />
-            <element signature="e#19776#19777#0" expanded="true" />
+            <element signature="e#19296#19981#0" expanded="true" />
           </folding>
         </state>
       </provider>
