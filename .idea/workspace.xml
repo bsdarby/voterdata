@@ -5,11 +5,8 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Change selection working v2">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/PrintControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/view/DataPanel.java" afterPath="$PROJECT_DIR$/src/main/java/view/DataPanel.java" />
+    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="KeyListener working">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java" afterPath="$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/VoterData.java" afterPath="$PROJECT_DIR$/src/main/java/model/VoterData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" afterPath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -37,23 +34,33 @@
       <file leaf-file-name="VoterDataUI.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.036585364" vertical-offset="7758" max-vertical-offset="13824">
-              <caret line="432" column="2" selection-start-line="432" selection-start-column="2" selection-end-line="432" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.34408602" vertical-offset="5906" max-vertical-offset="13752">
+              <caret line="337" column="31" selection-start-line="337" selection-start-column="31" selection-end-line="337" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9597#9710#0" expanded="true" />
-                <element signature="e#9705#9706#0" expanded="true" />
-                <element signature="e#9743#9905#0" expanded="true" />
-                <element signature="e#9900#9901#0" expanded="true" />
-                <element signature="e#9937#10032#0" expanded="true" />
-                <element signature="e#10027#10028#0" expanded="true" />
-                <element signature="e#10064#10188#0" expanded="true" />
-                <element signature="e#10183#10184#0" expanded="true" />
-                <element signature="e#10223#10321#0" expanded="true" />
-                <element signature="e#10316#10317#0" expanded="true" />
-                <element signature="e#18872#19483#0" expanded="true" />
-                <element signature="e#19477#19478#0" expanded="true" />
+                <element signature="e#9660#9773#0" expanded="true" />
+                <element signature="e#9768#9769#0" expanded="true" />
+                <element signature="e#9806#9968#0" expanded="true" />
+                <element signature="e#9963#9964#0" expanded="true" />
+                <element signature="e#10000#10095#0" expanded="true" />
+                <element signature="e#10090#10091#0" expanded="true" />
+                <element signature="e#10127#10251#0" expanded="true" />
+                <element signature="e#10246#10247#0" expanded="true" />
+                <element signature="e#10286#10384#0" expanded="true" />
+                <element signature="e#10379#10380#0" expanded="true" />
+                <element signature="e#18724#19335#0" expanded="true" />
+                <element signature="e#19329#19330#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/model/DatabaseManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2484" max-vertical-offset="4482">
+              <caret line="184" column="5" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,14 +68,13 @@
       <file leaf-file-name="PrintControl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/PrintControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="811" max-vertical-offset="1872">
-              <caret line="97" column="1" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1890">
+              <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1395#1502#0" expanded="true" />
-                <element signature="e#1497#1498#0" expanded="true" />
-                <element signature="e#1535#1825#0" expanded="true" />
-                <element signature="e#1820#1821#0" expanded="true" />
+                <element signature="e#1439#1546#0" expanded="true" />
+                <element signature="e#1541#1542#0" expanded="true" />
+                <element signature="e#1579#1869#0" expanded="true" />
+                <element signature="e#1864#1865#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,10 +93,9 @@
       <file leaf-file-name="VoterData.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
-              <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
+              <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#729#730#0" expanded="true" />
                 <element signature="e#750#751#0" expanded="true" />
               </folding>
@@ -136,9 +141,9 @@
         <option value="$PROJECT_DIR$/src/main/java/model/VoterTableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/DatabaseManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/DataPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/VoterData.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/PrintControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" />
       </list>
     </option>
@@ -413,36 +418,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="voterdata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="voterdata" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VoterDataUI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ClassTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -844,7 +819,11 @@
       <created>1409770680512</created>
       <updated>1409770680512</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="KeyListener working">
+      <created>1409799748923</created>
+      <updated>1409799748923</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -909,7 +888,8 @@
     <MESSAGE value="Large tables working" />
     <MESSAGE value="Change selection working" />
     <MESSAGE value="Change selection working v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change selection working v2" />
+    <MESSAGE value="KeyListener working" />
+    <option name="LAST_COMMIT_MESSAGE" value="KeyListener working" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -926,7 +906,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="468">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
             <element signature="e#750#751#0" expanded="true" />
           </folding>
@@ -967,11 +946,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2286" max-vertical-offset="4104">
           <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="e#100#124#0" expanded="false" />
-            <element signature="e#6223#6224#0" expanded="false" />
-            <element signature="e#6241#6242#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -999,7 +974,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="468">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
             <element signature="e#750#751#0" expanded="true" />
           </folding>
@@ -1033,11 +1007,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2286" max-vertical-offset="4104">
           <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-          <folding>
-            <element signature="e#100#124#0" expanded="false" />
-            <element signature="e#6223#6224#0" expanded="false" />
-            <element signature="e#6241#6242#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,7 +1035,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="468">
           <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
             <element signature="e#750#751#0" expanded="true" />
           </folding>
@@ -1092,11 +1061,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4266">
           <caret line="148" column="2" selection-start-line="148" selection-start-column="2" selection-end-line="148" selection-end-column="2" />
-          <folding>
-            <element signature="e#100#124#0" expanded="false" />
-            <element signature="e#6223#6224#0" expanded="false" />
-            <element signature="e#6241#6242#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1283,18 +1248,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/DatabaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2935" max-vertical-offset="4518">
-          <caret line="184" column="5" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
-          <folding>
-            <element signature="e#100#124#0" expanded="false" />
-            <element signature="e#6223#6224#0" expanded="false" />
-            <element signature="e#6241#6242#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterTableModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1855" max-vertical-offset="2520">
@@ -1311,20 +1264,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5264624" vertical-offset="1386" max-vertical-offset="2700">
-          <caret line="104" column="19" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/VoterData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="702">
-          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="702">
+          <caret line="29" column="3" selection-start-line="29" selection-start-column="3" selection-end-line="29" selection-end-column="3" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
             <element signature="e#750#751#0" expanded="true" />
           </folding>
@@ -1341,36 +1285,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/PrintControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="811" max-vertical-offset="1872">
-          <caret line="97" column="1" selection-start-line="97" selection-start-column="1" selection-end-line="97" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="829" max-vertical-offset="1890">
+          <caret line="98" column="1" selection-start-line="98" selection-start-column="1" selection-end-line="98" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1395#1502#0" expanded="true" />
-            <element signature="e#1497#1498#0" expanded="true" />
-            <element signature="e#1535#1825#0" expanded="true" />
-            <element signature="e#1820#1821#0" expanded="true" />
+            <element signature="e#1439#1546#0" expanded="true" />
+            <element signature="e#1541#1542#0" expanded="true" />
+            <element signature="e#1579#1869#0" expanded="true" />
+            <element signature="e#1864#1865#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/HistoryTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66930693" vertical-offset="1570" max-vertical-offset="3024">
+          <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/DatabaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2484" max-vertical-offset="4482">
+          <caret line="184" column="5" selection-start-line="184" selection-start-column="5" selection-end-line="184" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.036585364" vertical-offset="7758" max-vertical-offset="13824">
-          <caret line="432" column="2" selection-start-line="432" selection-start-column="2" selection-end-line="432" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.34408602" vertical-offset="5906" max-vertical-offset="13752">
+          <caret line="337" column="31" selection-start-line="337" selection-start-column="31" selection-end-line="337" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#9597#9710#0" expanded="true" />
-            <element signature="e#9705#9706#0" expanded="true" />
-            <element signature="e#9743#9905#0" expanded="true" />
-            <element signature="e#9900#9901#0" expanded="true" />
-            <element signature="e#9937#10032#0" expanded="true" />
-            <element signature="e#10027#10028#0" expanded="true" />
-            <element signature="e#10064#10188#0" expanded="true" />
-            <element signature="e#10183#10184#0" expanded="true" />
-            <element signature="e#10223#10321#0" expanded="true" />
-            <element signature="e#10316#10317#0" expanded="true" />
-            <element signature="e#18872#19483#0" expanded="true" />
-            <element signature="e#19477#19478#0" expanded="true" />
+            <element signature="e#9660#9773#0" expanded="true" />
+            <element signature="e#9768#9769#0" expanded="true" />
+            <element signature="e#9806#9968#0" expanded="true" />
+            <element signature="e#9963#9964#0" expanded="true" />
+            <element signature="e#10000#10095#0" expanded="true" />
+            <element signature="e#10090#10091#0" expanded="true" />
+            <element signature="e#10127#10251#0" expanded="true" />
+            <element signature="e#10246#10247#0" expanded="true" />
+            <element signature="e#10286#10384#0" expanded="true" />
+            <element signature="e#10379#10380#0" expanded="true" />
+            <element signature="e#18724#19335#0" expanded="true" />
+            <element signature="e#19329#19330#0" expanded="true" />
           </folding>
         </state>
       </provider>

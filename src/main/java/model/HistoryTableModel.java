@@ -110,7 +110,7 @@ public class HistoryTableModel extends AbstractTableModel {
 				return "Description";
 			} else if (colName.equals("dtElectionDate"))
 			{
-				return "Electn Date";
+				return "Election Date";
 			} else if (colName.equals("sElecTypeDesc"))
 			{
 				return "Type";

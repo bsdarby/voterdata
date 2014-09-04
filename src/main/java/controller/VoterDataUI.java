@@ -1,3 +1,4 @@
+//==============================================//
 package controller;
 
 import model.DatabaseManager;
@@ -16,7 +17,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Class in VoterData/controller.
@@ -536,27 +536,10 @@ public class VoterDataUI extends JFrame implements KeyListener {
 	}
 
 	public void getVoters() {
+		int rowCount = 0;
 		ResultSet resultSet = voterSearch(voterDB);
 		if (resultSet != null)
 		{
-			int counter = 0;
-			try
-			{
-				resultSet.beforeFirst();
-				do
-				{
-					resultSet.next();
-					counter++;
-				} while (!resultSet.last() && counter < 1000000);
-			} catch (SQLException exc)
-			{
-				counter = 0;
-				System.out.println("SQL Exception caught while counting number of records");
-				exc.printStackTrace();
-			}
-			if (counter > 1)
-				lblVoterPanel.setText(counter + " Voters");
-
 			if (null != historyPane)
 			{
 				dataPanelVoters.remove(voterPane);
@@ -574,6 +557,15 @@ public class VoterDataUI extends JFrame implements KeyListener {
 			voterPane = new JScrollPane();
 			voterPane.setPreferredSize(new Dimension(width - cpWidth, height * 4 / 6));
 			voterPane.setViewportView(vTbl);
+
+			rowCount = vTbl.getRowCount();
+			if (1 == rowCount)
+			{
+				lblVoterPanel.setText("1 Voter");
+			} else
+			{
+				lblVoterPanel.setText(rowCount + " Voters");
+			}
 
 			dataPanelVoters.add(voterPane);
 			dataPanelVoters.validate();
@@ -638,6 +630,7 @@ public class VoterDataUI extends JFrame implements KeyListener {
 			});
 		}
 	}
+
 
 	public void print() {
 
