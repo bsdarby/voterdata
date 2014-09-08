@@ -6,14 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Printing almost complete">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/failed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/images/failed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/passed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/images/passed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_31_bin.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/test.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/resources/test.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/test.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoterData.iws" />
@@ -806,7 +798,11 @@
       <created>1410180342992</created>
       <updated>1410180342992</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Printing almost complete">
+      <created>1410180770179</created>
+      <updated>1410180770179</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
