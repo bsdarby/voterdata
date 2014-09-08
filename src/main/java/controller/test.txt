@@ -1,0 +1,57 @@
+Services
+Deleted Identifications
+Notes - Click here to review an alphabetical list of all entries containing notes information.
+Goods
+
+The Note field indicates the presence of a note with a Y.
+The GS field indicates the Type (G=Good or S=Service).
+The IC field indicates the International Class number.
+The ST field indicates the status of the record: A=added, M=modified, X=examples, D=deleted.
+The TM5 field indicates identifications that are acceptable in the USPTO, the JPO, KIPO, and OHIM (European Trademark Office).
+The Effective Date (Date) field indicates the date of the status of the entry. Minor corrections to an entry, e.g., typos, are not considered changes in status.
+
+Note GS  IC  ST TM5   Date     Goods
+---------------------------------------------------------------------------
+N    S	035	A		1/2/97	Arranging and conducting business conferences
+Y    S	041	A		4/2/91	Arranging and conducting educational conferences
+N    S	038	A		4/2/91	Audio teleconferencing in a {indicate environment, e.g., apartment complex, business conference, shopping center, etc.}
+N    S	035	A		8/28/08	Conference call transcription services
+N    S	041	A		4/2/91	Educational services, namely, conducting {indicate specific mode of instructions, e.g. classes, seminars, conferences, workshops} in the field of {indicate specific field, e.g. pet care,
+N    S	041	A		6/1/06	Educational services, namely, conducting {indicate specific mode of instructions, e.g., classes, seminars, conferences, workshops} in the field of {indicate specific field, e.g., pet care,
+N    S	041	A		7/1/06	Educational services, namely, developing, arranging, and conducting educational conferences and programs and providing courses of instruction in the field of {indicate subject matter or
+N    S	041	A		7/10/08	Educational services, namely, conducting {indicate specific mode of instructions, e.g., classes, seminars, conferences, workshops, field trips} in the field of {indicate specific field, e.g.,
+Y    S	041	X		7/25/13	Educational services, namely, conducting {indicate specific mode of instructions, e.g., classes, seminars, conferences, workshops} in the field of {indicate specific field, e.g. pet care,
+N    S	041	A		5/20/10	Educational services, namely, conducting {indicate modes of instruction, e.g., classes, seminars, conferences, workshops} in the fields of {indicate specific fields, e.g. pet care, math, tax
+Y    S	041	X		7/25/13	Educational services, namely, conducting {indicate specific mode of instructions, e.g., classes, seminars, conferences, workshops} in the field of {indicate specific field, e.g., intellectual
+N    S	041	A		10/7/10	Educational services, namely, conducting {indicate specific modes of instruction, e.g., classes, seminars, conferences, workshops} in the field of {indicate specific field, e.g., intellectual
+Y    S	041	X		6/6/13	Educational services, namely, conducting classes, seminars, conferences, workshops, retreats, camps and field trips in the field of {indicate specific field, e.g., pet care, math, tax
+N    S	041	A		11/25/10	Educational services, namely, conducting {indicate specific mode of instructions, e.g., classes, seminars, conferences, workshops, field trips} in the field of {indicate subject matter or matter, e.g., music, dance, knitting, etc.} and distribution of course materials in connection therewith, and education consulting related thereto
+N    S	035	A		7/1/04	Managing and operating resort hotels and business conference centers of others
+N    S	038	A		9/1/95	Network conferencing services
+N    S	041	A		1/31/08	Operation of robotic cameras, video equipment and/or audio equipment for production of internet teleconferencing, teleconferencing or television programs
+N    S	041	A		1/31/08	Operation of robotic cameras, video equipment and/or audio equipment for production of internet teleconferencing, teleconferencing or television programs
+N    S	041	A	T	7/20/04	Organisation of conferences and symposia in the field of medical science
+Y    S	041	A		8/21/08	Organizing live exhibitions and conferences in the fields of education, culture, sports and entertainment for non-business and non-commercial purposes
+N    S	041	A		8/21/08	Organizing on-line exhibitions and conferences in the fields of education, culture, sports and entertainment for non-business and non-commercial purposes
+N    S	043	A	T	7/20/04	Providing conference rooms
+Y    S	041	M		8/25/11	Providing education in the field of {indicate specific field, e.g. computers, music, art} rendered through video conference
+Y    S	038	A		6/1/01	Providing facilities and equipment for video conferencing
+Y    S	038	A		2/14/08	Providing facilities and equipment for telepresence conferencing
+Y    S	043	A		5/30/13	Providing general purpose facilities for {indicate purpose, e.g., business conferences, trade shows, exhibitions, etc.}
+N    S	038	A		8/1/03	Providing telephone conferencing services
+Y    S	043	A	T	7/20/04	Provision of conference facilities
+Y    S	043	A	T	7/20/04	Provision of conference, exhibition and meeting facilities
+Y    S	038	A	T	7/30/09	Provision of video conferencing services
+N    S	038	A	T	11/22/07	Teleconferencing and video conferencing services
+N    S	038	A	T	11/22/07	Teleconferencing and video conferencing services
+Y    S	038	A		12/10/09	Teleconferencing and telepresence communication services offered by means of a kiosk
+Y    S	038	A	T	10/21/10	Teleconferencing services
+N    S	038	A		2/14/08	Telepresence conferencing services
+N    S	038	A	T	3/6/08	Video conferencing services
+N    S	038	A		4/2/91	Video teleconferencing
+N    S	038	A		6/1/04	Web conferencing services
+Y    S	041	D		11/8/07	Arranging of exhibitions, seminars and conferences
+Y    S	041	D		12/4/07	Arranging of seminars and conferences
+Y    S	041	D		8/25/11	Educational services, namely lectures, seminars, conferences and university courses concerning world wide hunger
+Y    S	041	D		3/15/93	Facilities for {indicate specific event, e.g., tournaments, exhibitions, conferences (Providing}
+Y    S	041	D		3/15/93	Providing facilities for {specify event, e.g., conference, tournaments, exhibitions}
