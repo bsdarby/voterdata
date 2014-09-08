@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
@@ -24,7 +24,7 @@ public class VoterTableModel extends AbstractTableModel {
 	 *
 	 * @param resultSet ...the ResultSet from the Listings table to be displayed
 	 */
-	public VoterTableModel(ResultSet resultSet) {
+	public VoterTableModel( ResultSet resultSet ) {
 		this.resultSet = resultSet;
 	}
 
@@ -40,10 +40,12 @@ public class VoterTableModel extends AbstractTableModel {
 	 * @return ...the number of rows in the ResultSet.
 	 */
 	public int getRowCount() {
-		try {
+		try
+		{
 			resultSet.last();
 			return resultSet.getRow();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return 0;
 		}
@@ -70,7 +72,8 @@ public class VoterTableModel extends AbstractTableModel {
 	}
 
 	/* getColumnName */
-	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sStreetSuffix, sUnitNum, sPrecinctID, szPartyName */
+	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sStreetSuffix, sUnitNum,
+	sPrecinctID, szPartyName */
 
 	/**
 	 * Returns the name of the column specified by the index.
@@ -82,42 +85,60 @@ public class VoterTableModel extends AbstractTableModel {
 	 * @param column ...the index of the column name to be returned.
 	 * @return column name ...the name of the column is returned.
 	 */
-	public String getColumnName(int column) {  /*...Returns column names that look better
-																									than the database names */
-		try {
+	public String getColumnName( int column ) {  /*...Returns column names that look better
+																									than the database
+																									names */
+		try
+		{
 			String colName = resultSet.getMetaData().getColumnName(column + 1);
-			if (colName.equals("lVoterUniqueID")) {
+			if (colName.equals("lVoterUniqueID"))
+			{
 				return "VoterID";
-			} else if (colName.equals("szNameLast")) {
+			} else if (colName.equals("szNameLast"))
+			{
 				return "Last Name";
-			} else if (colName.equals("szNameFirst")) {
+			} else if (colName.equals("szNameFirst"))
+			{
 				return "First Name";
-			} else if (colName.equals("szPhone")) {
+			} else if (colName.equals("szPhone"))
+			{
 				return "Phone Number";
-			} else if (colName.equals("sGender")) {
+			} else if (colName.equals("sGender"))
+			{
 				return "M/F";
-			} else if (colName.equals("szSitusAddress")) {
+			} else if (colName.equals("szSitusAddress"))
+			{
 				return "Street Address";
-			} else if (colName.equals("sHouseNum")) {
+			} else if (colName.equals("sHouseNum"))
+			{
 				return "StNo";
-			} else if (colName.equals("szStreetName")) {
+			} else if (colName.equals("szStreetName"))
+			{
 				return "Street";
-			} else if (colName.equals("sStreetSuffix")) {
+			} else if (colName.equals("sStreetSuffix"))
+			{
 				return "Sfx";
-			} else if (colName.equals("sUnitNum")) {
+			} else if (colName.equals("sUnitNum"))
+			{
 				return "#";
-			} else if (colName.equals("sSitusZip")) {
+			} else if (colName.equals("sSitusZip"))
+			{
 				return "Zip";
-			} else if (colName.equals("szSitusCity")) {
+			} else if (colName.equals("szSitusCity"))
+			{
 				return "City";
-			} else if (colName.equals("sPrecinctID")) {
+			} else if (colName.equals("sPrecinctID"))
+			{
 				return "Precinct";
-			} else if (colName.equals("szPartyName")) {
+			} else if (colName.equals("szPartyName"))
+			{
 				return "Party";
-			} else {  //...Should never get here
+			} else
+			{  //...Should never get here
 				return colName;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return "";
 		}
@@ -137,11 +158,13 @@ public class VoterTableModel extends AbstractTableModel {
 	 * @param column ...the column of the ResultSet whose value is to be returned.
 	 * @return ...the value in the ResultSet at row and column is returned.
 	 */
-	public Object getValueAt(int row, int column) {
-		try {
+	public Object getValueAt( int row, int column ) {
+		try
+		{
 			resultSet.absolute(row + 1);
 			return resultSet.getObject(column + 1);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return null;
 		}

@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import javax.swing.*;
 import java.sql.*;
@@ -42,16 +42,19 @@ public class DatabaseManager {
 	 * 				jdbc:mysql://localhost:3306/voterdata.
 	 * </pre>
 	 */
-	public DatabaseManager(String username, String password) {
-		if (username == "CANCELED" && password == "CANCELED") {
+	public DatabaseManager( String username, String password ) {
+		if (username == "CANCELED" && password == "CANCELED")
+		{
 			System.exit(0);
 		}
 
 			/*	Connect to database */
 		JFrame dbErrFrame = new JFrame();
-		try {
+		try
+		{
 			Class.forName("com.mysql.jdbc.Driver");  //...Load the MySQL JDBC driver
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e)
+		{
 			System.out.println("Failed to load JDBC/ODBC driver: " + e.getMessage());
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(dbErrFrame,
@@ -60,9 +63,11 @@ public class DatabaseManager {
 			System.exit(1);
 		}
 			/* Connect to the database */
-		try {
+		try
+		{
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/voterdata", username, password);
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			System.out.println("Failed to login to database." + e.getMessage());
 			JOptionPane.showMessageDialog(dbErrFrame,
 							"There was an error logging in to the database.\n"
@@ -71,17 +76,20 @@ public class DatabaseManager {
 			System.exit(2);
 		}
 
-		try {
+		try
+		{
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 				/*	Execute the creation and initialization of table query */
 			DatabaseMetaData aboutDB = conn.getMetaData();
-			String[] tableType = {"TABLE"};
+			String[] tableType = { "TABLE" };
 				/* test for voters table */
 			ResultSet rs = aboutDB.getTables(null, null, "voters", tableType);
-			if (inspectForTable(rs, "voters")) { 		/* Find out if the tables exist */
+			if (inspectForTable(rs, "voters"))
+			{ 		/* Find out if the tables exist */
 				System.out.println("The 'voters' table exists");
-			} else {
+			} else
+			{
 				JOptionPane.showMessageDialog(dbErrFrame,
 								"There was an error in the database.\n"
 												+ "Please contact your administrator.\n"
@@ -90,9 +98,11 @@ public class DatabaseManager {
 			}
 				/* test for history table */
 			ResultSet rs2 = aboutDB.getTables(null, null, "history", tableType);
-			if (inspectForTable(rs2, "history")) {
+			if (inspectForTable(rs2, "history"))
+			{
 				System.out.println("The 'history' table exists");
-			} else {
+			} else
+			{
 				JOptionPane.showMessageDialog(dbErrFrame,
 								"There was an error in the database.\n"
 												+ "Please contact your administrator.\n"
@@ -100,7 +110,8 @@ public class DatabaseManager {
 				System.exit(3);
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			System.out.println("There was a problem with the database tables: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -120,17 +131,21 @@ public class DatabaseManager {
 	 * @return boolean
 	 * @throws SQLException
 	 */
-	private boolean inspectForTable(ResultSet rs, String tableName) throws SQLException {
+	private boolean inspectForTable( ResultSet rs, String tableName ) throws SQLException {
 		int i;
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int numCols = rsmd.getColumnCount();
 
 		boolean more = rs.next();
-		while (more) {
-			for (i = 1; i <= numCols; i++) {
+		while (more)
+		{
+			for (i = 1; i <= numCols; i++)
+			{
 				//noinspection StringEquality
-				if (rsmd.getColumnLabel(i) == "TABLE_NAME") {
-					if (rs.getString(i).equals(tableName)) {
+				if (rsmd.getColumnLabel(i) == "TABLE_NAME")
+				{
+					if (rs.getString(i).equals(tableName))
+					{
 						return true;
 					}
 				}
@@ -153,12 +168,14 @@ public class DatabaseManager {
 	 *
 	 * @param query - a simple select query against a table
 	 */
-	public void dbQuery(String query) {
-		try {
+	public void dbQuery( String query ) {
+		try
+		{
 			conn.setAutoCommit(true);
 			preps = conn.prepareStatement(query);
 			rset = preps.executeQuery();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -175,12 +192,14 @@ public class DatabaseManager {
 	 *
 	 * @param query - a simple select query against a table
 	 */
-	public void dbQueryH(String query) {
-		try {
+	public void dbQueryH( String query ) {
+		try
+		{
 			conn.setAutoCommit(true);
 			prepsH = conn.prepareStatement(query);
 			rsetH = prepsH.executeQuery();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -229,18 +248,23 @@ public class DatabaseManager {
 	 * </pre>
 	 */
 	public void close() {  //.. Close all open connections
-		try {
+		try
+		{
 //			if ( ! preps.isClosed() ) { preps.close(); }
-			if (!stmt.isClosed()) {
+			if (!stmt.isClosed())
+			{
 				stmt.close();
 			}
-			if (!conn.isClosed()) {
+			if (!conn.isClosed())
+			{
 				conn.close();
 			}
-		} catch (SQLException sqle) {
+		} catch (SQLException sqle)
+		{
 			System.out.println("\n*** SQLException caught ***\n");
 			sqle.printStackTrace();
-		} catch (NullPointerException npe) {
+		} catch (NullPointerException npe)
+		{
 			npe.printStackTrace();
 			System.out.println("A NullPointerException was caught in (close).");
 		}

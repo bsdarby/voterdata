@@ -1,8 +1,8 @@
-package view;
+package main.java.view;
 
-import controller.VoterDataUI;
-import model.DatabaseManager;
-import model.VoterTableModel;
+import main.java.controller.VoterDataUI;
+import main.java.model.DatabaseManager;
+import main.java.model.VoterTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 
 /**
  * Created by bsdarby on 8/27/14.
- *
  */
 public class DataPanel extends JFrame {
 
@@ -39,28 +38,28 @@ public class DataPanel extends JFrame {
 		setLayout(new BorderLayout());
 
 			/* Layouts */
-		FlowLayout 					fl	=	new FlowLayout(FlowLayout.RIGHT);
+		FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);
 
 			/* Panels */
-		JPanel	southPanel	= new JPanel();
+		JPanel southPanel = new JPanel();
 
 			/* Menus */
 		JMenuBar menuBar = new JMenuBar();
 
 		JMenu mFile, mFind, mHelp;
-		menuBar.add (mFile	=	new JMenu("File"));
-		menuBar.add (mFind	= new JMenu("Search"));
-		menuBar.add (mHelp	=	new	JMenu("Help"));
+		menuBar.add(mFile = new JMenu("File"));
+		menuBar.add(mFind = new JMenu("Search"));
+		menuBar.add(mHelp = new JMenu("Help"));
 
 		JMenuItem miPrint, miHistory, miClose, miTopics;
-		mFile.add (miPrint	=	new JMenuItem("Print"));
+		mFile.add(miPrint = new JMenuItem("Print"));
 		mFile.add(miClose = new JMenuItem("Close"));
-		mFind.add	(miHistory=	new JMenuItem("Search History"));
-		mHelp.add (miTopics	=	new JMenuItem("Topics"));
+		mFind.add(miHistory = new JMenuItem("Search History"));
+		mHelp.add(miTopics = new JMenuItem("Topics"));
 
 			/* Buttons */
-		JButton historyBtn	=	new JButton("History");	/* Search History */
-		JButton printBtn		= new JButton("Print");		/* Print */
+		JButton historyBtn = new JButton("History");	/* Search History */
+		JButton printBtn = new JButton("Print");		/* Print */
 		JButton helpBtn = new JButton("Help");		/* Help */
 		JButton closeBtn = new JButton("Close");		/* Exit */
 		getRootPane().setDefaultButton(historyBtn);  /* When <Enter> pressed, the [Find] button is pressed*/
@@ -77,19 +76,19 @@ public class DataPanel extends JFrame {
 		southPanel.add(helpBtn);
 		southPanel.add(closeBtn);
 
-		contentPane.add( southPanel,	BorderLayout.PAGE_END);
+		contentPane.add(southPanel, BorderLayout.PAGE_END);
 
 
 			/* ActionListeners for Menu Items */
 		miClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 				dispose();
 			}
 		});
 
 			/*ActionListeners for Buttons */
 		closeBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
+			public void actionPerformed( ActionEvent evt ) {
 				dispose();
 			}
 		});
@@ -97,9 +96,10 @@ public class DataPanel extends JFrame {
 	}
 
 
-	public void displayVoters(ResultSet resultSet, VoterDataUI vdUI) {
+	public void displayVoters( ResultSet resultSet, VoterDataUI vdUI ) {
 
-		if (null != voterPane) {
+		if (null != voterPane)
+		{
 			getContentPane().remove(voterPane);
 			voterPane.setViewportView(null);
 			voterPane = null;
@@ -121,7 +121,7 @@ public class DataPanel extends JFrame {
 
 	}
 
-	private void historySearch(ResultSet resultSet) {
+	private void historySearch( ResultSet resultSet ) {
 		voterTblModel = new VoterTableModel(resultSet);
 		voterTable = new JTable(voterTblModel);
 		voterTable.setRowSorter(new TableRowSorter(voterTblModel));
@@ -132,6 +132,5 @@ public class DataPanel extends JFrame {
 		getContentPane().add(voterPane, BorderLayout.CENTER);
 		validate();
 	}
-
 
 }

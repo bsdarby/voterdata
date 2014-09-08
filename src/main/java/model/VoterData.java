@@ -1,7 +1,7 @@
-package model;
+package main.java.model;
 
-import controller.VoterDataUI;
-import view.PasswordDialog;
+import main.java.controller.VoterDataUI;
+import main.java.view.PasswordDialog;
 
 import javax.swing.*;
 

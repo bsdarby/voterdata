@@ -1,9 +1,9 @@
 //==============================================//
-package controller;
+package main.java.controller;
 
-import model.DatabaseManager;
-import model.HistoryTableModel;
-import model.VoterTableModel;
+import main.java.model.DatabaseManager;
+import main.java.model.HistoryTableModel;
+import main.java.model.VoterTableModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -39,6 +39,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
 	int hpHeight = height - vpHeight;
+	ResultSet resultSetW;
 	Integer voterID = 0;
 	int voterIDTrigger = 0;
 	private PageFormat pageFormat;
@@ -355,7 +356,17 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent evt ) {
-				PrintControl printControl = new PrintControl(graphics, pageFormat, pages);
+				PrintWalkList printWalkList;
+				printWalkList = new PrintWalkList(resultSetW);
+
+/*				try {
+					boolean	complete = vTbl.print();
+				} catch (PrinterException e) {
+					System.out.println("A Printer Exception was caught at the Action Listener for btnPrint.");
+					e.printStackTrace();
+				}
+*/
+//				PrintControl printControl = new PrintControl();
 			}
 		});
 
@@ -676,6 +687,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		{
 			return null;
 		}
+		resultSetW = resultSet;
 		return resultSet;
 	}
 
@@ -718,7 +730,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 			try
 			{
-				voterID = (int) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
+				voterID = (Integer) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
 			} catch (IndexOutOfBoundsException exc)
 			{
 				JOptionPane.showMessageDialog(vdPane,
@@ -824,7 +836,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		System.out.println("Sorter changed, current row selected = " + vTbl.getSelectedRow());
 		if (vTbl.getSelectedRow() < 0) {
 			vTbl.setRowSelectionInterval(0, 0);
-			historySearch((int) vTbl.getValueAt(0, 0), voterDB);
+			historySearch((Integer) vTbl.getValueAt(0, 0), voterDB);
 		}
 	}
 

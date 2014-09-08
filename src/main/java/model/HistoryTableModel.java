@@ -1,4 +1,4 @@
-package model;
+package main.java.model;
 
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
@@ -161,6 +161,7 @@ public class HistoryTableModel extends AbstractTableModel {
 			return resultSetH.getObject(column + 1);
 		} catch (SQLException e)
 		{
+			System.out.println("SQL  Exception caught in HistoryTableModel/getValueAt.");
 			e.printStackTrace();
 			return null;
 		}
