@@ -33,10 +33,7 @@ package main.java.controller;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,6 +64,8 @@ public class PrintWalkList extends JFrame {
 	protected JCheckBox footerBox;
 	protected JTextField headerField;
 	protected JTextField footerField;
+	protected static int rsetColumns;
+	protected static TableColumn column;
 
 	/**
 	 * Constructs an instance of the print utility.
@@ -74,6 +73,17 @@ public class PrintWalkList extends JFrame {
 	public PrintWalkList( ResultSet resultSet ) {
 		super("Print Walk List");
 		this.resultSet = resultSet;
+		setPreferredSize(new Dimension(VoterDataUI.width - 50, VoterDataUI.height - 100));
+		setLocationRelativeTo(null);
+		try
+		{
+			rsetColumns = resultSet.getMetaData().getColumnCount();
+
+		} catch (SQLException e)
+		{
+			System.out.println("SQL Exception caught at WalkModel constructor.");
+			e.printStackTrace();
+		}
 
 		lblWalkList = new JLabel("Walking List");
 		lblWalkList.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -83,6 +93,50 @@ public class PrintWalkList extends JFrame {
 //		mdlWalking.addBlankColumn("Data");
 		tblWalking.setFillsViewportHeight(true);
 		tblWalking.setRowHeight(24);
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(8));
+		tblWalking.getColumnModel().getColumn(8).setPreferredWidth(15);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(8));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(115);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(25);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(35);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(45);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(1));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(55);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(1));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(65);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
+
+		tblWalking.addColumn(new TableColumn(12));
+		tblWalking.getColumnModel().getColumn(0).setPreferredWidth(75);
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(85);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(95);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
+
+		tblWalking.validate();
 
         /* Set a custom renderer on the "Passed" column */
 //		tblWalking.getColumn("Passed").setCellRenderer(createPassedColumnRenderer());
@@ -392,17 +446,8 @@ public class PrintWalkList extends JFrame {
 	 * A table model containing walking data.
 	 */
 	private static class WalkModel extends AbstractTableModel {
-		int rsetColumns = 0;
 
 		private WalkModel( ResultSet resultSet ) {
-			try
-			{
-				rsetColumns = resultSet.getMetaData().getColumnCount();
-			} catch (SQLException e)
-			{
-				System.out.println("SQL Exception caught at WalkModel constructor.");
-				e.printStackTrace();
-			}
 			System.out.println("Columns in model    = " + this.getColumnCount());
 			System.out.println("Columns in resultSet = " + rsetColumns);
 

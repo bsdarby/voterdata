@@ -33,8 +33,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 	private static final Double WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private static final Double HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	int width = WIDTH.intValue() - 5;
-	int height = HEIGHT.intValue() - 5;
+	public static int width = WIDTH.intValue() - 5;
+	public static int height = HEIGHT.intValue() - 5;
 	int cpWidth = 200;
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
