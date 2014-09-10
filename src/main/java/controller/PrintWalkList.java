@@ -658,8 +658,8 @@ public class PrintWalkList extends JFrame {
 		public Object getValueAt( int row, int column ) {
 
 			Object addressObj = null;
-			String thisAddress = "";
-			String prevAddress = "";
+			String thisAddress;
+			String prevAddress;
 			try
 			{
 				resultSet.absolute(row + 1);
@@ -677,20 +677,38 @@ public class PrintWalkList extends JFrame {
 				case 2:
 				case 3:
 				case 4:
+					try
+					{
+						return resultSet.getObject(column + 1);
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
 				case 5:
 					try
 					{
-						addressObj = resultSet.getObject(column + 1);
-						thisAddress = (String) (addressObj);
-						if (prevAddress.equals(thisAddress))
+						if (row > 0)
 						{
-							System.out.println(thisAddress + " = previousAddress");
-							return null;
+							thisAddress = resultSet.getString(column + 1);
+							resultSet.absolute(row);
+							prevAddress = resultSet.getString(column + 1);
+							resultSet.absolute(row + 1);
+							if (prevAddress.equals(thisAddress))
+							{
+//								System.out.println(thisAddress + " = previousAddress");
+								return null;
+							} else
+							{
+//								System.out.println(thisAddress + " = new address");
+								prevAddress = thisAddress;
+								return thisAddress;
+							}
 						} else
 						{
-							System.out.println(thisAddress + " = new address");
-							prevAddress = thisAddress;
-							return thisAddress;
+							return resultSet.getObject(column + 1);
 						}
 					} catch (SQLException e)
 					{

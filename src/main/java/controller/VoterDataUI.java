@@ -19,6 +19,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.print.PageFormat;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -614,33 +615,6 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				whereClause += (" voters.szStreetName LIKE '" + street + "'");
 			}
 
-			orderBy = " ORDER BY " +
-							"CAST(sPrecinctID as unsigned), szStreetName, " +
-							"sStreetSuffix, CAST(sHouseNum as unsigned), " +
-							"CAST(sUnitNum as unsigned), szNameLast, " +
-							"szNameFirst, voters.lVoterUniqueID ";
-
-			groupBy = " GROUP BY " +
-							"CAST(sPrecinctID as unsigned), szStreetName, " +
-							"sStreetSuffix, CAST(sHouseNum as unsigned), " +
-							"CAST(sUnitNum as unsigned), szNameLast, " +
-							"szNameFirst, voters.lVoterUniqueID ";
-
-			selectStd = "SELECT " +
-							"lVoterUniqueID, " +
-							"szNameLast, " +
-							"szNameFirst, " +
-							"sGender, " +
-							"szPhone, " +
-							"szSitusAddress, " +
-							"szSitusCity, " +
-							"sSitusZip, " +
-							"sPrecinctID, " +
-							"szPartyName, " +
-							"dtBirthDate, " +
-							"dtOrigRegDate " +
-							"FROM voters ";
-
 			selectNumVotes = " SELECT " +
 							"voters.lVoterUniqueID, " +
 							"voters.szNameLast, " +
@@ -659,6 +633,12 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 							"FROM voters " +
 							"JOIN history ON history.lVoterUniqueID = voters.lVoterUniqueID ";
 
+			groupBy = " GROUP BY " +
+							"CAST(sPrecinctID as unsigned), szStreetName, " +
+							"sStreetSuffix, CAST(sHouseNum as unsigned), " +
+							"CAST(sUnitNum as unsigned), szNameLast, " +
+							"szNameFirst, voters.lVoterUniqueID ";
+
 			having = " HAVING " +
 							"votes >= " + numvotes;
 
@@ -671,19 +651,11 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			HAVING votes >= 3
 */
 
-			if (boolNumVotes) {
-				query = selectNumVotes + whereClause + groupBy + having;
-//				System.out.println("selectNumVotes: " + selectNumVotes);
-//				System.out.println("whereClause:" + whereClause);
-//				System.out.println("groupBy:" + groupBy);
-//				System.out.println("having: " + having);
-			} else {
-				query = selectNumVotes + whereClause + groupBy + having;
-//				query = selectStd + whereClause + orderBy;
-//				System.out.println("selectStd: " + selectStd);
-//				System.out.println("whereClause:" + whereClause);
-//				System.out.println("orderBy:" + orderBy);
-			}
+			query = selectNumVotes + whereClause + groupBy + having;
+//			System.out.println("selectNumVotes: " + selectNumVotes);
+//			System.out.println("whereClause:" + whereClause);
+//			System.out.println("groupBy:" + groupBy);
+//			System.out.println("having: " + having);
 //			System.out.println("QUERY: " + query);
 			resultSet = doQuery(query, voterDB);
 		} else
@@ -691,13 +663,23 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			return null;
 		}
 		resultSetW = resultSet;
-		return resultSet;
+		try
+		{
+			if (resultSet.absolute(1))
+			{
+				return resultSet;
+			}
+		} catch (SQLException e)
+		{
+			DatabaseManager.printSQLException(e);
+		}
+		return null;
 	}
 
 	public void getVoters() {
 		int rowCount = 0;
 		ResultSet resultSet = voterSearch(voterDB);
-		if (resultSet != null)
+		if (null != resultSet)
 		{
 			if (null != historyPane)
 			{
