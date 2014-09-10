@@ -89,13 +89,15 @@ public class PrintWalkList extends JFrame {
 		}
 
 		lblWalkList = new JLabel("Walking List");
-		lblWalkList.setFont(new Font("Dialog", Font.BOLD, 16));
+		lblWalkList.setFont(new Font("Times New Roman Bold", Font.PLAIN, 14));
 
 		WalkModel mdlWalking = new WalkModel(resultSet);
 		tblWalking = createTable(mdlWalking);
 //		mdlWalking.addBlankColumn("Data");
 		tblWalking.setFillsViewportHeight(true);
 		tblWalking.setRowHeight(24);
+		tblWalking.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		tblWalking.setBorder(null);
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(8));
 		tblWalking.getColumnModel().getColumn(8).setPreferredWidth(15);
@@ -174,11 +176,11 @@ public class PrintWalkList extends JFrame {
 		});
 		headerBox.setToolTipText(tooltipText);
 		tooltipText = "Page Header (Use {0} to include page number)";
-		headerField = new JTextField("Walking List		page {0}");
+		headerField = new JTextField("Precinct ____ List		page {0}");
 		headerField.setToolTipText(tooltipText);
 
 		tooltipText = "Include a page footer";
-		footerBox = new JCheckBox("Footer:", true);
+		footerBox = new JCheckBox("Footer:", false);
 		footerBox.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent ae ) {
 				footerField.setEnabled(footerBox.isSelected());
@@ -234,7 +236,7 @@ public class PrintWalkList extends JFrame {
 
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent ae ) {
-				printGradesTable();
+				printTable();
 			}
 		});
 
@@ -378,7 +380,7 @@ public class PrintWalkList extends JFrame {
 	/**
 	 * Print the grades table.
 	 */
-	private void printGradesTable() {
+	private void printTable() {
 				/* Fetch printing properties from the GUI components */
 
 		MessageFormat header = null;

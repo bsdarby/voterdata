@@ -5,9 +5,8 @@
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment=" Printing 3">
+    <list default="true" id="4dc12b42-7b8e-4e07-863b-86a7a58bd022" name="Default" comment="Printing with blanks for repeat address - complete.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/PrintWalkList.java" afterPath="$PROJECT_DIR$/src/main/java/controller/PrintWalkList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" afterPath="$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="VoterData.iws" />
@@ -60,10 +59,14 @@
       <file leaf-file-name="PrintWalkList.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/PrintWalkList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.96518373" vertical-offset="11188" max-vertical-offset="13572">
-              <caret line="715" column="0" selection-start-line="715" selection-start-column="0" selection-end-line="715" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.2033195" vertical-offset="1257" max-vertical-offset="13770">
+              <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
               <folding>
-                <element signature="e#0#25301#0" expanded="true" />
+                <element signature="e#0#25416#0" expanded="true" />
+                <element signature="e#6920#7054#0" expanded="true" />
+                <element signature="e#7049#7050#0" expanded="true" />
+                <element signature="e#9207#9307#0" expanded="true" />
+                <element signature="e#9302#9303#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,8 +104,8 @@
       <file leaf-file-name="VoterDataUI.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="11022" max-vertical-offset="16578">
-              <caret line="692" column="0" selection-start-line="692" selection-start-column="0" selection-end-line="692" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="11076" max-vertical-offset="16632">
+              <caret line="695" column="0" selection-start-line="695" selection-start-column="0" selection-end-line="695" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -802,7 +805,11 @@
       <created>1410380979840</created>
       <updated>1410380979840</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Printing with blanks for repeat address - complete.">
+      <created>1410388016595</created>
+      <updated>1410388016595</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -827,7 +834,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20152883" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2817029" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2817029" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -851,7 +858,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Search window works" />
     <MESSAGE value="Search inputs and SQL statements validated" />
     <MESSAGE value="Search works and first version of display" />
     <MESSAGE value="Second display version with gender and szSitusAddress" />
@@ -876,7 +882,8 @@
     <MESSAGE value="Printing almost complete" />
     <MESSAGE value=" Printing 2" />
     <MESSAGE value=" Printing 3" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Printing 3" />
+    <MESSAGE value="Printing with blanks for repeat address - complete." />
+    <option name="LAST_COMMIT_MESSAGE" value="Printing with blanks for repeat address - complete." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -901,7 +908,11 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="9378">
           <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
-            <element signature="e#0#25301#0" expanded="true" />
+            <element signature="e#0#25416#0" expanded="true" />
+            <element signature="e#6920#7054#0" expanded="true" />
+            <element signature="e#7049#7050#0" expanded="true" />
+            <element signature="e#9207#9307#0" expanded="true" />
+            <element signature="e#9302#9303#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1239,8 +1250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/VoterDataUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="11022" max-vertical-offset="16578">
-          <caret line="692" column="0" selection-start-line="692" selection-start-column="0" selection-end-line="692" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="11076" max-vertical-offset="16632">
+          <caret line="695" column="0" selection-start-line="695" selection-start-column="0" selection-end-line="695" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1264,10 +1275,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/PrintWalkList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96518373" vertical-offset="11188" max-vertical-offset="13572">
-          <caret line="715" column="0" selection-start-line="715" selection-start-column="0" selection-end-line="715" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.2033195" vertical-offset="1257" max-vertical-offset="13770">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
           <folding>
-            <element signature="e#0#25301#0" expanded="true" />
+            <element signature="e#0#25416#0" expanded="true" />
+            <element signature="e#6920#7054#0" expanded="true" />
+            <element signature="e#7049#7050#0" expanded="true" />
+            <element signature="e#9207#9307#0" expanded="true" />
+            <element signature="e#9302#9303#0" expanded="true" />
           </folding>
         </state>
       </provider>
