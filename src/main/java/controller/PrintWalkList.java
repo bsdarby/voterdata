@@ -31,6 +31,8 @@
 
 package main.java.controller;
 
+import main.java.model.DatabaseManager;
+
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
@@ -41,6 +43,7 @@ import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.MessageFormat;
+import java.util.Date;
 
 /**
  * Originally PrintTableDemo - author Shannon Hickey
@@ -122,9 +125,25 @@ public class PrintWalkList extends JFrame {
 		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(65);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
 
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(3));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(3));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(3));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(3));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+/*
 		tblWalking.addColumn(new TableColumn(12));
 		tblWalking.getColumnModel().getColumn(0).setPreferredWidth(75);
-
+/*
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
 		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(85);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
@@ -132,8 +151,9 @@ public class PrintWalkList extends JFrame {
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
 		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(95);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
-
+*/
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
 
 		tblWalking.validate();
@@ -187,7 +207,7 @@ public class PrintWalkList extends JFrame {
 		});
 
 
-		tooltipText = "Keep the GUI Responsive and Show a Status Dialog During Printing";
+		tooltipText = "Show a Status Dialog During Printing";
 		interactiveBox = new JCheckBox("Interactive (Show status dialog)", true);
 		interactiveBox.setToolTipText(tooltipText);
 		interactiveBox.addActionListener(new ActionListener() {
@@ -448,8 +468,8 @@ public class PrintWalkList extends JFrame {
 	private static class WalkModel extends AbstractTableModel {
 
 		private WalkModel( ResultSet resultSet ) {
-			System.out.println("Columns in model    = " + this.getColumnCount());
-			System.out.println("Columns in resultSet = " + rsetColumns);
+//			System.out.println("Columns in model    = " + this.getColumnCount());
+//			System.out.println("Columns in resultSet = " + rsetColumns);
 
 		}
 
@@ -598,6 +618,12 @@ public class PrintWalkList extends JFrame {
 					} else if (colName.equals("szPartyName"))
 					{
 						return "Party";
+					} else if (colName.equals("dtBirthDate"))
+					{
+						return "Age";
+					} else if (colName.equals("dtOrigRegDate"))
+					{
+						return "Reg'd";
 					} else if (colName.equals(""))
 					{
 						return "Data";
@@ -630,24 +656,49 @@ public class PrintWalkList extends JFrame {
 		 * @return ...the value in the ResultSet at row and column is returned.
 		 */
 		public Object getValueAt( int row, int column ) {
+
+			Object addressObj = null;
+			String thisAddress = "";
+			String prevAddress = "";
 			try
 			{
 				resultSet.absolute(row + 1);
 			} catch (SQLException e)
 			{
-				System.out.println("SQL Exception caught at PrintWalkList/getValueAt.");
-				e.printStackTrace();
+				DatabaseManager.printSQLException(e);
 				return null;
 			}
 
 			switch (column)
 			{
 				case 0:
+					return null;
 				case 1:
 				case 2:
 				case 3:
 				case 4:
 				case 5:
+					try
+					{
+						addressObj = resultSet.getObject(column + 1);
+						thisAddress = (String) (addressObj);
+						if (prevAddress.equals(thisAddress))
+						{
+							System.out.println(thisAddress + " = previousAddress");
+							return null;
+						} else
+						{
+							System.out.println(thisAddress + " = new address");
+							prevAddress = thisAddress;
+							return thisAddress;
+						}
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
 				case 6:
 				case 7:
 				case 8:
@@ -659,11 +710,24 @@ public class PrintWalkList extends JFrame {
 					{
 						System.out.println("SQL Exception caught at " +
 										"PrintWalkList/getValueAt/switch.");
-						e.printStackTrace();
+						DatabaseManager.printSQLException(e);
 						return null;
 					}
 				case 10:
 				case 11:
+					try
+					{
+						if (null != resultSet.getObject(column + 1))
+						{
+							return DatabaseManager.years((Date) (resultSet.getObject(column + 1)));
+						}
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
 				case 12:
 				case 13:
 				case 14:

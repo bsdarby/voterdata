@@ -2,6 +2,7 @@ package main.java.model;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.Date;
 
 /**
  * Created by bsdarby on 8/26/14.
@@ -69,6 +70,7 @@ public class DatabaseManager {
 		} catch (SQLException e)
 		{
 			System.out.println("Failed to login to database." + e.getMessage());
+			printSQLException(e);
 			JOptionPane.showMessageDialog(dbErrFrame,
 							"There was an error logging in to the database.\n"
 											+ "Please make sure that the database has been created,\n"
@@ -78,7 +80,7 @@ public class DatabaseManager {
 
 		try
 		{
-			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
 				/*	Execute the creation and initialization of table query */
 			DatabaseMetaData aboutDB = conn.getMetaData();
@@ -87,7 +89,7 @@ public class DatabaseManager {
 			ResultSet rs = aboutDB.getTables(null, null, "voters", tableType);
 			if (inspectForTable(rs, "voters"))
 			{ 		/* Find out if the tables exist */
-				System.out.println("The 'voters' table exists");
+//				System.out.println("The 'voters' table exists");
 			} else
 			{
 				JOptionPane.showMessageDialog(dbErrFrame,
@@ -100,7 +102,7 @@ public class DatabaseManager {
 			ResultSet rs2 = aboutDB.getTables(null, null, "history", tableType);
 			if (inspectForTable(rs2, "history"))
 			{
-				System.out.println("The 'history' table exists");
+//				System.out.println("The 'history' table exists");
 			} else
 			{
 				JOptionPane.showMessageDialog(dbErrFrame,
@@ -112,8 +114,8 @@ public class DatabaseManager {
 
 		} catch (SQLException e)
 		{
+			printSQLException(e);
 			System.out.println("There was a problem with the database tables: " + e.getMessage());
-			e.printStackTrace();
 		}
 	}
 
@@ -176,7 +178,7 @@ public class DatabaseManager {
 			rset = preps.executeQuery();
 		} catch (SQLException e)
 		{
-			e.printStackTrace();
+			printSQLException(e);
 		}
 	}
 
@@ -200,7 +202,7 @@ public class DatabaseManager {
 			rsetH = prepsH.executeQuery();
 		} catch (SQLException e)
 		{
-			e.printStackTrace();
+			printSQLException(e);
 		}
 	}
 
@@ -259,14 +261,83 @@ public class DatabaseManager {
 			{
 				conn.close();
 			}
-		} catch (SQLException sqle)
+		} catch (SQLException e)
 		{
-			System.out.println("\n*** SQLException caught ***\n");
-			sqle.printStackTrace();
+			System.out.println("\n*** SQLException caught in close() ***\n");
+			printSQLException(e);
+			e.printStackTrace();
 		} catch (NullPointerException npe)
 		{
 			npe.printStackTrace();
 			System.out.println("A NullPointerException was caught in (close).");
 		}
+	}
+
+
+	// http://docs.oracle.com/javase/tutorial/jdbc/basics/sqlexception.html
+	public static void printSQLException( SQLException ex ) {
+
+		for (Throwable e : ex)
+		{
+			if (e instanceof SQLException)
+			{
+				if (ignoreSQLException(
+								((SQLException) e).
+												getSQLState()) == false)
+				{
+					System.err.println("\n****  SQL Exception caught  ****");
+					System.err.println("SQLState: " +
+									((SQLException) e).getSQLState());
+
+					System.err.println("Error Code: " +
+									((SQLException) e).getErrorCode());
+
+					System.err.println("Message: " + e.getMessage());
+
+					Throwable t = ex.getCause();
+					while (t != null)
+					{
+						System.out.println("Cause: " + t);
+						t = t.getCause();
+					}
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	public static boolean ignoreSQLException( String sqlState ) {
+
+		if (sqlState == null)
+		{
+			System.out.println("The SQL state is not defined!");
+			return false;
+		}
+
+		// X0Y32: Jar file already exists in schema
+		if (sqlState.equalsIgnoreCase("X0Y32"))
+		{
+			return true;
+		}
+
+		// 42Y55: Table already exists in schema
+		if (sqlState.equalsIgnoreCase("42Y55"))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public static String years( Date birthDate ) {
+		Date today = new Date();
+		Long diff = (today.getTime() - birthDate.getTime()) / 31536000000L;
+		if (diff < 0)
+		{
+			diff += 100;
+		}
+//		System.out.println("AGE = Now: "+ today.getTime() +" - Then: "+ birthDate.getTime() +" = "+ (today.getTime() -
+// birthDate.getTime()) / (31536000000L) +", diff = "+ diff);
+		return diff.toString() + " yrs";
 	}
 }

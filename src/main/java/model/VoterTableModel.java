@@ -3,6 +3,7 @@ package main.java.model;
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 /* class VoterTableModel */
@@ -68,7 +69,7 @@ public class VoterTableModel extends AbstractTableModel {
 	 * Full Address, City, Precinct, and Party.
 	 */
 	public int getColumnCount() {
-		return 10;
+		return 12;
 	}
 
 	/* getColumnName */
@@ -133,6 +134,12 @@ public class VoterTableModel extends AbstractTableModel {
 			} else if (colName.equals("szPartyName"))
 			{
 				return "Party";
+			} else if (colName.equals("dtBirthDate"))
+			{
+				return "Age";
+			} else if (colName.equals("dtOrigRegDate"))
+			{
+				return "Reg'd";
 			} else
 			{  //...Should never get here
 				return colName;
@@ -158,15 +165,88 @@ public class VoterTableModel extends AbstractTableModel {
 	 * @param column ...the column of the ResultSet whose value is to be returned.
 	 * @return ...the value in the ResultSet at row and column is returned.
 	 */
-	public Object getValueAt( int row, int column ) {
+/*	public Object getValueAt( int row, int column ) {
 		try
 		{
 			resultSet.absolute(row + 1);
 			return resultSet.getObject(column + 1);
 		} catch (SQLException e)
 		{
-			e.printStackTrace();
+			DatabaseManager.printSQLException(e);
+//			e.printStackTrace();
 			return null;
 		}
 	}
+	*/
+
+	/**
+	 * Returns the value in the ResultSet at the location specified by row and column.
+	 * <pre>
+	 * PRE:		row and column are assigned and 0 >= column <= 2 and row is within range.
+	 * POST:	The value in the ResultSet at row and column is returned, or the combined
+	 * 			phone number is returned if column = 2.
+	 * </pre>
+	 *
+	 * @param row    ...the row of the ResultSet whose value is to be returned.
+	 * @param column ...the column of the ResultSet whose value is to be returned.
+	 * @return ...the value in the ResultSet at row and column is returned.
+	 */
+	public Object getValueAt( int row, int column ) {
+		try
+		{
+			resultSet.absolute(row + 1);
+		} catch (SQLException e)
+		{
+			DatabaseManager.printSQLException(e);
+			return null;
+		}
+
+		switch (column)
+		{
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+				try
+				{
+					return resultSet.getObject(column + 1);
+				} catch (SQLException e)
+				{
+					System.out.println("SQL Exception caught at " +
+									"VoterTableModel/getValueAt/switch.");
+					DatabaseManager.printSQLException(e);
+					return null;
+				}
+			case 10:
+			case 11:
+				try
+				{
+					if (null != resultSet.getObject(column + 1))
+					{
+						return DatabaseManager.years((Date) (resultSet.getObject(column + 1)));
+					}
+				} catch (SQLException e)
+				{
+					System.out.println("SQL Exception caught at " +
+									"VoterTableModel/getValueAt/switch.");
+					DatabaseManager.printSQLException(e);
+					return null;
+				}
+			case 12:
+			case 13:
+			case 14:
+			case 15:
+
+		}
+		System.out.println("Error: Column = " + column + 1);
+		throw new AssertionError("invalid column");
+	}
 }
+
+

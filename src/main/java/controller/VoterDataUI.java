@@ -259,6 +259,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		tfStreet.addKeyListener(this);
 		tfNumVotes.setFont(sansField);
 		tfNumVotes.setForeground(Color.magenta);
+		tfNumVotes.setText("0");
 		tfNumVotes.addKeyListener(this);
 //		tfAge.setFont(sansField);
 		tfAge.setForeground(Color.magenta);
@@ -403,7 +404,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				tfStreetNo.setText("");
 				tfCity.setText("");
 				tfParty.setText("");
-				tfNumVotes.setText("");
+				tfNumVotes.setText("0");
 //				tfAge.setText("");
 //				tfRegAgo.setText("");
 				tfPrecinct.requestFocus();
@@ -429,7 +430,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 						"szCountedFlag DESC, " +
 						"dtElectionDate DESC ";
 		String queryH = selectH + whereClauseH + orderByH;
-		System.out.println("queryH = " + queryH);
+//		System.out.println("queryH = " + queryH);
 		resultSetH = doQueryH(queryH, voterDB);
 //		return resultSetH;
 
@@ -513,9 +514,6 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 		String temp;
 /*		temp	=	SafeChar.num2(tfAge.getText());
-		age	=	Integer.parseInt(temp);
-		Calendar birthRef	=	Calendar.getInstance();
-		birthRef.add(Calendar.MONTH, -(12 * age));
 
 		temp = SafeChar.num2(tfRegAgo.getText());
 		regago = Integer.parseInt(temp);
@@ -638,7 +636,9 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 							"szSitusCity, " +
 							"sSitusZip, " +
 							"sPrecinctID, " +
-							"szPartyName " +
+							"szPartyName, " +
+							"dtBirthDate, " +
+							"dtOrigRegDate " +
 							"FROM voters ";
 
 			selectNumVotes = " SELECT " +
@@ -652,6 +652,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 							"voters.sSitusZip, " +
 							"voters.sPrecinctID, " +
 							"voters.szPartyName, " +
+							"dtBirthDate, " +
+							"dtOrigRegDate, " +
 							"count(IF(history.szCountedFlag = 'YES', 1, NULL)) " +
 							"as votes " +
 							"FROM voters " +
@@ -671,17 +673,18 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 			if (boolNumVotes) {
 				query = selectNumVotes + whereClause + groupBy + having;
-				System.out.println("selectNumVotes: " + selectNumVotes);
-				System.out.println("whereClause:" + whereClause);
-				System.out.println("groupBy:" + groupBy);
-				System.out.println("having: " + having);
+//				System.out.println("selectNumVotes: " + selectNumVotes);
+//				System.out.println("whereClause:" + whereClause);
+//				System.out.println("groupBy:" + groupBy);
+//				System.out.println("having: " + having);
 			} else {
-				query = selectStd + whereClause + orderBy;
-				System.out.println("selectStd: " + selectStd);
-				System.out.println("whereClause:" + whereClause);
-				System.out.println("orderBy:" + orderBy);
+				query = selectNumVotes + whereClause + groupBy + having;
+//				query = selectStd + whereClause + orderBy;
+//				System.out.println("selectStd: " + selectStd);
+//				System.out.println("whereClause:" + whereClause);
+//				System.out.println("orderBy:" + orderBy);
 			}
-			System.out.println("QUERY: " + query);
+//			System.out.println("QUERY: " + query);
 			resultSet = doQuery(query, voterDB);
 		} else
 		{
@@ -731,7 +734,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			try
 			{
 				voterID = (Integer) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
-			} catch (IndexOutOfBoundsException exc)
+			} catch (IndexOutOfBoundsException e)
 			{
 				JOptionPane.showMessageDialog(vdPane,
 								"Your search terms resulted in no records found.",
@@ -740,10 +743,10 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				dataPanel.remove(dataPanelVoters);
 				validate();
 				tfLastName.requestFocus();
-				System.out.println("IndexOutOfBoundsException caught at voterID = getValueAt (0,0)");
-				exc.printStackTrace();
+				System.out.println("\nIndexOutOfBoundsException caught at voterID = getValueAt (0,0)");
+				e.printStackTrace();
 			}
-			System.out.println("voterID = " + voterID);
+//			System.out.println("voterID = " + voterID);
 
 			if (voterIDTrigger != voterID)
 			{
@@ -767,7 +770,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 			vTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged( ListSelectionEvent evt ) {
-					System.out.println("Current row selected = " + vTbl.getSelectedRow() + ". ");
+//					System.out.println("Current row selected = " + vTbl.getSelectedRow() + ". ");
 
 					if (vTbl.getSelectedRow() < 0) {vTbl.setRowSelectionInterval(0, 0);}
 					row = vTbl.getSelectedRow();
@@ -776,10 +779,11 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 						try
 						{
 							voterID = (Integer) vTbl.getValueAt(row, 0);
-							System.out.println("voterID selected = " + voterID.toString());
+//							System.out.println("voterID selected = " + voterID.toString());
 						} catch (ArrayIndexOutOfBoundsException exc)
 						{
 							System.out.println("ArrayIndexOutOfBounds Exception caught at listSelection Listener");
+							System.out.println("voterID selected = " + voterID.toString());
 							exc.printStackTrace();
 						}
 						voterIDTrigger = voterID;
@@ -833,7 +837,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	@Override
 	public void sorterChanged( RowSorterEvent e ) {
 		vTbl.requestFocus();
-		System.out.println("Sorter changed, current row selected = " + vTbl.getSelectedRow());
+//		System.out.println("Sorter changed, current row selected = " + vTbl.getSelectedRow());
 		if (vTbl.getSelectedRow() < 0) {
 			vTbl.setRowSelectionInterval(0, 0);
 			historySearch((Integer) vTbl.getValueAt(0, 0), voterDB);
