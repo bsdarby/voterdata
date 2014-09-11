@@ -47,6 +47,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	private PageFormat pageFormat;
 	private Graphics graphics;
 	private int pages;
+	String precinct;
 	String ageMin;
 	String ageMax;
 	Integer regago;
@@ -465,7 +466,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent evt ) {
 				PrintWalkList printWalkList;
-				printWalkList = new PrintWalkList(resultSetW);
+				printWalkList = new PrintWalkList(resultSetW, precinct);
 
 /*				try {
 					boolean	complete = vTbl.print();
@@ -601,7 +602,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		city = city.replaceAll("[*]+", "%");
 		city = city.replaceAll("[?]", "_");
 
-		String precinct = SafeChar.text1(tfPrecinct.getText());
+		precinct = SafeChar.text1(tfPrecinct.getText());
 		precinct = precinct.replace("\'", "\'\'");
 		precinct = precinct.replaceAll("[*]+", "%");
 		precinct = precinct.replaceAll("[?]", "_");

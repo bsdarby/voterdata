@@ -69,15 +69,20 @@ public class PrintWalkList extends JFrame {
 	protected JTextField footerField;
 	protected static int rsetColumns;
 	protected static TableColumn column;
+	static int households;
+	static int voters;
+	static String precinct;
 
 	/**
 	 * Constructs an instance of the print utility.
 	 */
-	public PrintWalkList( ResultSet resultSet ) {
+	public PrintWalkList( ResultSet resultSet, String daprecinct ) {
 		super("Print Walk List");
 		this.resultSet = resultSet;
 		setPreferredSize(new Dimension(VoterDataUI.width - 50, VoterDataUI.height - 100));
 		setLocationRelativeTo(null);
+		precinct = daprecinct;
+
 		try
 		{
 			rsetColumns = resultSet.getMetaData().getColumnCount();
@@ -88,10 +93,10 @@ public class PrintWalkList extends JFrame {
 			e.printStackTrace();
 		}
 
-		Font serifTable = new Font("Bitstream Vera Sans Mono Roman", Font.PLAIN, 14);
+		Font fontTable = new Font("Bitstream Vera Sans Mono Roman", Font.PLAIN, 14);
 
 		lblWalkList = new JLabel("Walking List");
-		lblWalkList.setFont(serifTable);
+		lblWalkList.setFont(fontTable);
 //		lblWalkList.setFont(new Font("Times New Roman Bold", Font.PLAIN, 14));
 
 		WalkModel mdlWalking = new WalkModel(resultSet);
@@ -99,7 +104,7 @@ public class PrintWalkList extends JFrame {
 //		mdlWalking.addBlankColumn("Data");
 		tblWalking.setFillsViewportHeight(true);
 		tblWalking.setRowHeight(24);
-		tblWalking.setFont(serifTable);
+		tblWalking.setFont(fontTable);
 		tblWalking.setBorder(null);
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(8));
@@ -170,7 +175,7 @@ public class PrintWalkList extends JFrame {
 		});
 		headerBox.setToolTipText(tooltipText);
 		tooltipText = "Page Header (Use {0} to include page number)";
-		headerField = new JTextField("Precinct ____ List		page {0}");
+		headerField = new JTextField(" Page {0}");
 		headerField.setToolTipText(tooltipText);
 
 		tooltipText = "Include a page footer";
@@ -243,6 +248,32 @@ public class PrintWalkList extends JFrame {
 		setLocationRelativeTo(null);
 		validate();
 		setVisible(true);
+	}
+
+	public void getCounts() {
+		String thisAddress, prevAddress = "";
+		voters = 0;
+		households = 0;
+		try
+		{
+			resultSet.beforeFirst();
+			while (resultSet.next())
+			{
+				voters += 1;
+				thisAddress = resultSet.getString(6);
+				System.out.println("thisAddress: " + thisAddress + ", prevAddress: " + prevAddress);
+				if (!prevAddress.equals(thisAddress))
+				{
+					households += 1;
+					prevAddress = thisAddress;
+				}
+			}
+		} catch (SQLException e)
+		{
+			System.out.println("SQL Exception caught at " +
+							"PrintWalkList/getCounts.");
+			DatabaseManager.printSQLException(e);
+		}
 	}
 
 	/**
@@ -372,19 +403,23 @@ public class PrintWalkList extends JFrame {
 	}
 
 	/**
-	 * Print the grades table.
+	 * Print the table.
 	 */
 	private void printTable() {
+		getCounts();
 				/* Fetch printing properties from the GUI components */
 
 		MessageFormat header = null;
 
         /* if we should print a header */
-		if (headerBox.isSelected())
-		{
+//		if (headerBox.isSelected())
+//		{
 						/* create a MessageFormat around the header text */
-			header = new MessageFormat(headerField.getText());
-		}
+		header = new MessageFormat("Precinct " + precinct + " List – " + voters + " voters – " + households + " " +
+						"households" +
+						" – Page {0}");
+//			header = new MessageFormat(headerField.getText());
+//		}
 
 		MessageFormat footer = null;
 
@@ -453,7 +488,7 @@ public class PrintWalkList extends JFrame {
 					System.out.println("Exception caught in main.");
 					e.printStackTrace();
 				}
-				new PrintWalkList(resultSet).setVisible(true);
+				new PrintWalkList(resultSet, precinct).setVisible(true);
 			}
 		});
 	}
@@ -541,7 +576,6 @@ public class PrintWalkList extends JFrame {
 		 */
 		public Object getValueAt( int row, int column ) {
 
-			Object addressObj = null;
 			String thisAddress;
 			String prevAddress;
 			try
@@ -586,7 +620,7 @@ public class PrintWalkList extends JFrame {
 							} else
 							{
 //								System.out.println(thisAddress + " = new address");
-								prevAddress = thisAddress;
+//								prevAddress = thisAddress;
 								return thisAddress;
 							}
 						} else
