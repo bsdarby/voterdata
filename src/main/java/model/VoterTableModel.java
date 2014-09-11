@@ -225,6 +225,10 @@ public class VoterTableModel extends AbstractTableModel {
 				}
 			case 10:
 			case 11:
+			case 12:
+			case 13:
+			case 14:
+			case 15:
 				try
 				{
 					if (null != resultSet.getObject(column + 1))
@@ -238,10 +242,6 @@ public class VoterTableModel extends AbstractTableModel {
 					DatabaseManager.printSQLException(e);
 					return null;
 				}
-			case 12:
-			case 13:
-			case 14:
-			case 15:
 
 		}
 		System.out.println("Error: Column = " + column + 1);

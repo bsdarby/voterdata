@@ -46,7 +46,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	private PageFormat pageFormat;
 	private Graphics graphics;
 	private int pages;
-	Integer age;
+	String ageMin;
+	String ageMax;
 	Integer regago;
 	Integer numvotes;
 
@@ -83,7 +84,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 					tfCity,
 					tfParty,
 					tfNumVotes,
-					tfAge,
+					tfAgeMin,
+					tfAgeMax,
 					tfRegAgo;
 	JButton btnVoters,
 					btnHistory,
@@ -102,12 +104,15 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 					lblStreetNo,
 					lblCity,
 					lblParty,
-					lblAge,
+					lblAgeMin,
+					lblAgeMax,
 					lblNumVotes,
 					lblRegAgo,
 					lblCtlPanel,
 					lblVoterPanel,
 					lblHistoryPanel;
+	JCheckBox cbEven,
+					cbOdd;
 
 	public VoterDataUI( final DatabaseManager voterDB ) {
 		this.voterDB = voterDB;
@@ -121,6 +126,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		JPanel northPanel;
 		JPanel ctlPanel;
 		JPanel ctlPanelCenter;
+		JPanel ctlPanelCenterSouth;
+		JPanel ctlPanelCenterCenter;
 		JPanel ctlPanelSouth;
 
 		northPanel = new JPanel();
@@ -130,11 +137,13 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 		ctlPanel = new JPanel(new BorderLayout());
 		ctlPanel.setPreferredSize(new Dimension(cpWidth, cpHeight));
-		ctlPanelCenter = new JPanel(new GridLayout(0, 2, 3, 10));
+		ctlPanelCenter = new JPanel(new BorderLayout(0, 10));
 		ctlPanelCenter.setPreferredSize(new Dimension(cpWidth, cpHeight - 300));
-		ctlPanelCenter.addKeyListener(this);
-		ctlPanelCenter.setFocusTraversalKeysEnabled(true);
 		ctlPanelSouth = new JPanel(new GridLayout(0, 2, 10, 10));
+		ctlPanelCenterCenter = new JPanel(new GridLayout(0, 2, 3, 10));
+		ctlPanelCenterCenter.addKeyListener(this);
+		ctlPanelCenterCenter.setFocusTraversalKeysEnabled(true);
+		ctlPanelCenterSouth = new JPanel(new GridLayout(1, 0, 10, 10));
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
@@ -154,19 +163,20 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		//noinspection UnusedAssignment
 			/* Labels */
 		lblSpacer = new JLabel("       ");
-		lblLast = new JLabel("Last Name:");
-		lblFirst = new JLabel("First Name:");
-		lblParty = new JLabel("Party;");
-		lblCity = new JLabel("City:");
-		lblPrecinct = new JLabel("Precinct:");
-		lblZip = new JLabel("Zip:");
-		lblStreetNo = new JLabel("Street No:");
-		lblStreet = new JLabel("Street:");
-		lblLat = new JLabel("Latitude:");
-		lblLong = new JLabel("Longitude:");
-		lblAge = new JLabel("Age (Years):");
-		lblRegAgo = new JLabel("Reg How Long (Years):");
-		lblNumVotes = new JLabel("Times Voted:");
+		lblLast = new JLabel("Last Name");
+		lblFirst = new JLabel("First Name");
+		lblParty = new JLabel("Party");
+		lblCity = new JLabel("City");
+		lblPrecinct = new JLabel("Precinct");
+		lblZip = new JLabel("Zip");
+		lblStreetNo = new JLabel("Street No");
+		lblStreet = new JLabel("Street");
+		lblLat = new JLabel("Latitude");
+		lblLong = new JLabel("Longitude");
+		lblAgeMin = new JLabel("Min Age");
+		lblAgeMax = new JLabel("Max Age");
+		lblRegAgo = new JLabel("Reg How Long (Years)");
+		lblNumVotes = new JLabel("Times Voted");
 		lblCtlPanel = new JLabel("Control Panel");
 		lblVoterPanel = new JLabel("Voters");
 		lblHistoryPanel = new JLabel("History");
@@ -189,8 +199,10 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		lblStreet.setForeground(Color.green.darker().darker());
 		lblNumVotes.setHorizontalAlignment(JLabel.RIGHT);
 		lblNumVotes.setForeground(Color.green.darker().darker());
-		lblAge.setHorizontalAlignment(JLabel.RIGHT);
-		lblAge.setForeground(Color.gray);
+		lblAgeMin.setHorizontalAlignment(JLabel.RIGHT);
+		lblAgeMin.setForeground(Color.green.darker().darker());
+		lblAgeMax.setHorizontalAlignment(JLabel.RIGHT);
+		lblAgeMax.setForeground(Color.green.darker().darker());
 		lblRegAgo.setHorizontalAlignment(JLabel.RIGHT);
 		lblRegAgo.setForeground(Color.gray);
 		lblLat.setHorizontalAlignment(JLabel.RIGHT);
@@ -220,14 +232,15 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		tfStreet = new JTextField(10);
 		tfLat = new JTextField(8);
 		tfLong = new JTextField(8);
-		tfAge = new JTextField(2);
+		tfAgeMin = new JTextField(2);
+		tfAgeMax = new JTextField(2);
 		tfRegAgo = new JTextField(3);
 		tfNumVotes = new JTextField(1);
 			/* Coming Soon */
 		tfRegAgo.setText("Coming Soon");
 		tfRegAgo.setEnabled(false);
-		tfAge.setText("Coming Soon");
-		tfAge.setEnabled(false);
+//		tfAgeMin.setText("Coming Soon");
+//		tfAgeMin.setEnabled(false);
 		tfLat.setText("Coming Soon");
 		tfLat.setEnabled(false);
 		tfLong.setText("Coming Soon");
@@ -260,11 +273,16 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		tfStreet.addKeyListener(this);
 		tfNumVotes.setFont(sansField);
 		tfNumVotes.setForeground(Color.magenta);
-		tfNumVotes.setText("0");
+		tfNumVotes.setText("2");
 		tfNumVotes.addKeyListener(this);
-//		tfAge.setFont(sansField);
-		tfAge.setForeground(Color.magenta);
-		tfAge.addKeyListener(this);
+		tfAgeMin.setFont(sansField);
+		tfAgeMin.setText("17");
+		tfAgeMin.setForeground(Color.magenta);
+		tfAgeMin.addKeyListener(this);
+		tfAgeMax.setFont(sansField);
+		tfAgeMax.setText("130");
+		tfAgeMax.setForeground(Color.magenta);
+		tfAgeMax.addKeyListener(this);
 //		tfRegAgo.setFont(sansField);
 		tfRegAgo.setForeground(Color.magenta);
 		tfRegAgo.addKeyListener(this);
@@ -275,47 +293,72 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		tfLong.setForeground(Color.magenta);
 //		tfLong.addKeyListener(this);
 
+			/* checkboxes */
+		cbEven = new JCheckBox("Even #'s");
+		cbEven.setHorizontalTextPosition(SwingConstants.LEFT);
+		cbEven.setForeground(Color.green.darker().darker());
+		cbEven.setSelected(true);
+		cbOdd = new JCheckBox("Odd  #'s");
+		cbOdd.setHorizontalTextPosition(SwingConstants.LEFT);
+		cbOdd.setForeground(Color.green.darker().darker());
+		cbOdd.setSelected(true);
+
 			/* Buttons */
-		btnVoters = new JButton("Voters");
+		btnPrint = new JButton("Print");
+		btnPrint.setForeground(Color.blue.darker().darker());
+		btnVoters = new JButton("Search");
+		btnVoters.setForeground(Color.blue.darker().darker());
 //		btnHistory = new JButton("History");
 		btnClear = new JButton("Clear");
-		btnPrint = new JButton("Print");
+		btnClear.setForeground(Color.green.darker().darker());
 		btnHelp = new JButton("Help");
+		btnHelp.setForeground(Color.green.darker().darker());
 		btnExit = new JButton("Exit");
+		btnExit.setForeground(Color.red.darker().darker());
 
 			/* Build Search Panel */
-		ctlPanelCenter.add(lblPrecinct);
-		ctlPanelCenter.add(tfPrecinct);
-		ctlPanelCenter.add(lblNumVotes);
-		ctlPanelCenter.add(tfNumVotes);
-		ctlPanelCenter.add(lblRegAgo);
-		ctlPanelCenter.add(tfRegAgo);
-		ctlPanelCenter.add(lblStreetNo);
-		ctlPanelCenter.add(tfStreetNo);
-		ctlPanelCenter.add(lblStreet);
-		ctlPanelCenter.add(tfStreet);
-		ctlPanelCenter.add(lblAge);
-		ctlPanelCenter.add(tfAge);
-		ctlPanelCenter.add(lblParty);
-		ctlPanelCenter.add(tfParty);
-		ctlPanelCenter.add(lblLast);
-		ctlPanelCenter.add(tfLastName);
-		ctlPanelCenter.add(lblFirst);
-		ctlPanelCenter.add(tfFirstName);
-		ctlPanelCenter.add(lblCity);
-		ctlPanelCenter.add(tfCity);
-		ctlPanelCenter.add(lblZip);
-		ctlPanelCenter.add(tfZip);
-		ctlPanelCenter.add(lblLat);
-		ctlPanelCenter.add(tfLat);
-		ctlPanelCenter.add(lblLong);
-		ctlPanelCenter.add(tfLong);
+		ctlPanelCenterCenter.add(lblPrecinct);
+		ctlPanelCenterCenter.add(tfPrecinct);
+		ctlPanelCenterCenter.add(lblNumVotes);
+		ctlPanelCenterCenter.add(tfNumVotes);
+		ctlPanelCenterCenter.add(lblRegAgo);
+		ctlPanelCenterCenter.add(tfRegAgo);
+		ctlPanelCenterCenter.add(lblStreetNo);
+		ctlPanelCenterCenter.add(tfStreetNo);
+		ctlPanelCenterCenter.add(lblStreet);
+		ctlPanelCenterCenter.add(tfStreet);
+		ctlPanelCenterCenter.add(lblAgeMin);
+		ctlPanelCenterCenter.add(tfAgeMin);
+		ctlPanelCenterCenter.add(lblAgeMax);
+		ctlPanelCenterCenter.add(tfAgeMax);
+		ctlPanelCenterCenter.add(lblParty);
+		ctlPanelCenterCenter.add(tfParty);
+		ctlPanelCenterCenter.add(lblLast);
+		ctlPanelCenterCenter.add(tfLastName);
+		ctlPanelCenterCenter.add(lblFirst);
+		ctlPanelCenterCenter.add(tfFirstName);
+		ctlPanelCenterCenter.add(lblCity);
+		ctlPanelCenterCenter.add(tfCity);
+		ctlPanelCenterCenter.add(lblZip);
+		ctlPanelCenterCenter.add(tfZip);
+		ctlPanelCenterCenter.add(lblLat);
+		ctlPanelCenterCenter.add(tfLat);
+		ctlPanelCenterCenter.add(lblLong);
+		ctlPanelCenterCenter.add(tfLong);
+		ctlPanelCenterCenter.validate();
+
+		ctlPanelCenterSouth.add(cbEven);
+		ctlPanelCenterSouth.add(cbOdd);
+		ctlPanelCenterSouth.validate();
+
+		ctlPanelCenter.add(ctlPanelCenterCenter, BorderLayout.CENTER);
+		ctlPanelCenter.add(ctlPanelCenterSouth, BorderLayout.NORTH);
 		ctlPanelCenter.validate();
 
-		ctlPanelSouth.add(btnClear);
-		ctlPanelSouth.add(btnVoters);
-//		ctlPanelSouth.add(btnHistory);
 		ctlPanelSouth.add(btnPrint);
+		ctlPanelSouth.add(btnVoters);
+		ctlPanelSouth.add(btnClear);
+//		ctlPanelSouth.add(btnHistory);
 		ctlPanelSouth.add(btnHelp);
 		ctlPanelSouth.add(btnExit);
 		ctlPanelSouth.validate();
@@ -395,6 +438,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		btnClear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed( ActionEvent e ) {
+				cbEven.setSelected(true);
+				cbOdd.setSelected(true);
 				tfFirstName.setText("");
 				tfLastName.setText("");
 				tfPrecinct.setText("");
@@ -405,8 +450,9 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				tfStreetNo.setText("");
 				tfCity.setText("");
 				tfParty.setText("");
-				tfNumVotes.setText("0");
-//				tfAge.setText("");
+				tfNumVotes.setText("2");
+				tfAgeMin.setText("17");
+				tfAgeMax.setText("130");
 //				tfRegAgo.setText("");
 				tfPrecinct.requestFocus();
 			}
@@ -465,11 +511,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		boolean boolNumVotes = false;
 		ResultSet resultSet = null;
 		String whereClause;
-		String select;
-		String selectStd;
 		String selectNumVotes;
 		String having;
-		String orderBy;
 		String groupBy;
 		String query;
 
@@ -513,6 +556,27 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		street = street.replaceAll("[*]+", "%");
 		street = street.replaceAll("[?]", "_");
 
+		String ageMin = SafeChar.num2(tfAgeMin.getText());
+		String ageMax = SafeChar.num2(tfAgeMax.getText());
+
+
+		boolean oddOnly = false;
+		boolean evenOnly = false;
+
+		if ((cbEven.isSelected() && cbOdd.isSelected()) ||
+						(!cbEven.isSelected() && !cbOdd.isSelected()))
+		{
+			oddOnly = false;
+			evenOnly = false;
+		} else if (cbEven.isSelected())
+		{
+			evenOnly = true;
+		} else if (cbOdd.isSelected())
+		{
+			oddOnly = true;
+		}
+//		System.out.println("cbEven = "+ cbEven.isSelected() + ", cdOdd = "+ cbOdd.isSelected());
+
 		String temp;
 /*		temp	=	SafeChar.num2(tfAge.getText());
 
@@ -548,7 +612,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			tfStreetNo.setText(streetno);
 			tfStreetNo.setText(street);
 			tfRegAgo.setText(regago.toString());
-			tfAge.setText(age.toString());
+			tfAgeMin.setText(ageMin);
+			tfAgeMax.setText(ageMax);
 			tfNumVotes.setText(numvotes.toString());
 //			tfLat.setText(latitude);
 //			tfLong.setText(longitude);
@@ -563,9 +628,11 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 						zip.length() > 0 ||
 						streetno.length() > 0 ||
 						street.length() > 0 ||
-						age > 0 ||
+						ageMin.length() > 0 ||
+						ageMax.length() > 0 ||
 						regago > 0 ||
-						numvotes > 0) {
+						numvotes > 0)
+		{
 
 			whereClause = " WHERE";
 
@@ -608,6 +675,21 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				}
 				whereClause += (" voters.sHouseNum LIKE '" + streetno + "'");
 			}
+			if (evenOnly)
+			{
+				if (whereClause.length() > 6)
+				{
+					whereClause += " AND";
+				}
+				whereClause += (" (voters.sHouseNum%2=0)");
+			} else if (oddOnly)
+			{
+				if (whereClause.length() > 6)
+				{
+					whereClause += " AND";
+				}
+				whereClause += (" (voters.sHouseNum%2=1)");
+			}
 			if (street.length() > 0) {
 				if (whereClause.length() > 6) {
 					whereClause += " AND";
@@ -629,18 +711,25 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 							"dtBirthDate, " +
 							"dtOrigRegDate, " +
 							"count(IF(history.szCountedFlag = 'YES', 1, NULL)) " +
-							"as votes " +
+							"as votes, " +
+							"DATEDIFF(CURDATE(), dtBirthDate) " +
+							"AS DiffDate " +
 							"FROM voters " +
 							"JOIN history ON history.lVoterUniqueID = voters.lVoterUniqueID ";
 
-			groupBy = " GROUP BY " +
+			groupBy = "GROUP BY " +
 							"CAST(sPrecinctID as unsigned), szStreetName, " +
 							"sStreetSuffix, CAST(sHouseNum as unsigned), " +
 							"CAST(sUnitNum as unsigned), szNameLast, " +
 							"szNameFirst, voters.lVoterUniqueID ";
 
 			having = " HAVING " +
-							"votes >= " + numvotes;
+							"votes >= " +
+							numvotes +
+							" AND DiffDate/365 >= " +
+							ageMin +
+							" AND ((DiffDate)/365)-1 <= " +
+							ageMax;
 
 /*
 			SELECT *, voters.lVoterUniqueID, count(IF(history.szCountedFlag = 'YES',1,NULL))
@@ -651,12 +740,12 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			HAVING votes >= 3
 */
 
-			query = selectNumVotes + whereClause + groupBy + having;
 //			System.out.println("selectNumVotes: " + selectNumVotes);
 //			System.out.println("whereClause:" + whereClause);
 //			System.out.println("groupBy:" + groupBy);
 //			System.out.println("having: " + having);
 //			System.out.println("QUERY: " + query);
+			query = selectNumVotes + whereClause + groupBy + having;
 			resultSet = doQuery(query, voterDB);
 		} else
 		{
@@ -730,6 +819,9 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 			}
 //			System.out.println("voterID = " + voterID);
 
+			//	Triggers a search for the history of
+			// the selected voter, when a new voter is selected.
+			//
 			if (voterIDTrigger != voterID)
 			{
 				voterIDTrigger = voterID;
