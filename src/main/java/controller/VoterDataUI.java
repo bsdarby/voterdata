@@ -40,6 +40,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	int cpHeight = height;
 	int vpHeight = height * 4 / 5;
 	int hpHeight = height - vpHeight;
+	String tooltipText;
 	ResultSet resultSetW;
 	Integer voterID = 0;
 	int voterIDTrigger = 0;
@@ -67,10 +68,10 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	private JTable hTbl;
 	private JScrollPane historyPane;
 
-	public final static Font sansHeading = new Font("SansSerif", Font.BOLD, 15);
-	public final static Font sansLabel = new Font("SansSerif", Font.PLAIN, 14);
-	public final static Font sansTable = new Font("SansSerif", Font.PLAIN, 13);
-	public final static Font sansField = new Font("SansSerif", Font.BOLD, 14);
+	public final static Font sansHeading = new Font("Lato Black", Font.BOLD, 15);
+	public final static Font sansLabel = new Font("Lato Medium", Font.PLAIN, 13);
+	public final static Font sansTable = new Font("Lato Medium", Font.PLAIN, 13);
+	public final static Font sansField = new Font("Lato Bold", Font.BOLD, 14);
 
 	/* Search Fields / Labels / Buttons */
 	JTextField tfFirstName,
@@ -87,7 +88,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 					tfAgeMin,
 					tfAgeMax,
 					tfRegAgo;
-	JButton btnVoters,
+	JButton btnSearch,
 					btnHistory,
 					btnPrint,
 					btnClear,
@@ -126,7 +127,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		JPanel northPanel;
 		JPanel ctlPanel;
 		JPanel ctlPanelCenter;
-		JPanel ctlPanelCenterSouth;
+		JPanel ctlPanelCenterNorth;
 		JPanel ctlPanelCenterCenter;
 		JPanel ctlPanelSouth;
 
@@ -143,7 +144,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		ctlPanelCenterCenter = new JPanel(new GridLayout(0, 2, 3, 10));
 		ctlPanelCenterCenter.addKeyListener(this);
 		ctlPanelCenterCenter.setFocusTraversalKeysEnabled(true);
-		ctlPanelCenterSouth = new JPanel(new GridLayout(1, 0, 10, 10));
+		ctlPanelCenterNorth = new JPanel(new GridLayout(1, 0, 10, 10));
 
 		ctlPanel.add(ctlPanelCenter, BorderLayout.CENTER);
 		ctlPanel.add(ctlPanelSouth, BorderLayout.SOUTH);
@@ -162,175 +163,229 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 		//noinspection UnusedAssignment
 			/* Labels */
-		lblSpacer = new JLabel("       ");
-		lblLast = new JLabel("Last Name");
-		lblFirst = new JLabel("First Name");
-		lblParty = new JLabel("Party");
-		lblCity = new JLabel("City");
+		lblSpacer = new JLabel("-------");
+
 		lblPrecinct = new JLabel("Precinct");
-		lblZip = new JLabel("Zip");
-		lblStreetNo = new JLabel("Street No");
-		lblStreet = new JLabel("Street");
-		lblLat = new JLabel("Latitude");
-		lblLong = new JLabel("Longitude");
-		lblAgeMin = new JLabel("Min Age");
-		lblAgeMax = new JLabel("Max Age");
-		lblRegAgo = new JLabel("Reg How Long (Years)");
-		lblNumVotes = new JLabel("Times Voted");
-		lblCtlPanel = new JLabel("Control Panel");
-		lblVoterPanel = new JLabel("Voters");
-		lblHistoryPanel = new JLabel("History");
-			/* Set Label Attributes */
-		lblLast.setHorizontalAlignment(JLabel.RIGHT);
-		lblLast.setForeground(Color.green.darker().darker());
-		lblFirst.setHorizontalAlignment(JLabel.RIGHT);
-		lblFirst.setForeground(Color.green.darker().darker());
-		lblParty.setHorizontalAlignment(JLabel.RIGHT);
-		lblParty.setForeground(Color.green.darker().darker());
-		lblCity.setHorizontalAlignment(JLabel.RIGHT);
-		lblCity.setForeground(Color.green.darker().darker());
 		lblPrecinct.setHorizontalAlignment(JLabel.RIGHT);
-		lblPrecinct.setForeground(Color.green.darker().darker());
-		lblZip.setHorizontalAlignment(JLabel.RIGHT);
-		lblZip.setForeground(Color.green.darker().darker());
+		lblPrecinct.setForeground(Color.blue.darker().darker());
+		lblPrecinct.setFont(sansLabel);
+
+		lblStreetNo = new JLabel("Street No");
 		lblStreetNo.setHorizontalAlignment(JLabel.RIGHT);
-		lblStreetNo.setForeground(Color.green.darker().darker());
+		lblStreetNo.setForeground(Color.blue.darker().darker());
+		lblStreetNo.setFont(sansLabel);
+
+		lblStreet = new JLabel("Street");
 		lblStreet.setHorizontalAlignment(JLabel.RIGHT);
-		lblStreet.setForeground(Color.green.darker().darker());
+		lblStreet.setForeground(Color.blue.darker().darker());
+		lblStreet.setFont(sansLabel);
+
+		lblParty = new JLabel("Party");
+		lblParty.setHorizontalAlignment(JLabel.RIGHT);
+		lblParty.setForeground(Color.blue.darker().darker());
+		lblParty.setFont(sansLabel);
+
+		lblLast = new JLabel("Last Name");
+		lblLast.setHorizontalAlignment(JLabel.RIGHT);
+		lblLast.setForeground(Color.blue.darker().darker());
+		lblLast.setFont(sansLabel);
+
+		lblFirst = new JLabel("First Name");
+		lblFirst.setHorizontalAlignment(JLabel.RIGHT);
+		lblFirst.setForeground(Color.blue.darker().darker());
+		lblFirst.setFont(sansLabel);
+
+		lblCity = new JLabel("City");
+		lblCity.setHorizontalAlignment(JLabel.RIGHT);
+		lblCity.setForeground(Color.blue.darker().darker());
+		lblCity.setFont(sansLabel);
+
+		lblZip = new JLabel("Zip");
+		lblZip.setHorizontalAlignment(JLabel.RIGHT);
+		lblZip.setForeground(Color.blue.darker().darker());
+		lblZip.setFont(sansLabel);
+
+		lblNumVotes = new JLabel("Times Voted");
 		lblNumVotes.setHorizontalAlignment(JLabel.RIGHT);
 		lblNumVotes.setForeground(Color.green.darker().darker());
+		lblNumVotes.setFont(sansLabel);
+
+		lblRegAgo = new JLabel("Reg How Long");
+		lblRegAgo.setHorizontalAlignment(JLabel.RIGHT);
+		lblRegAgo.setForeground(Color.green.darker().darker());
+		lblRegAgo.setFont(sansLabel);
+
+		lblAgeMin = new JLabel("Min Age");
 		lblAgeMin.setHorizontalAlignment(JLabel.RIGHT);
 		lblAgeMin.setForeground(Color.green.darker().darker());
+		lblAgeMin.setFont(sansLabel);
+
+		lblAgeMax = new JLabel("Max Age");
 		lblAgeMax.setHorizontalAlignment(JLabel.RIGHT);
 		lblAgeMax.setForeground(Color.green.darker().darker());
-		lblRegAgo.setHorizontalAlignment(JLabel.RIGHT);
-		lblRegAgo.setForeground(Color.gray);
+		lblAgeMax.setFont(sansLabel);
+
+		lblLat = new JLabel("Latitude");
 		lblLat.setHorizontalAlignment(JLabel.RIGHT);
 		lblLat.setForeground(Color.gray);
-		lblLat.setHorizontalAlignment(JLabel.RIGHT);
-		lblLat.setForeground(Color.gray);
+		lblLat.setFont(sansLabel);
+
+		lblLong = new JLabel("Longitude");
 		lblLong.setHorizontalAlignment(JLabel.RIGHT);
 		lblLong.setForeground(Color.gray);
+		lblLong.setFont(sansLabel);
+
+		lblCtlPanel = new JLabel("Control Panel");
 		lblCtlPanel.setHorizontalAlignment(JLabel.CENTER);
 		lblCtlPanel.setFont(sansHeading);
 		lblCtlPanel.setForeground(Color.green.darker().darker());
+
+		tooltipText = "This is the number of voters selected by your current search parameters.";
+		lblVoterPanel = new JLabel("Voters");
 		lblVoterPanel.setHorizontalAlignment(JLabel.CENTER);
 		lblVoterPanel.setFont(sansHeading);
+		lblVoterPanel.setToolTipText(tooltipText);
 		lblVoterPanel.setForeground(Color.green.darker().darker());
+
+		tooltipText = "This is the voting history of the currently selected voter above.";
+		lblHistoryPanel = new JLabel("History");
 		lblHistoryPanel.setHorizontalAlignment(JLabel.CENTER);
 		lblHistoryPanel.setFont(sansHeading);
+		lblHistoryPanel.setToolTipText(tooltipText);
 		lblHistoryPanel.setForeground(Color.green.darker().darker());
 
 			/* Text Fields */
-		tfLastName = new JTextField(15);
-		tfFirstName = new JTextField(15);
-		tfParty = new JTextField(15);
-		tfCity = new JTextField(15);
 		tfPrecinct = new JTextField(4);
-		tfZip = new JTextField(4);
-		tfStreetNo = new JTextField(3);
-		tfStreet = new JTextField(10);
-		tfLat = new JTextField(8);
-		tfLong = new JTextField(8);
-		tfAgeMin = new JTextField(2);
-		tfAgeMax = new JTextField(2);
-		tfRegAgo = new JTextField(3);
-		tfNumVotes = new JTextField(1);
-			/* Coming Soon */
-		tfRegAgo.setText("Coming Soon");
-		tfRegAgo.setEnabled(false);
-//		tfAgeMin.setText("Coming Soon");
-//		tfAgeMin.setEnabled(false);
-		tfLat.setText("Coming Soon");
-		tfLat.setEnabled(false);
-		tfLong.setText("Coming Soon");
-		tfLong.setEnabled(false);
-
-			/* Set Field Attributes*/
-		tfLastName.setFont(sansField);
-		tfLastName.setForeground(Color.magenta);
-		tfLastName.addKeyListener(this);
-		tfFirstName.setFont(sansField);
-		tfFirstName.setForeground(Color.magenta);
-		tfFirstName.addKeyListener(this);
-		tfParty.setFont(sansField);
-		tfParty.setForeground(Color.magenta);
-		tfParty.addKeyListener(this);
-		tfCity.setFont(sansField);
-		tfCity.setForeground(Color.magenta);
-		tfCity.addKeyListener(this);
 		tfPrecinct.setFont(sansField);
 		tfPrecinct.setForeground(Color.magenta);
 		tfPrecinct.addKeyListener(this);
-		tfZip.setFont(sansField);
-		tfZip.setForeground(Color.magenta);
-		tfZip.addKeyListener(this);
+
+		tfStreetNo = new JTextField(3);
 		tfStreetNo.setFont(sansField);
 		tfStreetNo.setForeground(Color.magenta);
 		tfStreetNo.addKeyListener(this);
+
+		tfStreet = new JTextField(10);
 		tfStreet.setFont(sansField);
 		tfStreet.setForeground(Color.magenta);
 		tfStreet.addKeyListener(this);
+
+		tfParty = new JTextField(15);
+		tfParty.setFont(sansField);
+		tfParty.setForeground(Color.magenta);
+		tfParty.addKeyListener(this);
+
+		tfLastName = new JTextField(15);
+		tfLastName.setFont(sansField);
+		tfLastName.setForeground(Color.magenta);
+		tfLastName.addKeyListener(this);
+
+		tfFirstName = new JTextField(15);
+		tfFirstName.setFont(sansField);
+		tfFirstName.setForeground(Color.magenta);
+		tfFirstName.addKeyListener(this);
+
+		tfCity = new JTextField(15);
+		tfCity.setFont(sansField);
+		tfCity.setForeground(Color.magenta);
+		tfCity.addKeyListener(this);
+
+		tfZip = new JTextField(4);
+		tfZip.setFont(sansField);
+		tfZip.setForeground(Color.magenta);
+		tfZip.addKeyListener(this);
+
+		tfNumVotes = new JTextField(1);
 		tfNumVotes.setFont(sansField);
 		tfNumVotes.setForeground(Color.magenta);
 		tfNumVotes.setText("2");
 		tfNumVotes.addKeyListener(this);
+
+		tfRegAgo = new JTextField(2);
+		tfRegAgo.setFont(sansField);
+		tfRegAgo.setText("0");
+		tfRegAgo.setForeground(Color.magenta);
+		tfRegAgo.addKeyListener(this);
+//		tfRegAgo.setText("Coming Soon");
+//		tfRegAgo.setEnabled(false);
+
+		tfAgeMin = new JTextField(2);
 		tfAgeMin.setFont(sansField);
 		tfAgeMin.setText("17");
 		tfAgeMin.setForeground(Color.magenta);
 		tfAgeMin.addKeyListener(this);
+//		tfAgeMin.setText("Coming Soon");
+//		tfAgeMin.setEnabled(false);
+
+		tfAgeMax = new JTextField(2);
 		tfAgeMax.setFont(sansField);
 		tfAgeMax.setText("130");
 		tfAgeMax.setForeground(Color.magenta);
 		tfAgeMax.addKeyListener(this);
-//		tfRegAgo.setFont(sansField);
-		tfRegAgo.setForeground(Color.magenta);
-		tfRegAgo.addKeyListener(this);
+
+		tfLat = new JTextField(8);
+		tfLat.setText("Coming Soon");
+		tfLat.setEnabled(false);
 //		tfLat.setFont(sansField);
 		tfLat.setForeground(Color.magenta);
 //		tfLat.addKeyListener(this);
+
+		tfLong = new JTextField(8);
+		tfLong.setText("Coming Soon");
+		tfLong.setEnabled(false);
 //		tfLong.setFont(sansField);
 		tfLong.setForeground(Color.magenta);
 //		tfLong.addKeyListener(this);
 
 			/* checkboxes */
+		tooltipText = "Show even numbered addresses only.";
 		cbEven = new JCheckBox("Even #'s");
 		cbEven.setHorizontalTextPosition(SwingConstants.LEFT);
+		cbEven.setFont(sansLabel);
+		cbEven.setToolTipText(tooltipText);
 		cbEven.setForeground(Color.green.darker().darker());
 		cbEven.setSelected(true);
+
+		tooltipText = "Show odd numbered addresses only.";
 		cbOdd = new JCheckBox("Odd  #'s");
 		cbOdd.setHorizontalTextPosition(SwingConstants.LEFT);
+		cbOdd.setFont(sansLabel);
+		cbOdd.setToolTipText(tooltipText);
 		cbOdd.setForeground(Color.green.darker().darker());
 		cbOdd.setSelected(true);
 
 			/* Buttons */
+		tooltipText = "To search for voters, one of the blue fields must have an entry.";
+		btnSearch = new JButton("Search");
+		btnSearch.setForeground(Color.blue.darker().darker());
+		btnSearch.setFont(sansLabel);
+		btnSearch.setToolTipText(tooltipText);
+
 		btnPrint = new JButton("Print");
 		btnPrint.setForeground(Color.blue.darker().darker());
-		btnVoters = new JButton("Search");
-		btnVoters.setForeground(Color.blue.darker().darker());
-//		btnHistory = new JButton("History");
+		btnPrint.setFont(sansLabel);
+
 		btnClear = new JButton("Clear");
 		btnClear.setForeground(Color.green.darker().darker());
+		btnClear.setFont(sansLabel);
+
 		btnHelp = new JButton("Help");
 		btnHelp.setForeground(Color.green.darker().darker());
+		btnHelp.setFont(sansLabel);
+
 		btnExit = new JButton("Exit");
 		btnExit.setForeground(Color.red.darker().darker());
+		btnExit.setFont(sansLabel);
 
 			/* Build Search Panel */
+		tooltipText = "To search for voters, one of the blue fields must have an entry.";
+		ctlPanelCenterCenter.setToolTipText(tooltipText);
 		ctlPanelCenterCenter.add(lblPrecinct);
 		ctlPanelCenterCenter.add(tfPrecinct);
-		ctlPanelCenterCenter.add(lblNumVotes);
-		ctlPanelCenterCenter.add(tfNumVotes);
-		ctlPanelCenterCenter.add(lblRegAgo);
-		ctlPanelCenterCenter.add(tfRegAgo);
 		ctlPanelCenterCenter.add(lblStreetNo);
 		ctlPanelCenterCenter.add(tfStreetNo);
 		ctlPanelCenterCenter.add(lblStreet);
 		ctlPanelCenterCenter.add(tfStreet);
-		ctlPanelCenterCenter.add(lblAgeMin);
-		ctlPanelCenterCenter.add(tfAgeMin);
-		ctlPanelCenterCenter.add(lblAgeMax);
-		ctlPanelCenterCenter.add(tfAgeMax);
 		ctlPanelCenterCenter.add(lblParty);
 		ctlPanelCenterCenter.add(tfParty);
 		ctlPanelCenterCenter.add(lblLast);
@@ -341,22 +396,32 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		ctlPanelCenterCenter.add(tfCity);
 		ctlPanelCenterCenter.add(lblZip);
 		ctlPanelCenterCenter.add(tfZip);
+		ctlPanelCenterCenter.add(lblNumVotes);
+		ctlPanelCenterCenter.add(tfNumVotes);
+		ctlPanelCenterCenter.add(lblRegAgo);
+		ctlPanelCenterCenter.add(tfRegAgo);
+		ctlPanelCenterCenter.add(lblAgeMin);
+		ctlPanelCenterCenter.add(tfAgeMin);
+		ctlPanelCenterCenter.add(lblAgeMax);
+		ctlPanelCenterCenter.add(tfAgeMax);
 		ctlPanelCenterCenter.add(lblLat);
 		ctlPanelCenterCenter.add(tfLat);
 		ctlPanelCenterCenter.add(lblLong);
 		ctlPanelCenterCenter.add(tfLong);
 		ctlPanelCenterCenter.validate();
 
-		ctlPanelCenterSouth.add(cbEven);
-		ctlPanelCenterSouth.add(cbOdd);
-		ctlPanelCenterSouth.validate();
+		tooltipText = "If both, or neither, checkbox is selected, you will get all addresses.";
+		ctlPanelCenterNorth.setToolTipText(tooltipText);
+		ctlPanelCenterNorth.add(cbEven);
+		ctlPanelCenterNorth.add(cbOdd);
+		ctlPanelCenterNorth.validate();
 
 		ctlPanelCenter.add(ctlPanelCenterCenter, BorderLayout.CENTER);
-		ctlPanelCenter.add(ctlPanelCenterSouth, BorderLayout.NORTH);
+		ctlPanelCenter.add(ctlPanelCenterNorth, BorderLayout.NORTH);
 		ctlPanelCenter.validate();
 
+		ctlPanelSouth.add(btnSearch);
 		ctlPanelSouth.add(btnPrint);
-		ctlPanelSouth.add(btnVoters);
 		ctlPanelSouth.add(btnClear);
 //		ctlPanelSouth.add(btnHistory);
 		ctlPanelSouth.add(btnHelp);
@@ -381,8 +446,6 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		vdPane.add(northPanel, BorderLayout.NORTH);
 		vdPane.validate();
 		vdPane.setVisible(true);
-
-		tfLastName.requestFocus();
 
 			/* ActionListeners for Fields */
 		class FieldListener implements ActionListener {
@@ -429,7 +492,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		});
 
 
-		btnVoters.addActionListener(new ActionListener() {
+		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent e ) {
 				getVoters();
 			}
@@ -453,10 +516,12 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				tfNumVotes.setText("2");
 				tfAgeMin.setText("17");
 				tfAgeMax.setText("130");
-//				tfRegAgo.setText("");
+				tfRegAgo.setText("0");
 				tfPrecinct.requestFocus();
 			}
 		});
+		tfPrecinct.requestFocus();
+
 	}
 
 	private void historySearch(Integer voterID, DatabaseManager voterDB) {
@@ -578,18 +643,23 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 //		System.out.println("cbEven = "+ cbEven.isSelected() + ", cdOdd = "+ cbOdd.isSelected());
 
 		String temp;
-/*		temp	=	SafeChar.num2(tfAge.getText());
-
-		temp = SafeChar.num2(tfRegAgo.getText());
-		regago = Integer.parseInt(temp);
-		Calendar regagoRef	=	Calendar.getInstance();
-		regagoRef.add(Calendar.MONTH, -(12*regago));
-*/
 		temp = SafeChar.num2(tfNumVotes.getText());
 		if (temp.length() > 0) {
 			numvotes = Integer.parseInt(temp);
-			boolNumVotes = true;
+		} else
+		{
+			numvotes = 0;
 		}
+
+		temp = SafeChar.num2(tfRegAgo.getText());
+		if (temp.length() > 0)
+		{
+			regago = Integer.parseInt(temp);
+		} else
+		{
+			regago = 0;
+		}
+
 
 /*		String latitude		= SafeChar.text1(tfLat.getText());
 		latitude					=	latitude.replace("\'", "\'\'");
@@ -627,11 +697,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 						precinct.length() > 0 ||
 						zip.length() > 0 ||
 						streetno.length() > 0 ||
-						street.length() > 0 ||
-						ageMin.length() > 0 ||
-						ageMax.length() > 0 ||
-						regago > 0 ||
-						numvotes > 0)
+						street.length() > 0)
 		{
 
 			whereClause = " WHERE";
@@ -697,7 +763,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 				whereClause += (" voters.szStreetName LIKE '" + street + "'");
 			}
 
-			selectNumVotes = " SELECT " +
+			selectNumVotes = "SELECT " +
 							"voters.lVoterUniqueID, " +
 							"voters.szNameLast, " +
 							"voters.szNameFirst, " +
@@ -713,23 +779,34 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 							"count(IF(history.szCountedFlag = 'YES', 1, NULL)) " +
 							"as votes, " +
 							"DATEDIFF(CURDATE(), dtBirthDate) " +
-							"AS DiffDate " +
+							"AS age, " +
+							"DATEDIFF(CURDATE(), dtOrigRegDate) " +
+							"AS agoreg " +
 							"FROM voters " +
-							"JOIN history ON history.lVoterUniqueID = voters.lVoterUniqueID ";
+							"JOIN history ON history.lVoterUniqueID = voters.lVoterUniqueID";
 
-			groupBy = "GROUP BY " +
+			groupBy = " GROUP BY " +
 							"CAST(sPrecinctID as unsigned), szStreetName, " +
 							"sStreetSuffix, CAST(sHouseNum as unsigned), " +
 							"CAST(sUnitNum as unsigned), szNameLast, " +
 							"szNameFirst, voters.lVoterUniqueID ";
 
+			if (numvotes < 0 || numvotes == null) { numvotes = 0; tfNumVotes.setText("0"); }
+			if (ageMin.length() == 0) { ageMin = "17"; tfAgeMin.setText("17"); }
+			if (ageMax.length() == 0) { ageMax = "130"; tfAgeMax.setText("130"); }
+			if (regago < 0 || regago == null) { regago = 0; tfRegAgo.setText("0"); }
+//			System.out.println("numvotes = "+ numvotes +", ageMin = "+ ageMin +", ageMax = "+ ageMax +",
+// regago = "+ regago);
+
 			having = " HAVING " +
 							"votes >= " +
 							numvotes +
-							" AND DiffDate/365 >= " +
+							" AND age/365 >= " +
 							ageMin +
-							" AND ((DiffDate)/365)-1 <= " +
-							ageMax;
+							" AND ((age)/365)-1 <= " +
+							ageMax +
+							" AND agoreg/365 >= " +
+							regago;
 
 /*
 			SELECT *, voters.lVoterUniqueID, count(IF(history.szCountedFlag = 'YES',1,NULL))

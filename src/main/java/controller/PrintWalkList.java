@@ -88,31 +88,34 @@ public class PrintWalkList extends JFrame {
 			e.printStackTrace();
 		}
 
+		Font serifTable = new Font("Bitstream Vera Sans Mono Roman", Font.PLAIN, 14);
+
 		lblWalkList = new JLabel("Walking List");
-		lblWalkList.setFont(new Font("Times New Roman Bold", Font.PLAIN, 14));
+		lblWalkList.setFont(serifTable);
+//		lblWalkList.setFont(new Font("Times New Roman Bold", Font.PLAIN, 14));
 
 		WalkModel mdlWalking = new WalkModel(resultSet);
 		tblWalking = createTable(mdlWalking);
 //		mdlWalking.addBlankColumn("Data");
 		tblWalking.setFillsViewportHeight(true);
 		tblWalking.setRowHeight(24);
-		tblWalking.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		tblWalking.setFont(serifTable);
 		tblWalking.setBorder(null);
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(8));
-		tblWalking.getColumnModel().getColumn(8).setPreferredWidth(15);
+		tblWalking.getColumnModel().getColumn(8).setPreferredWidth(10);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(8));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
-		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(115);
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(150);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
-		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(25);
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(30);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
-		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(35);
+		tblWalking.getColumnModel().getColumn(5).setPreferredWidth(15);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
@@ -120,41 +123,32 @@ public class PrintWalkList extends JFrame {
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(1));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(55);
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(60);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(1));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(65);
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(3);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(3));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(3);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(3));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(3));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(3);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(3));
 
 		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(60);
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
 
-		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
-		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(15);
-		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
-/*
-		tblWalking.addColumn(new TableColumn(12));
-		tblWalking.getColumnModel().getColumn(0).setPreferredWidth(75);
-/*
-		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
-		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(85);
-		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
+		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(5));
+		tblWalking.getColumnModel().getColumn(1).setPreferredWidth(135);
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(5));
 
-		tblWalking.addColumn(tblWalking.getColumnModel().getColumn(2));
-		tblWalking.getColumnModel().getColumn(2).setPreferredWidth(95);
-		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(2));
-*/
-		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(1));
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
+		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
 		tblWalking.removeColumn(tblWalking.getColumnModel().getColumn(0));
 
@@ -519,13 +513,140 @@ public class PrintWalkList extends JFrame {
 				case 9:
 				case 10:
 				case 11:
+					return String.class;
 				case 12:
+					return int.class;
 				case 13:
 				case 14:
 				case 15:
 					return String.class;
 			}
 
+			throw new AssertionError("invalid column");
+		}
+
+		/* getValueAt */
+
+		/**
+		 * Returns the value in the ResultSet at the location specified by row and column.
+		 * <pre>
+		 * PRE:		row and column are assigned and 0 >= column <= 2 and row is within range.
+		 * POST:	The value in the ResultSet at row and column is returned, or the combined
+		 * 			phone number is returned if column = 2.
+		 * </pre>
+		 *
+		 * @param row    ...the row of the ResultSet whose value is to be returned.
+		 * @param column ...the column of the ResultSet whose value is to be returned.
+		 * @return ...the value in the ResultSet at row and column is returned.
+		 */
+		public Object getValueAt( int row, int column ) {
+
+			Object addressObj = null;
+			String thisAddress;
+			String prevAddress;
+			try
+			{
+				resultSet.absolute(row + 1);
+			} catch (SQLException e)
+			{
+				DatabaseManager.printSQLException(e);
+				return null;
+			}
+
+			switch (column)
+			{
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					try
+					{
+						return resultSet.getObject(column + 1);
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
+				case 5:
+					try
+					{
+						if (row > 0)
+						{
+							thisAddress = resultSet.getString(column + 1);
+							resultSet.absolute(row);
+							prevAddress = resultSet.getString(column + 1);
+							resultSet.absolute(row + 1);
+							if (prevAddress.equals(thisAddress))
+							{
+//								System.out.println(thisAddress + " = previousAddress");
+								return null;
+							} else
+							{
+//								System.out.println(thisAddress + " = new address");
+								prevAddress = thisAddress;
+								return thisAddress;
+							}
+						} else
+						{
+							return resultSet.getObject(column + 1);
+						}
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					try
+					{
+						return resultSet.getObject(column + 1);
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
+				case 10:
+				case 11:
+					try
+					{
+						if (null != resultSet.getObject(column + 1))
+						{
+							return DatabaseManager.years((Date) (resultSet.getObject(column + 1)));
+						}
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
+				case 12:
+				case 13:
+				case 14:
+					try
+					{
+						return resultSet.getObject(column + 1);
+					} catch (SQLException e)
+					{
+						System.out.println("SQL Exception caught at " +
+										"PrintWalkList/getValueAt/switch.");
+						DatabaseManager.printSQLException(e);
+						return null;
+					}
+				case 15:
+					return "Yes No UnD NH YS Do";
+
+			}
+			System.out.println("Error: Column = " + column + 1);
 			throw new AssertionError("invalid column");
 		}
 
@@ -641,122 +762,6 @@ public class PrintWalkList extends JFrame {
 				return "";
 			}
 			return colName;
-		}
-
-		/* getValueAt */
-
-		/**
-		 * Returns the value in the ResultSet at the location specified by row and column.
-		 * <pre>
-		 * PRE:		row and column are assigned and 0 >= column <= 2 and row is within range.
-		 * POST:	The value in the ResultSet at row and column is returned, or the combined
-		 * 			phone number is returned if column = 2.
-		 * </pre>
-		 *
-		 * @param row    ...the row of the ResultSet whose value is to be returned.
-		 * @param column ...the column of the ResultSet whose value is to be returned.
-		 * @return ...the value in the ResultSet at row and column is returned.
-		 */
-		public Object getValueAt( int row, int column ) {
-
-			Object addressObj = null;
-			String thisAddress;
-			String prevAddress;
-			try
-			{
-				resultSet.absolute(row + 1);
-			} catch (SQLException e)
-			{
-				DatabaseManager.printSQLException(e);
-				return null;
-			}
-
-			switch (column)
-			{
-				case 0:
-					return null;
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-					try
-					{
-						return resultSet.getObject(column + 1);
-					} catch (SQLException e)
-					{
-						System.out.println("SQL Exception caught at " +
-										"PrintWalkList/getValueAt/switch.");
-						DatabaseManager.printSQLException(e);
-						return null;
-					}
-				case 5:
-					try
-					{
-						if (row > 0)
-						{
-							thisAddress = resultSet.getString(column + 1);
-							resultSet.absolute(row);
-							prevAddress = resultSet.getString(column + 1);
-							resultSet.absolute(row + 1);
-							if (prevAddress.equals(thisAddress))
-							{
-//								System.out.println(thisAddress + " = previousAddress");
-								return null;
-							} else
-							{
-//								System.out.println(thisAddress + " = new address");
-								prevAddress = thisAddress;
-								return thisAddress;
-							}
-						} else
-						{
-							return resultSet.getObject(column + 1);
-						}
-					} catch (SQLException e)
-					{
-						System.out.println("SQL Exception caught at " +
-										"PrintWalkList/getValueAt/switch.");
-						DatabaseManager.printSQLException(e);
-						return null;
-					}
-				case 6:
-				case 7:
-				case 8:
-				case 9:
-					try
-					{
-						return resultSet.getObject(column + 1);
-					} catch (SQLException e)
-					{
-						System.out.println("SQL Exception caught at " +
-										"PrintWalkList/getValueAt/switch.");
-						DatabaseManager.printSQLException(e);
-						return null;
-					}
-				case 10:
-				case 11:
-					try
-					{
-						if (null != resultSet.getObject(column + 1))
-						{
-							return DatabaseManager.years((Date) (resultSet.getObject(column + 1)));
-						}
-					} catch (SQLException e)
-					{
-						System.out.println("SQL Exception caught at " +
-										"PrintWalkList/getValueAt/switch.");
-						DatabaseManager.printSQLException(e);
-						return null;
-					}
-				case 12:
-				case 13:
-				case 14:
-				case 15:
-					return "Yes No UnD NH YS Do";
-
-			}
-			System.out.println("Error: Column = " + column + 1);
-			throw new AssertionError("invalid column");
 		}
 	}
 

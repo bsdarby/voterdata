@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 @SuppressWarnings("serial")
 
@@ -24,7 +26,7 @@ import java.awt.event.ActionListener;
  * TODO ... add facility for encrypting/hashing the password.
  */
 
-public class PasswordDialog extends JDialog implements ActionListener {
+public class PasswordDialog extends JDialog implements ActionListener, KeyListener {
 	private final JTextField user;
 	private final JPasswordField password;
 	private static String[] info;
@@ -37,8 +39,10 @@ public class PasswordDialog extends JDialog implements ActionListener {
 		this.setLocationRelativeTo(null);
 		user = new JTextField(10);
 		user.addActionListener(this);
+		user.addKeyListener(this);
 		password = new JPasswordField(10);
 		password.addActionListener(this);
+		password.addKeyListener(this);
 
 		//...create the center panel which contains the fields for entering information
 		JPanel center = new JPanel();
@@ -50,20 +54,20 @@ public class PasswordDialog extends JDialog implements ActionListener {
 
 		//...create the south panel which contains the buttons
 		JPanel south = new JPanel();
-		JButton submitButton = new JButton("Submit");
-		submitButton.setActionCommand("SUBMIT");
-		submitButton.addActionListener(this);
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setActionCommand("SUBMIT");
+		btnSubmit.addActionListener(this);
 
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("CANCEL");
-		cancelButton.addActionListener(this);
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setActionCommand("CANCEL");
+		btnCancel.addActionListener(this);
 
-		JButton helpButton = new JButton("Help");
-		south.add(cancelButton);
-		south.add(submitButton);
+		JButton btnHelp = new JButton("Help");
+		south.add(btnCancel);
+		south.add(btnSubmit);
 
 		/* ...add listeners to the buttons */
-		helpButton.addActionListener(new ActionListener() {
+		btnHelp.addActionListener(new ActionListener() {
 			public void actionPerformed( ActionEvent aEvent ) {
 				JOptionPane.showMessageDialog(owner,
 								"Your username and password were\ngiven you by your administrator.");
@@ -133,5 +137,46 @@ public class PasswordDialog extends JDialog implements ActionListener {
 			}
 		}
 		return info;
+	}
+
+	@Override
+	public void keyTyped( KeyEvent e ) {
+		if (e.getSource().toString().contains("javax.swing.JPasswordField") ||
+						e.getSource().toString().contains("javax.swing.JTextField"))
+		{
+			if (e.getKeyChar() == KeyEvent.VK_ENTER)
+			{
+				String username = user.getText();
+				if (username.length() == 0)
+				{
+					user.requestFocus();
+				} else
+				{
+					char[] input = password.getPassword();
+					if (input.length == 0)
+					{
+						password.requestFocus();
+					} else
+					{
+						String passwd = new String(input);
+						info = new String[2];
+						if (username.length() > 0) { info[0] = username; }
+						info[1] = passwd;
+						set = true;
+						dispose();
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void keyPressed( KeyEvent e ) {
+
+	}
+
+	@Override
+	public void keyReleased( KeyEvent e ) {
+
 	}
 }
