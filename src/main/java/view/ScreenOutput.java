@@ -1,6 +1,6 @@
-package main.java.view;
+package view;
 
-import main.java.model.VoterData;
+import model.VoterData;
 
 import javax.swing.*;
 

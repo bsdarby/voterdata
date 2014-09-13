@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 import javax.swing.table.AbstractTableModel;
 import java.sql.ResultSet;
@@ -248,5 +248,4 @@ public class VoterTableModel extends AbstractTableModel {
 		throw new AssertionError("invalid column");
 	}
 }
-
 

@@ -1,9 +1,9 @@
 //==============================================//
-package main.java.controller;
+package controller;
 
-import main.java.model.DatabaseManager;
-import main.java.model.HistoryTableModel;
-import main.java.model.VoterTableModel;
+import model.DatabaseManager;
+import model.HistoryTableModel;
+import model.VoterTableModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -154,9 +154,11 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 		dataPanel = new JPanel(new BorderLayout());
 		dataPanel.setPreferredSize(new Dimension(width - cpWidth, height));
 		dataPanel.setMinimumSize(new Dimension(300, 150));
+
 		dataPanelVoters = new JPanel();
 		dataPanelVoters.setPreferredSize(new Dimension(width - cpWidth, vpHeight));
 		dataPanelVoters.setMinimumSize(new Dimension(300, 100));
+
 		dataPanelHistory = new JPanel();
 		dataPanelHistory.setPreferredSize(new Dimension(width - cpWidth, hpHeight));
 		dataPanelHistory.setMinimumSize(new Dimension(300, 50));
@@ -164,8 +166,6 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 		//noinspection UnusedAssignment
 			/* Labels */
-		lblSpacer = new JLabel("-------");
-
 		lblPrecinct = new JLabel("Precinct");
 		lblPrecinct.setHorizontalAlignment(JLabel.RIGHT);
 		lblPrecinct.setForeground(Color.blue.darker().darker());

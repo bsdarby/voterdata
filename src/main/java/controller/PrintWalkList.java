@@ -29,9 +29,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package main.java.controller;
+package controller;
 
-import main.java.model.DatabaseManager;
+import model.DatabaseManager;
 
 import javax.swing.*;
 import javax.swing.event.TableModelListener;
@@ -261,7 +261,7 @@ public class PrintWalkList extends JFrame {
 			{
 				voters += 1;
 				thisAddress = resultSet.getString(6);
-				System.out.println("thisAddress: " + thisAddress + ", prevAddress: " + prevAddress);
+//				System.out.println("thisAddress: " + thisAddress + ", prevAddress: " + prevAddress);
 				if (!prevAddress.equals(thisAddress))
 				{
 					households += 1;
@@ -311,7 +311,8 @@ public class PrintWalkList extends JFrame {
 																						.addComponent(fitWidthBox)
 																						.addPreferredGap(LayoutStyle
 																														.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-																										Short.MAX_VALUE)
+																										Short
+																														.MAX_VALUE)
 																						.addComponent(printButton))
 																		.addGroup(bottomPanelLayout
 																						.createSequentialGroup()
@@ -440,7 +441,7 @@ public class PrintWalkList extends JFrame {
 
 		try
 		{
-            /* print the table */
+						/* print the table */
 			boolean complete = tblWalking.print(mode, header, footer,
 							showPrintDialog, null,
 							interactive, null);
@@ -448,14 +449,14 @@ public class PrintWalkList extends JFrame {
             /* if printing completes */
 			if (complete)
 			{
-                /* show a success message */
+								/* show a success message */
 				JOptionPane.showMessageDialog(this,
 								"Printing Complete",
 								"Printing Result",
 								JOptionPane.INFORMATION_MESSAGE);
 			} else
 			{
-                /* show a message indicating that printing was cancelled */
+								/* show a message indicating that printing was cancelled */
 				JOptionPane.showMessageDialog(this,
 								"Printing Cancelled",
 								"Printing Result",
@@ -463,7 +464,7 @@ public class PrintWalkList extends JFrame {
 			}
 		} catch (PrinterException pe)
 		{
-            /* Printing failed, report to the user */
+						/* Printing failed, report to the user */
 			JOptionPane.showMessageDialog(this,
 							"Printing Failed: " + pe.getMessage(),
 							"Printing Result",

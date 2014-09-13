@@ -1,7 +1,7 @@
-package main.java.model;
+package model;
 
-import main.java.controller.VoterDataUI;
-import main.java.view.PasswordDialog;
+import controller.VoterDataUI;
+import view.PasswordDialog;
 
 import javax.swing.*;
 
@@ -11,7 +11,7 @@ import javax.swing.*;
  */
 public class VoterData {
 
-	static DatabaseManager voterDB;
+	static model.DatabaseManager voterDB;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -20,7 +20,7 @@ public class VoterData {
 					/* LOGIN */
 				String[] userLogin = PasswordDialog.login();
 					/* CONNECT to DataBase */
-				voterDB = new DatabaseManager(userLogin[0], userLogin[1]);
+				voterDB = new model.DatabaseManager(userLogin[0], userLogin[1]);
 
 				VoterDataUI controlPanel = new VoterDataUI(voterDB);
 				controlPanel.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

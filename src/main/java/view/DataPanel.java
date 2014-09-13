@@ -1,8 +1,8 @@
-package main.java.view;
+package view;
 
-import main.java.controller.VoterDataUI;
-import main.java.model.DatabaseManager;
-import main.java.model.VoterTableModel;
+import controller.VoterDataUI;
+import model.DatabaseManager;
+import model.VoterTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
