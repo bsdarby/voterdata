@@ -476,10 +476,10 @@ public class PrintWalkList extends JFrame {
 	 * Start the application.
 	 */
 	public static void main( final String[] args ) {
-        /* Schedule for the GUI to be created and shown on the EDT */
+				/* Schedule for the GUI to be created and shown on the EDT */
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-                /* Don't want bold fonts if we end up using metal */
+								/* Don't want bold fonts if we end up using metal */
 				UIManager.put("swing.boldMetal", false);
 				try
 				{
