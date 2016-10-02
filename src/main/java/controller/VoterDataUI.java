@@ -24,6 +24,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+// import static java.lang.StringCoding.decode;
+
 /**
  * Class in VoterData/controller.
  * Created by bsdarby on 8/27/14.
@@ -42,8 +44,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 	int hpHeight = height - vpHeight;
 	String tooltipText;
 	ResultSet resultSetW;
-	Integer voterID = 0;
-	int voterIDTrigger = 0;
+	String voterID = "";
+	String voterIDTrigger = "";
 	private PageFormat pageFormat;
 	private Graphics graphics;
 	private int pages;
@@ -525,7 +527,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 	}
 
-	private void historySearch(Integer voterID, DatabaseManager voterDB) {
+	private void historySearch(String voterID, DatabaseManager voterDB) {
 		ResultSet resultSetH;
 		String whereClauseH = " WHERE " +
 						"lVoterUniqueId " +
@@ -882,7 +884,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 			try
 			{
-				voterID = (Integer) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
+//				voterID = (Integer) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
+				voterID = (String) vTbl.getValueAt(0, 0);  /* Get lVoterUniqueID from first row*/
 			} catch (IndexOutOfBoundsException e)
 			{
 				JOptionPane.showMessageDialog(vdPane,
@@ -926,16 +929,16 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 					if (vTbl.getSelectedRow() < 0) {vTbl.setRowSelectionInterval(0, 0);}
 					row = vTbl.getSelectedRow();
-					if ((Integer) vTbl.getValueAt(row, 0) != voterIDTrigger)
+					if ((String) vTbl.getValueAt(row, 0) != voterIDTrigger)
 					{
 						try
 						{
-							voterID = (Integer) vTbl.getValueAt(row, 0);
+							voterID = (String) vTbl.getValueAt(row, 0);
 //							System.out.println("voterID selected = " + voterID.toString());
 						} catch (ArrayIndexOutOfBoundsException exc)
 						{
 							System.out.println("ArrayIndexOutOfBounds Exception caught at listSelection Listener");
-							System.out.println("voterID selected = " + voterID.toString());
+							System.out.println("voterID selected = " + voterID);
 							exc.printStackTrace();
 						}
 						voterIDTrigger = voterID;
@@ -967,10 +970,8 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 
 	@Override
 	public void keyTyped( KeyEvent e ) {
-		if (e.getSource().toString().contains("javax.swing.JTextField"))
-		{
-			if (e.getKeyChar() == KeyEvent.VK_ENTER)
-			{
+		if (e.getSource().toString().contains("javax.swing.JTextField")) {
+			if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 				this.getVoters();
 			}
 		}
@@ -992,7 +993,7 @@ public class VoterDataUI extends JFrame implements KeyListener, RowSorterListene
 //		System.out.println("Sorter changed, current row selected = " + vTbl.getSelectedRow());
 		if (vTbl.getSelectedRow() < 0) {
 			vTbl.setRowSelectionInterval(0, 0);
-			historySearch((Integer) vTbl.getValueAt(0, 0), voterDB);
+			historySearch((String) vTbl.getValueAt(0, 0), voterDB);
 		}
 	}
 

@@ -73,8 +73,8 @@ public class VoterTableModel extends AbstractTableModel {
 	}
 
 	/* getColumnName */
-	/* lVoterUniqueID, szNameLast, szNameFirst, szPhone, sHouseNum, szStreetName, sStreetSuffix, sUnitNum,
-	sPrecinctID, szPartyName */
+	/* lVoterUniqueID, szNameLast, szNameFirst, sGender, szPhone, szSitusAddress=[sHouseNum, szStreetName, sStreetSuffix, sUnitNum],
+	szSitusCity, , sSitusZip, sPrecinctID, szPartyName */
 
 	/**
 	 * Returns the name of the column specified by the index.

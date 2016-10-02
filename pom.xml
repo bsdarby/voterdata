@@ -5,22 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.bsdarby</groupId>
     <artifactId>voterdata</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <!-- End of Min Required -->
     <packaging>jar</packaging>
     <name>VoterData</name>
     <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.testSource>1.7</maven.compiler.testSource>
-        <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.testSource>1.8</maven.compiler.testSource>
+        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.32</version>
+            <version>5.1.39</version>
         </dependency>
     </dependencies>
     <build>
@@ -29,7 +29,7 @@
                 <!-- Build an executable JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
                         <manifest>
