@@ -66,7 +66,8 @@ public class DatabaseManager {
 			/* Connect to the database */
 		try
 		{
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/voterdata", username, password);
+//			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/voterdata", username, password);
+			conn = DriverManager.getConnection("jdbc:mysql://holyjavadevvoterdata.cio5i143wxxw.us-east-1.rds.amazonaws.com:3306/voterdata", username, password);
 		} catch (SQLException e)
 		{
 			System.out.println("Failed to login to database." + e.getMessage());
